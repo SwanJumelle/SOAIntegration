@@ -1,0 +1,101 @@
+step|address|zip|kind|customer|parcel
+#1|343-1977 Nulla Rd.|6720|pickup|Risa Eaton|#6249Y3T648AMA673454
+#2|510-2487 Egestas. St.|86960|pickup|Sage Rocha|#2927J3Q200QFL635134
+#3|Ap #287-4367 Libero Rd.|71252|pickup|Dustin Davenport|#5932S4S345NCC744815
+#4|729-3045 Sed Avenue|03039|pickup|Yvette Jacobson|#8604T6H645HYQ281918
+#5|P.O. Box 774, 7965 Enim Street|95308|delivery|Ursula Walsh|#4136S4S710KUW733025
+#6|9290 Integer Av.|4914DS|pickup|Elvis Camacho|#6055K5T148MQX701407
+#7|Ap #475-3317 Magnis St.|E0 2IH|pickup|Diana Wong|#7402G1R082KZJ586071
+#8|P.O. Box 414, 7237 Natoque Ave|78114|pickup|Stacey Sears|#5106Y6O570QHE838873
+#9|6502 Ut Road|06002|delivery|Sylvia Payne|#6548P6K513SCJ532572
+#10|9794 Convallis Rd.|60708|pickup|Chanda Savage|#5618N5X882AVC146636
+#11|8684 Ligula. Av.|6743|delivery|Astra Jimenez|#5835D7B375ZIU835500
+#12|6479 Massa Street|98771|pickup|Lydia Patterson|#2373B6Y776HRC043438
+#13|492 Eleifend, Road|99-072|delivery|Byron Franco|#7184X8T461ZOO702371
+#14|Ap #343-3274 Mollis Rd.|57413|delivery|Lamar Lawrence|#2766F7Z643DUC048196
+#15|3653 Orci. Rd.|68750|delivery|Vanna French|#7206Z1S210HVP182431
+#16|P.O. Box 657, 7499 Nunc Av.|15227|pickup|Berk Price|#1524O2Z931XAT275480
+#17|8513 Arcu. Road|773647|pickup|Alden Hess|#9392H1C561SUK270225
+#18|Ap #219-9158 Magna. Road|225815|pickup|Amber Horn|#8463S7L618TDT214810
+#19|Ap #809-5300 Sapien St.|97-712|pickup|Marsden Williamson|#3516K1Q147BLK426277
+#20|P.O. Box 130, 3917 Risus St.|7980|pickup|Briar Irwin|#8416M2I280BDB361000
+#21|P.O. Box 147, 1173 Urna. St.|6989|pickup|Duncan Hopper|#4939F7H306SST245604
+#22|496 Lacus. Rd.|5685|delivery|Alexander Hester|#6670K3G926QXO654233
+#23|919 Magna. Road|82356|pickup|Gwendolyn Schneider|#5156R0E212JJT890649
+#24|3303 Tincidunt St.|3015|pickup|Audra Butler|#8767I1W566OPV977202
+#25|P.O. Box 297, 5644 Faucibus St.|04801|pickup|Oscar Avery|#4853J7U480KEW596621
+#26|P.O. Box 522, 6713 Nullam St.|C4E 9X0|delivery|Iona Valdez|#5044U4T425ASH976216
+#27|6353 Lorem Street|09800|pickup|Sigourney Keith|#9604U6F813UVU188985
+#28|622-3176 Lobortis Av.|42533|delivery|Slade Lee|#2037J6I948BWO548881
+#29|383-5322 Mauris St.|FQ1S 0ZD|delivery|Alexander Mckay|#8555Z0M529BMP286867
+#30|P.O. Box 476, 2107 Lectus. St.|20803|delivery|Dale Jennings|#3185A0U170KDQ816684
+#31|P.O. Box 463, 9503 Mattis. St.|51225-924|pickup|Oleg Bean|#9644R8O046WRL148921
+#32|P.O. Box 340, 4930 Dui, Avenue|20906|pickup|Haley Silva|#1446C5X480UIZ737510
+#33|699-7545 Ultrices Rd.|97644|delivery|Alfreda Downs|#6872F0Z960KQR303804
+#34|Ap #448-5609 Vestibulum. Road|80524-242|delivery|Linda Hardin|#7533T7V325CQV878737
+#35|1012 Laoreet Av.|62303|pickup|Brennan Gordon|#1739D0P315ZNA340149
+#36|840 Nullam Rd.|99828|delivery|Lavinia Kent|#8447C5Y080EBM971968
+#37|9040 Sem, St.|36349-293|delivery|Ivan Petersen|#7874X7K968KUI399336
+#38|694 Etiam Road|GU7 6BH|delivery|Rigel Mckay|#9957R2W407QOM642561
+#39|Ap #571-9449 Mauris, Ave|7557|pickup|Reuben Harding|#3632N9X654HMP307513
+#40|Ap #725-4870 Egestas. Av.|35652|delivery|Nissim Ross|#9125J5J243KEK065051
+#41|Ap #168-4414 Neque. Avenue|5774|delivery|Drew Wooten|#7952V9X368UIS036039
+#42|962-5695 Phasellus Rd.|31378|pickup|Akeem Blankenship|#8359G8T011FSM267868
+#43|7118 Sit Av.|31295-552|pickup|Audra Hebert|#8162H6U973VAG308273
+#44|Ap #237-4375 Ac Ave|6973|pickup|Griffin Buckley|#2088U0U115CSO861485
+#45|230-1051 Eu, Ave|88334-633|delivery|Reuben Nixon|#3230Y4Z871EKQ097658
+#46|7530 Sem. Avenue|65340|pickup|Leah Owens|#7954U3J929LZH239816
+#47|Ap #766-3443 Consectetuer Rd.|16295|pickup|Jasper Kemp|#7016N7D384UBK929730
+#48|Ap #874-6985 Congue. Rd.|60552|delivery|Leslie Buckley|#2163U8C317RXF631324
+#49|692-7826 Pharetra. Ave|EB5 2XQ|delivery|Octavius Park|#2913Y1R113GJT106715
+#50|P.O. Box 654, 6291 Nisi Ave|2806|delivery|Daniel Kramer|#8113F7A835YEH168972
+#51|Ap #320-438 Vestibulum, Av.|87090|delivery|Guy Wilkerson|#2985C8J916BMZ813314
+#52|Ap #416-1895 Mollis Street|3587|delivery|Desiree Buckner|#8786J8W725STI346426
+#53|7631 Quis Ave|A3N 6X9|pickup|Anjolie Fox|#3289Z6I393DKC072795
+#54|7986 Turpis. Street|69617|pickup|Camden Carey|#4369E6R383EDG379202
+#55|176-5688 Luctus Av.|2909|pickup|Brandon Hurst|#9176U1T174FFR914969
+#56|Ap #147-344 Et, Road|50612|delivery|Stuart Morris|#5197H8D708JGF034122
+#57|Ap #845-2995 Convallis St.|R3B 1B3|pickup|Callie Leon|#8644J3J491HEI943555
+#58|440-4239 Vehicula Rd.|T2Y 9J9|delivery|Aphrodite Wooten|#5936Y4A574NBT157945
+#59|335-7414 Dictum Av.|40166|delivery|Rose Alvarado|#8424R3U507HRW595926
+#60|P.O. Box 326, 8598 Ut St.|4094FV|pickup|Clinton Richardson|#2653R6D142HXG824131
+#61|320-5900 Nec, St.|71060|delivery|Paloma Stout|#4874H2Y504FCD828901
+#62|3456 Quam. Avenue|46796-193|pickup|Ella Pennington|#2163Q4H052HTK417974
+#63|694-2049 Magna. Avenue|P2N 2G5|delivery|Macon Harrington|#5238B1T641RUA090679
+#64|959-2446 Vel, St.|S7M 5R8|pickup|Sylvester Bradshaw|#4901B9E571XEY376323
+#65|Ap #898-9678 Non, Avenue|8135|pickup|Alfreda Knowles|#4060I0T725BCC168366
+#66|Ap #258-8071 Hymenaeos. Rd.|49824|delivery|Gavin Freeman|#4823Y7P187AIT644459
+#67|P.O. Box 350, 5672 Nec St.|629811|delivery|Cherokee Owens|#4673Q7O351TFH402597
+#68|847-6842 Pulvinar Avenue|7401|delivery|Zenaida Gillespie|#1371D8T401SNN520900
+#69|582-3086 Venenatis St.|7599|delivery|Vaughan Hickman|#3959I3B497RQO246475
+#70|133-699 Nunc Rd.|61035|delivery|Mollie Shannon|#3381D8X789UPE287359
+#71|5288 In Avenue|74269-780|delivery|Yael Spence|#8892Y2O826HWX292647
+#72|Ap #879-7852 Sed Road|26001|delivery|Faith Burnett|#2598R1D439STH320784
+#73|Ap #762-3449 Sed Road|29295|pickup|Martena Head|#1419N2J880YQT376464
+#74|Ap #517-511 Felis. Av.|L7V 0Y2|delivery|Donovan Vaughn|#3924O5N491SRG682158
+#75|5151 Viverra. Ave|S1C 1AH|pickup|Orli Cantrell|#6622V2E844LGI160420
+#76|P.O. Box 398, 9177 Sodales St.|6077|pickup|Ronan Henry|#8894V9Y480TJC349220
+#77|549-7314 Pede. Av.|M3N 9E7|pickup|Marcia Hatfield|#9219T6A137TGL810766
+#78|Ap #607-1742 Ac Ave|1151VZ|pickup|Ruth Herman|#7434L8W012NLI827506
+#79|Ap #402-9346 Nec, Av.|127156|delivery|Baker Dawson|#7095B2A739YUI072934
+#80|6955 Lobortis St.|4068|pickup|Gabriel Guthrie|#3989P0F683LNH912412
+#81|P.O. Box 854, 5140 Odio. Street|15044|pickup|Wilma Carr|#3242D2O766JOC237889
+#82|Ap #667-238 Donec St.|45867-262|delivery|Forrest Delgado|#7225Z9X134HKE178248
+#83|7797 Fusce Rd.|78901|pickup|Brielle Brooks|#8705K8Q079UFD415192
+#84|200-8700 Ipsum Road|30102|pickup|Nomlanga Harper|#8486Y8J265IAN919577
+#85|Ap #235-9722 Eu St.|22742|pickup|Peter Pate|#7954M0S509DBR183654
+#86|P.O. Box 520, 6268 Primis Rd.|58071|delivery|Joan White|#9722A3W979JFH933625
+#87|4441 Est. Street|776964|delivery|Ashton Atkins|#3898B5E132FEW170082
+#88|Ap #743-2572 Maecenas Rd.|85011-291|pickup|Shaine Rutledge|#8725B2P749DKP039953
+#89|P.O. Box 566, 4687 Dolor, Street|62589|delivery|Kylie Wynn|#6017K7V217GTR301698
+#90|2050 Dis Avenue|4835|pickup|Yuli Rivas|#1581L5C542NQS646793
+#91|P.O. Box 899, 1233 Est Avenue|48412|delivery|Oscar Tran|#7456I3H351XHS778092
+#92|1068 Sagittis Road|41321-093|pickup|Dominique Wilkerson|#4119J0R228VYP104458
+#93|182-7442 Non Avenue|1351|pickup|Hashim Farley|#8002W3X100HYC465292
+#94|772-8911 Eu Avenue|2605|delivery|Hamilton Cook|#9811O8K443AAN734473
+#95|P.O. Box 427, 4299 Aliquam Ave|49-209|delivery|Nolan Peters|#1545J1G573NKK952401
+#96|P.O. Box 239, 8609 Dictum Ave|4937|delivery|Quynn Barry|#2123I9D767OQF615630
+#97|P.O. Box 855, 2719 Mi Rd.|4769|delivery|Neville Bernard|#2759E8U157PGO271942
+#98|1442 Mauris Av.|97574|pickup|Faith Yates|#6189A7O571YTK908680
+#99|P.O. Box 475, 7454 Metus. Rd.|26530|delivery|Dane Calderon|#8724R0G185PZP588147
+#100|Ap #943-8184 Non, Rd.|3037RM|delivery|Gannon Koch|#5233U8K687ROX421677

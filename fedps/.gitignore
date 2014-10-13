@@ -1,18 +1,10 @@
 # Build
 target
 *.war
-*.jar
-*.ear
-*.class
 
 # IntelliJ IDEA
 .idea
 *.iml
-
-# Eclipse
-.classpath
-.project
-.settings
 
 # Temporary
 *~
