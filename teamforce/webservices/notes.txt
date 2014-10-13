@@ -1,0 +1,7 @@
+1 - CustomerDAO accès aux données
+2 - CustomerRestImpl (gson, metier)
+3 - test dans un main
+4 - test avec soapUI
+
+differe :
+	"none" et Status.ordered dans CustomerDAO, faire les goodsDAO

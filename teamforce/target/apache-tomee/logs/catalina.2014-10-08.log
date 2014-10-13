@@ -1,0 +1,188 @@
+oct. 08, 2014 10:52:46 PM org.apache.catalina.core.AprLifecycleListener init
+INFO: The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: C:\Progra~1\Java\jdk1.8.0_20\jre\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\Program Files\Microsoft SQL Server\110\Tools\Binn\;C:\Program Files (x86)\Microsoft SDKs\TypeScript\1.0\;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Progra~1\apache-maven-3.2.3\bin;C:\Program Files (x86)\Git\cmd;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;.
+oct. 08, 2014 10:52:46 PM org.apache.coyote.AbstractProtocol init
+INFO: Initializing ProtocolHandler ["http-bio-8080"]
+oct. 08, 2014 10:52:46 PM org.apache.coyote.AbstractProtocol init
+INFO: Initializing ProtocolHandler ["ajp-bio-8009"]
+oct. 08, 2014 10:52:47 PM org.apache.openejb.util.OptionsLog info
+INFO: Using 'tomee.remote.support=true'
+oct. 08, 2014 10:52:47 PM org.apache.openejb.util.OptionsLog info
+INFO: Using 'openejb.jdbc.datasource-creator=org.apache.tomee.jdbc.TomEEDataSourceCreator'
+oct. 08, 2014 10:52:47 PM org.apache.openejb.OpenEJB$Instance <init>
+INFO: ********************************************************************************
+oct. 08, 2014 10:52:47 PM org.apache.openejb.OpenEJB$Instance <init>
+INFO: OpenEJB http://openejb.apache.org/
+oct. 08, 2014 10:52:47 PM org.apache.openejb.OpenEJB$Instance <init>
+INFO: Startup: Wed Oct 08 22:52:47 CEST 2014
+oct. 08, 2014 10:52:47 PM org.apache.openejb.OpenEJB$Instance <init>
+INFO: Copyright 1999-2013 (C) Apache OpenEJB Project, All Rights Reserved.
+oct. 08, 2014 10:52:47 PM org.apache.openejb.OpenEJB$Instance <init>
+INFO: Version: 4.7.1
+oct. 08, 2014 10:52:47 PM org.apache.openejb.OpenEJB$Instance <init>
+INFO: Build date: 20140912
+oct. 08, 2014 10:52:47 PM org.apache.openejb.OpenEJB$Instance <init>
+INFO: Build time: 01:43
+oct. 08, 2014 10:52:47 PM org.apache.openejb.OpenEJB$Instance <init>
+INFO: ********************************************************************************
+oct. 08, 2014 10:52:47 PM org.apache.openejb.OpenEJB$Instance <init>
+INFO: openejb.home = C:\Users\Swan\Documents\Cours\SOA\teamforce\target\apache-tomee
+oct. 08, 2014 10:52:47 PM org.apache.openejb.OpenEJB$Instance <init>
+INFO: openejb.base = C:\Users\Swan\Documents\Cours\SOA\teamforce\target\apache-tomee
+oct. 08, 2014 10:52:47 PM org.apache.openejb.cdi.CdiBuilder initializeOWB
+INFO: Created new singletonService org.apache.openejb.cdi.ThreadSingletonServiceImpl@dd3b207
+oct. 08, 2014 10:52:47 PM org.apache.openejb.cdi.CdiBuilder initializeOWB
+INFO: Succeeded in installing singleton service
+oct. 08, 2014 10:52:47 PM org.apache.openejb.config.ConfigurationFactory init
+INFO: openejb configuration file is 'C:\Users\Swan\Documents\Cours\SOA\teamforce\target\apache-tomee\conf\tomee.xml'
+oct. 08, 2014 10:52:47 PM org.apache.openejb.config.ConfigurationFactory configureService
+INFO: Configuring Service(id=Tomcat Security Service, type=SecurityService, provider-id=Tomcat Security Service)
+oct. 08, 2014 10:52:47 PM org.apache.openejb.config.ConfigurationFactory configureService
+INFO: Configuring Service(id=Default Transaction Manager, type=TransactionManager, provider-id=Default Transaction Manager)
+oct. 08, 2014 10:52:47 PM org.apache.openejb.util.OptionsLog info
+INFO: Using 'openejb.system.apps=false'
+oct. 08, 2014 10:52:47 PM org.apache.openejb.util.OptionsLog info
+INFO: Using 'openejb.deployments.classpath=false'
+oct. 08, 2014 10:52:47 PM org.apache.openejb.assembler.classic.Assembler createRecipe
+INFO: Creating TransactionManager(id=Default Transaction Manager)
+oct. 08, 2014 10:52:47 PM org.apache.openejb.assembler.classic.Assembler createRecipe
+INFO: Creating SecurityService(id=Tomcat Security Service)
+oct. 08, 2014 10:52:47 PM org.apache.openejb.server.ServiceManager initServer
+INFO: Creating ServerService(id=cxf)
+oct. 08, 2014 10:52:48 PM org.apache.openejb.server.ServiceManager initServer
+INFO: Creating ServerService(id=cxf-rs)
+oct. 08, 2014 10:52:48 PM org.apache.openejb.server.SimpleServiceManager start
+INFO:   ** Bound Services **
+oct. 08, 2014 10:52:48 PM org.apache.openejb.server.SimpleServiceManager printRow
+INFO:   NAME                 IP              PORT  
+oct. 08, 2014 10:52:48 PM org.apache.openejb.server.SimpleServiceManager start
+INFO: -------
+oct. 08, 2014 10:52:48 PM org.apache.openejb.server.SimpleServiceManager start
+INFO: Ready!
+oct. 08, 2014 10:52:48 PM org.apache.catalina.startup.Catalina load
+INFO: Initialization processed in 2737 ms
+oct. 08, 2014 10:52:48 PM org.apache.tomee.catalina.OpenEJBNamingContextListener bindResource
+INFO: Importing a Tomcat Resource with id 'UserDatabase' of type 'org.apache.catalina.UserDatabase'.
+oct. 08, 2014 10:52:48 PM org.apache.openejb.assembler.classic.Assembler createRecipe
+INFO: Creating Resource(id=UserDatabase)
+oct. 08, 2014 10:52:48 PM org.apache.catalina.core.StandardService startInternal
+INFO: Starting service Catalina
+oct. 08, 2014 10:52:48 PM org.apache.catalina.core.StandardEngine startInternal
+INFO: Starting Servlet Engine: Apache Tomcat (TomEE)/7.0.55 (1.7.1)
+oct. 08, 2014 10:52:48 PM org.apache.catalina.startup.HostConfig deployWAR
+INFO: Deploying web application archive C:\Users\Swan\Documents\Cours\SOA\teamforce\target\apache-tomee\webapps\ROOT.war
+oct. 08, 2014 10:52:48 PM org.apache.tomee.catalina.TomcatWebAppBuilder init
+INFO: ------------------------- localhost -> /
+oct. 08, 2014 10:52:48 PM org.apache.openejb.util.JarExtractor extract
+INFO: Extracting jar: C:\Users\Swan\Documents\Cours\SOA\teamforce\target\apache-tomee\webapps\ROOT.war
+oct. 08, 2014 10:52:48 PM org.apache.openejb.util.JarExtractor extract
+INFO: Extracted path: C:\Users\Swan\Documents\Cours\SOA\teamforce\target\apache-tomee\webapps\ROOT
+oct. 08, 2014 10:52:48 PM org.apache.openejb.util.OptionsLog info
+INFO: Using 'openejb.session.manager=org.apache.tomee.catalina.session.QuickSessionManager'
+oct. 08, 2014 10:52:48 PM org.apache.openejb.config.ConfigurationFactory configureApplication
+INFO: Configuring enterprise application: C:\Users\Swan\Documents\Cours\SOA\teamforce\target\apache-tomee\webapps\ROOT
+oct. 08, 2014 10:52:48 PM org.apache.openejb.config.InitEjbDeployments deploy
+INFO: Auto-deploying ejb Payment-DB-Mock: EjbDeployment(deployment-id=Payment-DB-Mock)
+oct. 08, 2014 10:52:48 PM org.apache.openejb.config.ConfigurationFactory configureService
+INFO: Configuring Service(id=Default Singleton Container, type=Container, provider-id=Default Singleton Container)
+oct. 08, 2014 10:52:48 PM org.apache.openejb.config.AutoConfig createContainer
+INFO: Auto-creating a container for bean Payment-DB-Mock: Container(type=SINGLETON, id=Default Singleton Container)
+oct. 08, 2014 10:52:48 PM org.apache.openejb.assembler.classic.Assembler createRecipe
+INFO: Creating Container(id=Default Singleton Container)
+oct. 08, 2014 10:52:48 PM org.apache.openejb.config.AppInfoBuilder build
+INFO: Enterprise application "C:\Users\Swan\Documents\Cours\SOA\teamforce\target\apache-tomee\webapps\ROOT" loaded.
+oct. 08, 2014 10:52:48 PM org.apache.openejb.assembler.classic.Assembler createApplication
+INFO: Assembling app: C:\Users\Swan\Documents\Cours\SOA\teamforce\target\apache-tomee\webapps\ROOT
+oct. 08, 2014 10:52:49 PM org.apache.openejb.assembler.classic.JndiBuilder bind
+INFO: Jndi(name=Payment-DB-MockLocalBean) --> Ejb(deployment-id=Payment-DB-Mock)
+oct. 08, 2014 10:52:49 PM org.apache.openejb.assembler.classic.JndiBuilder bind
+INFO: Jndi(name=global//Payment-DB-Mock!fr.unice.polytech.soa1.dao.CustomerDAO) --> Ejb(deployment-id=Payment-DB-Mock)
+oct. 08, 2014 10:52:49 PM org.apache.openejb.assembler.classic.JndiBuilder bind
+INFO: Jndi(name=global//Payment-DB-Mock) --> Ejb(deployment-id=Payment-DB-Mock)
+oct. 08, 2014 10:52:49 PM org.apache.openejb.cdi.CdiBuilder initSingleton
+INFO: Existing thread singleton service in SystemInstance(): org.apache.openejb.cdi.ThreadSingletonServiceImpl@dd3b207
+oct. 08, 2014 10:52:49 PM org.apache.openejb.cdi.OpenEJBLifecycle startApplication
+INFO: OpenWebBeans Container is starting...
+oct. 08, 2014 10:52:49 PM org.apache.webbeans.plugins.PluginLoader startUp
+INFO: Adding OpenWebBeansPlugin : [CdiPlugin]
+oct. 08, 2014 10:52:49 PM org.apache.webbeans.plugins.PluginLoader startUp
+INFO: Adding OpenWebBeansPlugin : [OpenWebBeansJsfPlugin]
+oct. 08, 2014 10:52:49 PM org.apache.webbeans.config.BeansDeployer validateInjectionPoints
+INFO: All injection points were validated successfully.
+oct. 08, 2014 10:52:49 PM org.apache.openejb.cdi.OpenEJBLifecycle startApplication
+INFO: OpenWebBeans Container has started, it took 131 ms.
+oct. 08, 2014 10:52:49 PM org.apache.openejb.assembler.classic.Assembler startEjbs
+INFO: Created Ejb(deployment-id=Payment-DB-Mock, ejb-name=Payment-DB-Mock, container=Default Singleton Container)
+oct. 08, 2014 10:52:49 PM org.apache.openejb.assembler.classic.Assembler startEjbs
+INFO: Started Ejb(deployment-id=Payment-DB-Mock, ejb-name=Payment-DB-Mock, container=Default Singleton Container)
+oct. 08, 2014 10:52:49 PM org.apache.openejb.assembler.classic.Assembler createApplication
+INFO: Deployed Application(path=C:\Users\Swan\Documents\Cours\SOA\teamforce\target\apache-tomee\webapps\ROOT)
+oct. 08, 2014 10:52:49 PM org.apache.openejb.server.cxf.rs.CxfRsHttpListener configureFactory
+INFO: Using providers:
+oct. 08, 2014 10:52:49 PM org.apache.openejb.server.cxf.rs.CxfRsHttpListener configureFactory
+INFO:      org.apache.cxf.jaxrs.provider.JAXBElementProvider@361938b2
+oct. 08, 2014 10:52:49 PM org.apache.openejb.server.cxf.rs.CxfRsHttpListener configureFactory
+INFO:      org.apache.openejb.server.cxf.rs.EJBAccessExceptionMapper@4cf3a71e
+oct. 08, 2014 10:52:50 PM org.apache.openejb.server.cxf.rs.CxfRsHttpListener logEndpoints
+INFO: REST Application: http://localhost:8080/                                            -> org.apache.openejb.server.rest.InternalApplication
+oct. 08, 2014 10:52:50 PM org.apache.openejb.server.cxf.rs.CxfRsHttpListener logEndpoints
+INFO:      Service URI: http://localhost:8080/rest/customer                               -> Pojo fr.unice.polytech.soa1.rest.CustomerRestImpl
+oct. 08, 2014 10:52:50 PM org.apache.openejb.server.cxf.rs.CxfRsHttpListener logEndpoints
+INFO:            DELETE http://localhost:8080/rest/customer/{id}/order/{OrderId}          ->      Response deleteOrder(String, String)       
+oct. 08, 2014 10:52:50 PM org.apache.openejb.server.cxf.rs.CxfRsHttpListener logEndpoints
+INFO:               GET http://localhost:8080/rest/customer/goods/{id}                    ->      Response goods(String)                     
+oct. 08, 2014 10:52:50 PM org.apache.openejb.server.cxf.rs.CxfRsHttpListener logEndpoints
+INFO:               GET http://localhost:8080/rest/customer/{id}                          ->      Response customer(String)                  
+oct. 08, 2014 10:52:50 PM org.apache.openejb.server.cxf.rs.CxfRsHttpListener logEndpoints
+INFO:               GET http://localhost:8080/rest/customer/{id}/order/{OrderId}          ->      Response getOrder(String, String)          
+oct. 08, 2014 10:52:50 PM org.apache.openejb.server.cxf.rs.CxfRsHttpListener logEndpoints
+INFO:               GET http://localhost:8080/rest/customer/{id}/orders                   ->      Response orders(String)                    
+oct. 08, 2014 10:52:50 PM org.apache.openejb.server.cxf.rs.CxfRsHttpListener logEndpoints
+INFO:               GET http://localhost:8080/rest/customer/{id}/recommend                ->      Response recommendOrder(String)            
+oct. 08, 2014 10:52:50 PM org.apache.openejb.server.cxf.rs.CxfRsHttpListener logEndpoints
+INFO:              POST http://localhost:8080/rest/customer/{id}/order                    ->      Response createOrder(String, String)       
+oct. 08, 2014 10:52:50 PM org.apache.openejb.server.cxf.rs.CxfRsHttpListener logEndpoints
+INFO:              POST http://localhost:8080/rest/customer/{id}/order/{OrderId}          ->      Response addToOrder(String, String, String)
+oct. 08, 2014 10:52:50 PM org.apache.openejb.server.cxf.rs.CxfRsHttpListener logEndpoints
+INFO:      Service URI: http://localhost:8080/rest/employee                               -> Pojo fr.unice.polytech.soa1.rest.EmployeeRestImpl
+oct. 08, 2014 10:52:50 PM org.apache.openejb.server.cxf.rs.CxfRsHttpListener logEndpoints
+INFO:               GET http://localhost:8080/rest/employee/customer/{id}                 ->      Response customerInfo(String)              
+oct. 08, 2014 10:52:50 PM org.apache.openejb.server.cxf.rs.CxfRsHttpListener logEndpoints
+INFO:              POST http://localhost:8080/rest/employee/customer/{id}/order/{OrderId} ->      Response addToOrder(String, String, String)
+oct. 08, 2014 10:52:50 PM org.apache.openejb.server.cxf.rs.CxfRsHttpListener logEndpoints
+INFO:      Service URI: http://localhost:8080/rest/manager                                -> Pojo fr.unice.polytech.soa1.rest.ManagerRestImpl 
+oct. 08, 2014 10:52:50 PM org.apache.openejb.server.cxf.rs.CxfRsHttpListener logEndpoints
+INFO:               GET http://localhost:8080/rest/manager/catalogue/{id}                 ->      Response getCatalogue(String)           
+oct. 08, 2014 10:52:50 PM org.apache.openejb.server.cxf.rs.CxfRsHttpListener logEndpoints
+INFO:              POST http://localhost:8080/rest/manager/catalogue                      ->      Response createCatalogue(String, String)
+oct. 08, 2014 10:52:50 PM org.apache.openejb.server.cxf.rs.CxfRsHttpListener logEndpoints
+INFO:              POST http://localhost:8080/rest/manager/catalogue/{id}                 ->      Response addToCatalogue(String, String) 
+oct. 08, 2014 10:52:50 PM org.apache.catalina.startup.HostConfig deployWAR
+INFO: Deployment of web application archive C:\Users\Swan\Documents\Cours\SOA\teamforce\target\apache-tomee\webapps\ROOT.war has finished in 1,808 ms
+oct. 08, 2014 10:52:50 PM org.apache.coyote.AbstractProtocol start
+INFO: Starting ProtocolHandler ["http-bio-8080"]
+oct. 08, 2014 10:52:50 PM org.apache.coyote.AbstractProtocol start
+INFO: Starting ProtocolHandler ["ajp-bio-8009"]
+oct. 08, 2014 10:52:50 PM org.apache.catalina.startup.Catalina start
+INFO: Server startup in 1913 ms
+oct. 08, 2014 11:22:21 PM org.apache.catalina.startup.HostConfig undeploy
+INFO: Undeploying context []
+oct. 08, 2014 11:22:21 PM org.apache.openejb.assembler.classic.Assembler destroyApplication
+INFO: Undeploying app: C:\Users\Swan\Documents\Cours\SOA\teamforce\target\apache-tomee\webapps\ROOT
+oct. 08, 2014 11:24:11 PM org.apache.catalina.core.StandardServer await
+INFO: A valid shutdown command was received via the shutdown port. Stopping the Server instance.
+oct. 08, 2014 11:24:11 PM org.apache.coyote.AbstractProtocol pause
+INFO: Pausing ProtocolHandler ["http-bio-8080"]
+oct. 08, 2014 11:24:11 PM org.apache.coyote.AbstractProtocol pause
+INFO: Pausing ProtocolHandler ["ajp-bio-8009"]
+oct. 08, 2014 11:24:11 PM org.apache.catalina.core.StandardService stopInternal
+INFO: Stopping service Catalina
+oct. 08, 2014 11:24:11 PM org.apache.coyote.AbstractProtocol stop
+INFO: Stopping ProtocolHandler ["http-bio-8080"]
+oct. 08, 2014 11:24:11 PM org.apache.coyote.AbstractProtocol stop
+INFO: Stopping ProtocolHandler ["ajp-bio-8009"]
+oct. 08, 2014 11:24:11 PM org.apache.openejb.server.SimpleServiceManager stop
+INFO: Stopping server services
+oct. 08, 2014 11:24:11 PM org.apache.coyote.AbstractProtocol destroy
+INFO: Destroying ProtocolHandler ["http-bio-8080"]
+oct. 08, 2014 11:24:11 PM org.apache.coyote.AbstractProtocol destroy
+INFO: Destroying ProtocolHandler ["ajp-bio-8009"]
