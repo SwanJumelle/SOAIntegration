@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project activeEnvironment="Default" name="FedPS" resourceRoot="" soapui-version="5.0.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.soapui.TestRunnerAction@values-local"><![CDATA[<xml-fragment xmlns:con="http://eviware.com/soapui/config">
+  <con:entry key="Report Format(s)" value=""/>
+  <con:entry key="Host:Port" value=""/>
+  <con:entry key="Export JUnit Results" value="false"/>
+  <con:entry key="Export All" value="false"/>
+  <con:entry key="Save After" value="false"/>
+  <con:entry key="Add Settings" value="false"/>
+  <con:entry key="WSS Password Type" value=""/>
+  <con:entry key="TestSuite" value="FedPSCustomerServiceSoapBinding TestSuite"/>
+  <con:entry key="Endpoint" value=""/>
+  <con:entry key="Select Report Type" value=""/>
+  <con:entry key="System Properties" value=""/>
+  <con:entry key="Password" value=""/>
+  <con:entry key="Print Report" value="false"/>
+  <con:entry key="Open Report" value="false"/>
+  <con:entry key="Global Properties" value=""/>
+  <con:entry key="Project Properties" value=""/>
+  <con:entry key="Project Password" value=""/>
+  <con:entry key="TestCase" value="&lt;all>"/>
+  <con:entry key="Username" value=""/>
+  <con:entry key="user-settings.xml Password" value=""/>
+  <con:entry key="TestRunner Path" value=""/>
+  <con:entry key="Environment" value="Default"/>
+  <con:entry key="Coverage Report" value="false"/>
+  <con:entry key="Enable UI" value="false"/>
+  <con:entry key="Root Folder" value=""/>
+  <con:entry key="Ignore Errors" value="false"/>
+  <con:entry key="Domain" value=""/>
+  <con:entry key="Tool Args" value=""/>
+  <con:entry key="Save Project" value="false"/>
+</xml-fragment>]]></con:setting></con:settings><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="FedPSCustomerServiceSoapBinding" type="wsdl" bindingName="{http://informatique.polytech.unice.fr/soa1/salle/services/customer}FedPSCustomerServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080//webservices/FedPS-Customer?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080//webservices/FedPS-Customer?wsdl"><con:part><con:url>http://localhost:8080//webservices/FedPS-Customer?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="FedPSCustomerService" targetNamespace="http://informatique.polytech.unice.fr/soa1/salle/services/customer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://informatique.polytech.unice.fr/soa1/salle/services/customer" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http">
+  <wsdl:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://informatique.polytech.unice.fr/soa1/salle/services/customer" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="address" type="tns:addressIO"/>
+      <xs:element name="parcel" type="tns:parcel"/>
+      <xs:element name="submit" type="tns:submit"/>
+      <xs:element name="submitResponse" type="tns:submitResponse"/>
+      <xs:complexType name="submit">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="request" type="tns:customerInput"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType abstract="true" name="customerInput">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:complexType name="follow_parcels">
+        <xs:complexContent>
+          <xs:extension base="tns:customerInput">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="parcels">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="identifier" type="xs:string"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="quote">
+        <xs:complexContent>
+          <xs:extension base="tns:customerInput">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="currency" type="xs:string"/>
+              <xs:element minOccurs="0" name="depth" type="xs:double"/>
+              <xs:element minOccurs="0" name="from" type="tns:addressIO"/>
+              <xs:element minOccurs="0" name="height" type="xs:double"/>
+              <xs:element minOccurs="0" name="pickup" type="xs:long"/>
+              <xs:element minOccurs="0" name="shipping" type="xs:string"/>
+              <xs:element minOccurs="0" name="to" type="tns:addressIO"/>
+              <xs:element minOccurs="0" name="unitSize" type="xs:string"/>
+              <xs:element minOccurs="0" name="unitWeight" type="xs:string"/>
+              <xs:element minOccurs="0" name="weight" type="xs:double"/>
+              <xs:element minOccurs="0" name="width" type="xs:double"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="addressIO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="streetNb" type="xs:string"/>
+          <xs:element minOccurs="0" name="streetName" type="xs:string"/>
+          <xs:element minOccurs="0" name="zipCode" type="xs:string"/>
+          <xs:element minOccurs="0" name="cityName" type="xs:string"/>
+          <xs:element minOccurs="0" name="countryCode" type="xs:string"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID"/>
+      </xs:complexType>
+      <xs:complexType name="parcel-from-quote">
+        <xs:complexContent>
+          <xs:extension base="tns:customerInput">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="cardNumber" type="xs:string"/>
+              <xs:element minOccurs="0" name="from" type="tns:addressIO"/>
+              <xs:element minOccurs="0" name="pickup" type="xs:long"/>
+              <xs:element minOccurs="0" name="quoteId" type="xs:string"/>
+              <xs:element minOccurs="0" name="receiver" type="xs:string"/>
+              <xs:element minOccurs="0" name="sender" type="xs:string"/>
+              <xs:element minOccurs="0" name="senderEmail" type="xs:string"/>
+              <xs:element minOccurs="0" name="to" type="tns:addressIO"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="parcel">
+        <xs:complexContent>
+          <xs:extension base="tns:customerInput">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="status" type="xs:string"/>
+              <xs:element minOccurs="0" name="sender" type="xs:string"/>
+              <xs:element minOccurs="0" name="senderEmail" type="xs:string"/>
+              <xs:element minOccurs="0" name="cardNumber" type="xs:string"/>
+              <xs:element minOccurs="0" name="receiver" type="xs:string"/>
+              <xs:element minOccurs="0" name="from" type="tns:addressIO"/>
+              <xs:element minOccurs="0" name="to" type="tns:addressIO"/>
+              <xs:element minOccurs="0" name="shipping" type="xs:string"/>
+              <xs:element minOccurs="0" name="pickup" type="xs:long"/>
+              <xs:element minOccurs="0" name="eta" type="xs:long"/>
+              <xs:element minOccurs="0" name="cost" type="xs:double"/>
+              <xs:element minOccurs="0" name="currency" type="xs:string"/>
+              <xs:element minOccurs="0" name="width" type="xs:double"/>
+              <xs:element minOccurs="0" name="height" type="xs:double"/>
+              <xs:element minOccurs="0" name="depth" type="xs:double"/>
+              <xs:element minOccurs="0" name="unitSize" type="xs:string"/>
+              <xs:element minOccurs="0" name="weight" type="xs:double"/>
+              <xs:element minOccurs="0" name="unitWeight" type="xs:string"/>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:ID"/>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="submitResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="result" type="tns:jobResult"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType abstract="true" name="jobResult">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:complexType name="quoteResult">
+        <xs:complexContent>
+          <xs:extension base="tns:jobResult">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="quoteId" type="xs:string"/>
+              <xs:element minOccurs="0" name="cost" type="xs:double"/>
+              <xs:element minOccurs="0" name="eta" type="xs:long"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="listOfFollow">
+        <xs:complexContent>
+          <xs:extension base="tns:jobResult">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="data">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="information" type="tns:follow"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="follow">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="eta" type="xs:long"/>
+          <xs:element minOccurs="0" name="status" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="processed">
+        <xs:complexContent>
+          <xs:extension base="tns:jobResult">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="eta" type="xs:long"/>
+              <xs:element minOccurs="0" name="parcelId" type="xs:string"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="BadJobFault" type="tns:BadJobFault"/>
+      <xs:complexType name="BadJobFault">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="message" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="submit">
+    <wsdl:part element="tns:submit" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="submitResponse">
+    <wsdl:part element="tns:submitResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="BadJobFault">
+    <wsdl:part element="tns:BadJobFault" name="BadJobFault"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="Customer">
+    <wsdl:operation name="submit">
+      <wsdl:input message="tns:submit" name="submit"></wsdl:input>
+      <wsdl:output message="tns:submitResponse" name="submitResponse"></wsdl:output>
+      <wsdl:fault message="tns:BadJobFault" name="BadJobFault"></wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="FedPSCustomerServiceSoapBinding" type="tns:Customer">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="submit">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="submit">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="submitResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="BadJobFault">
+        <soap:fault name="BadJobFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="FedPSCustomerService">
+    <wsdl:port binding="tns:FedPSCustomerServiceSoapBinding" name="FedPSCustomerPort">
+      <soap:address location="http://localhost:8080/webservices/FedPS-Customer"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/webservices/FedPS-Customer</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="submit" bindingOperationName="submit" type="Request-Response" outputName="submitResponse" inputName="submit" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:interface xsi:type="con:RestService" wadlVersion="http://wadl.dev.java.net/2009/02" name="FedPS" type="rest" basePath="/" definitionUrl="http://localhost:8080/manager?_wadl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/manager?_wadl"><con:part><con:url>http://localhost:8080/manager?_wadl</con:url><con:content><![CDATA[<application xmlns="http://wadl.dev.java.net/2009/02" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <grammars/>
+  <resources base="http://localhost:8080/">
+    <resource path="/manager">
+      <resource path="/delayed_parcels">
+        <method name="GET">
+          <response>
+            <representation mediaType="application/json"/>
+          </response>
+        </method>
+      </resource>
+      <resource path="/parcels/{id}">
+        <param name="id" style="template" type="xs:string"/>
+        <method name="GET">
+          <request/>
+          <response>
+            <representation mediaType="application/json"/>
+          </response>
+        </method>
+      </resource>
+      <resource path="/stats">
+        <method name="GET">
+          <response>
+            <representation mediaType="application/json"/>
+          </response>
+        </method>
+      </resource>
+      <resource path="/stats/{status}">
+        <param name="status" style="template" type="xs:string"/>
+        <method name="GET">
+          <request/>
+          <response>
+            <representation mediaType="application/json"/>
+          </response>
+        </method>
+      </resource>
+    </resource>
+  </resources>
+</application>]]></con:content><con:type>http://wadl.dev.java.net/2009/02</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080</con:endpoint></con:endpoints><con:resource name="/manager" path="/manager"><con:settings/><con:parameters/><con:resource name="/delayed_parcels" path="/delayed_parcels"><con:settings/><con:parameters/><con:method name="GET" method="GET"><con:settings/><con:parameters/><con:representation type="RESPONSE" id=""><con:mediaType>application/json</con:mediaType><con:params/><con:element xsi:nil="true"/><con:description xsi:nil="true"/></con:representation><con:request name="Request 1" mediaType="application/json"><con:settings/><con:endpoint>http://localhost:8080</con:endpoint><con:parameters/></con:request></con:method></con:resource><con:resource name="/parcels/{id}" path="/parcels/{id}"><con:settings/><con:parameters><con:parameter><con:name>id</con:name><con:value xsi:nil="true"/><con:style>TEMPLATE</con:style><con:default xsi:nil="true"/></con:parameter></con:parameters><con:method name="GET" method="GET"><con:settings/><con:parameters/><con:representation type="RESPONSE" id=""><con:mediaType>application/json</con:mediaType><con:params/><con:element xsi:nil="true"/><con:description xsi:nil="true"/></con:representation><con:request name="Request 1" mediaType="application/json"><con:settings/><con:endpoint>http://localhost:8080</con:endpoint><con:parameters/></con:request></con:method></con:resource><con:resource name="/stats" path="/stats"><con:settings/><con:parameters/><con:method name="GET" method="GET"><con:settings><con:setting id="RecordResponseRepresentations">false</con:setting></con:settings><con:parameters/><con:representation type="RESPONSE" id=""><con:mediaType>application/json</con:mediaType><con:params/><con:element xsi:nil="true"/><con:description xsi:nil="true"/></con:representation><con:request name="Request 1" mediaType="application/json"><con:settings/><con:endpoint>http://localhost:8080</con:endpoint><con:parameters/></con:request></con:method></con:resource><con:resource name="/stats/{status}" path="/stats/{status}"><con:settings/><con:parameters><con:parameter><con:name>status</con:name><con:value xsi:nil="true"/><con:style>TEMPLATE</con:style><con:default xsi:nil="true"/></con:parameter></con:parameters><con:method name="GET" method="GET"><con:settings/><con:parameters/><con:representation type="RESPONSE" id=""><con:mediaType>application/json</con:mediaType><con:params/><con:element xsi:nil="true"/><con:description xsi:nil="true"/></con:representation><con:request name="Request 1" mediaType="application/json"><con:settings/><con:endpoint>http://localhost:8080</con:endpoint><con:parameters/></con:request></con:method></con:resource></con:resource></con:interface><con:interface xsi:type="con:RestService" wadlVersion="http://wadl.dev.java.net/2009/02" name="FedPS" type="rest" basePath="/" definitionUrl="http://localhost:8080/driver?_wadl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache/><con:endpoints><con:endpoint>http://localhost:8080</con:endpoint></con:endpoints><con:resource name="/driver" path="/driver"><con:settings/><con:parameters/><con:resource name="/parcels/{id}/update" path="/parcels/{id}/update"><con:settings/><con:parameters><con:parameter><con:name>id</con:name><con:value xsi:nil="true"/><con:style>TEMPLATE</con:style><con:default xsi:nil="true"/></con:parameter></con:parameters><con:method name="PUT" method="PUT"><con:settings/><con:parameters/><con:representation type="RESPONSE" id=""><con:mediaType>application/json</con:mediaType><con:params/><con:element xsi:nil="true"/><con:description xsi:nil="true"/></con:representation><con:request name="Request 1" mediaType="application/json"><con:settings/><con:endpoint>http://localhost:8080</con:endpoint><con:parameters/></con:request></con:method></con:resource><con:resource name="/{id}/next_address" path="/{id}/next_address"><con:settings/><con:parameters><con:parameter><con:name>id</con:name><con:value xsi:nil="true"/><con:style>TEMPLATE</con:style><con:default xsi:nil="true"/></con:parameter></con:parameters><con:method name="GET" method="GET"><con:settings/><con:parameters/><con:representation type="RESPONSE" id=""><con:mediaType>application/json</con:mediaType><con:params/><con:element xsi:nil="true"/><con:description xsi:nil="true"/></con:representation><con:request name="Request 1" mediaType="application/json"><con:settings/><con:endpoint>http://localhost:8080</con:endpoint><con:parameters/></con:request></con:method></con:resource></con:resource></con:interface><con:testSuite name="FedPSCustomerServiceSoapBinding TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Parcel from quote" searchProperties="true" id="0304890c-d6ba-4734-9bcf-fd33b6d67d29"><con:settings/><con:testStep type="request" name="Create quote"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>FedPSCustomerServiceSoapBinding</con:interface><con:operation>submit</con:operation><con:request name="Create quote"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/webservices/FedPS-Customer</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cus="http://informatique.polytech.unice.fr/soa1/salle/services/customer">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <cus:submit>
+         <request xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="cus:quote">
+           <from>
+             <zipCode>59300</zipCode>
+             <countryCode>US</countryCode>
+           </from>
+           <to>
+             <zipCode>86901</zipCode>
+             <countryCode>US</countryCode>
+           </to>
+           <pickup>1417302000000</pickup>
+           <shipping>STANDARD</shipping>
+           <currency>USD</currency>
+           <width>20</width>
+           <height>10</height>
+           <depth>5</depth>
+           <unitSize>INCH</unitSize>
+           <weight>7.5</weight>
+           <unitWeight>LBS</unitWeight>
+         </request>
+      </cus:submit>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="transfer" name="Store quote pickup"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>pickup</con:name><con:sourceType>Request</con:sourceType><con:sourceStep>Create quote</con:sourceStep><con:sourcePath>//pickup</con:sourcePath><con:targetType>quote_pickup</con:targetType><con:targetStep>#TestCase#</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="transfer" name="Store quote ETA"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>eta</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>Create quote</con:sourceStep><con:sourcePath>//eta</con:sourcePath><con:targetType>quote_eta</con:targetType><con:targetStep>#TestCase#</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="transfer" name="Store quoteId"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>id</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>Create quote</con:sourceStep><con:sourcePath>//quoteId</con:sourcePath><con:targetType>quote_id</con:targetType><con:targetStep>#TestCase#</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="restrequest" name="List stats before"><con:settings/><con:config service="FedPS" methodName="GET" resourcePath="//manager/stats" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="List stats before" mediaType="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Accept" value="application/xml" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:originalUri>http://localhost//manager/stats</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:restRequest></con:config></con:testStep><con:testStep type="transfer" name="Count parcels before"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>count</con:name><con:sourceType>ResponseAsXml</con:sourceType><con:sourceStep>List stats before</con:sourceStep><con:sourcePath>sum(//value)</con:sourcePath><con:targetType>count_init</con:targetType><con:targetStep>#TestCase#</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="request" name="Order from quote"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>FedPSCustomerServiceSoapBinding</con:interface><con:operation>submit</con:operation><con:request name="Order from quote"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/webservices/FedPS-Customer</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cus="http://informatique.polytech.unice.fr/soa1/salle/services/customer">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <cus:submit>
+         <request xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="cus:parcel-from-quote">
+           <quoteId>${#TestCase#quote_id}</quoteId>
+           <cardNumber>316716716761</cardNumber>
+           <sender>Vance Potts</sender>
+           <senderEmail>vance@potts.com</senderEmail>
+           <pickup>1420796082186</pickup>
+           <receiver>Troy Howell</receiver>
+           <from>
+             <streetNb>Ap #179-6813</streetNb>
+             <streetName>In St.</streetName>
+           </from>
+           <to>
+             <streetNb>4418</streetNb>
+             <streetName>Cum St.</streetName>
+           </to>
+         </request>
+      </cus:submit>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Simple Contains" name="Contains parcel id"><con:configuration><token>parcelId</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="transfer" name="Store parcel pickup"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>pickup</con:name><con:sourceType>Request</con:sourceType><con:sourceStep>Order from quote</con:sourceStep><con:sourcePath>//pickup</con:sourcePath><con:targetType>parcel_eta</con:targetType><con:targetStep>#TestCase#</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="transfer" name="Store parcel ETA"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>eta</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>Order from quote</con:sourceStep><con:sourcePath>//eta</con:sourcePath><con:targetType>parcel_eta</con:targetType><con:targetStep>#TestCase#</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="restrequest" name="List stats after"><con:settings/><con:config service="FedPS" methodName="GET" resourcePath="//manager/stats" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="List stats after" mediaType="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Accept" value="application/xml" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:originalUri>http://localhost//manager/stats</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:restRequest></con:config></con:testStep><con:testStep type="transfer" name="Count parcels after"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>counter</con:name><con:sourceType>ResponseAsXml</con:sourceType><con:sourceStep>List stats after</con:sourceStep><con:sourcePath>sum(//value)</con:sourcePath><con:targetType>count_after</con:targetType><con:targetStep>#TestCase#</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="groovy" name="Check counters"><con:settings/><con:config><script>def before = testRunner.testCase.getPropertyValue("counter_init");
+def after  = testRunner.testCase.getPropertyValue("counter_after");  
+return after > before;</script></con:config></con:testStep><con:testStep type="groovy" name="Check dates"><con:settings/><con:config><script>def quote_pickup  = testRunner.testCase.getPropertyValue("quote_pickup");
+def quote_eta     = testRunner.testCase.getPropertyValue("quote_eta");
+def parcel_pickup = testRunner.testCase.getPropertyValue("parcel_pickup");
+def parcel_eta    = testRunner.testCase.getPropertyValue("parcel_eta");
+
+if (quote_pickup != parcel_pickup)
+{
+	assert quote_eta != parcel_eta;
+}
+assert quote_pickup &lt; quote_eta;
+assert parcel_pickup &lt; parcel_eta;</script></con:config></con:testStep><con:properties><con:property><con:name>quote_id</con:name><con:value>2</con:value></con:property><con:property><con:name>count_init</con:name><con:value>104.0</con:value></con:property><con:property><con:name>count_after</con:name><con:value>105.0</con:value></con:property><con:property><con:name>quote_eta</con:name><con:value>1417993200000</con:value></con:property><con:property><con:name>quote_pickup</con:name><con:value>1417302000000</con:value></con:property><con:property><con:name>parcel_eta</con:name><con:value>1420968882186</con:value></con:property><con:property><con:name>parcel_pickup</con:name><con:value/></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Ask transportation" searchProperties="true" id="89576253-de0b-41a4-8953-2abccd4011c0"><con:settings/><con:testStep type="restrequest" name="List stats before"><con:settings/><con:config service="FedPS" methodName="GET" resourcePath="//manager/stats" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="List stats before" mediaType="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Accept" value="application/xml" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:originalUri>http://localhost//manager/stats</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><entry key="status" value="" xmlns="http://eviware.com/soapui/config"/></con:parameters></con:restRequest></con:config></con:testStep><con:testStep type="transfer" name="Count parcels before"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>counter</con:name><con:sourceType>ResponseAsXml</con:sourceType><con:sourceStep>List stats before</con:sourceStep><con:sourcePath>sum(//value)</con:sourcePath><con:targetType>counter_init</con:targetType><con:targetStep>#TestCase#</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="request" name="Ask parcel"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>FedPSCustomerServiceSoapBinding</con:interface><con:operation>submit</con:operation><con:request name="Ask parcel"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/webservices/FedPS-Customer</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cus="http://informatique.polytech.unice.fr/soa1/salle/services/customer">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <cus:submit>
+         <request xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="cus:parcel">
+           <sender>Aquila Lang</sender>
+           <senderEmail>Aquila.Lang@mail.com</senderEmail>
+           <cardNumber>316716254161</cardNumber>
+           <receiver>Mary Holcomb</receiver>
+           <from>
+             <streetNb>P.O. Box 119, 9819</streetNb>
+             <streetName>Nulla Avenue</streetName>
+             <zipCode>36206</zipCode>
+             <countryCode>US</countryCode>
+           </from>
+           <to>
+             <streetNb>P.O. Box 655, 9806</streetNb>
+             <streetName>Consectetuer Rd.</streetName>
+             <zipCode>47269</zipCode>
+             <countryCode>US</countryCode>
+           </to>
+           <shipping>EXPRESS</shipping>
+           <pickup>1417302000000</pickup>
+           <currency>USD</currency>
+           <width>10</width>
+           <height>10</height>
+           <depth>10</depth>
+           <unitSize>INCH</unitSize>
+           <weight>20</weight>
+           <unitWeight>LBS</unitWeight>
+         </request>
+      </cus:submit>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="transfer" name="Store parcel id"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>id</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>Ask parcel</con:sourceStep><con:sourcePath>//parcelId</con:sourcePath><con:targetType>parcel_id</con:targetType><con:targetStep>#TestCase#</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="restrequest" name="List stats after"><con:settings/><con:config service="FedPS" methodName="GET" resourcePath="//manager/stats" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="List stats after" mediaType="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Accept" value="application/xml" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:originalUri>http://localhost//manager/stats</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:restRequest></con:config></con:testStep><con:testStep type="transfer" name="Count parcels after"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>counter</con:name><con:sourceType>ResponseAsXml</con:sourceType><con:sourceStep>List stats after</con:sourceStep><con:sourcePath>sum(//value)</con:sourcePath><con:targetType>counter_after</con:targetType><con:targetStep>#TestCase#</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="groovy" name="Check counters"><con:settings/><con:config><script>def before = testRunner.testCase.getPropertyValue("counter_init");
+def after  = testRunner.testCase.getPropertyValue("counter_after");  
+return after > before;</script></con:config></con:testStep><con:testStep type="restrequest" name="Read parcel"><con:settings/><con:config service="FedPS" methodName="GET" resourcePath="//manager/parcels/{id}" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="Read parcel" mediaType="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Accept" value="application/xml" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:originalUri>http://localhost//manager/parcels/0</con:originalUri><con:assertion type="Simple NotContains" name="Not Contains unknownResource"><con:configuration><token>unknownResource</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains first status"><con:configuration><token>AWAITING_PICK_UP</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="GroovyScriptAssertion" name="ETA after pickup"><con:configuration><scriptText>import com.eviware.soapui.support.XmlHolder
+def holder = new XmlHolder( messageExchange.responseContentAsXml )
+
+def eta = holder["//eta"] as long
+def pickup = holder["//pickup"] as long
+
+assert eta > pickup
+</scriptText></con:configuration></con:assertion><con:assertion type="GroovyScriptAssertion"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><entry key="id" value="${#TestCase#parcel_id}" xmlns="http://eviware.com/soapui/config"/></con:parameters></con:restRequest></con:config></con:testStep><con:properties><con:property><con:name>counter_init</con:name><con:value>105.0</con:value></con:property><con:property><con:name>counter_after</con:name><con:value>106.0</con:value></con:property><con:property><con:name>parcel_id</con:name><con:value>5</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Consult statistics" searchProperties="true" id="d3415138-9bdf-43f4-9d14-d004a5342c20"><con:settings/><con:testStep type="restrequest" name="Get statistics"><con:settings/><con:config service="FedPS" methodName="GET" resourcePath="//manager/stats" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="Get statistics" mediaType="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:originalUri>http://localhost//manager/stats</con:originalUri><con:assertion type="Simple Contains" name="Contains IN_TRANSIT"><con:configuration><token>IN_TRANSIT</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains AWAITING_PICK_UP"><con:configuration><token>AWAITING_PICK_UP</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:restRequest></con:config></con:testStep><con:testStep type="restrequest" name="Gets stats with status"><con:settings/><con:config service="FedPS" methodName="GET" resourcePath="//manager/stats/{status}" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="Gets stats with status" mediaType="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:originalUri>http://localhost//manager/stats/IN_TRANSIT</con:originalUri><con:assertion type="Simple Contains" name="Contains links"><con:configuration><token>links</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><entry key="status" value="IN_TRANSIT" xmlns="http://eviware.com/soapui/config"/></con:parameters></con:restRequest></con:config></con:testStep><con:testStep type="restrequest" name="Get delayed parcels"><con:settings/><con:config service="FedPS" methodName="GET" resourcePath="//manager/delayed_parcels" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="Get delayed parcels" mediaType="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Accept" value="application/xml" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:originalUri>http://localhost//manager/delayed_parcels</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:restRequest></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Get the round itinerary" searchProperties="true" id="ea589e79-149c-4946-b3eb-952e7271eabc"><con:settings/><con:testStep type="restrequest" name="Get address to go"><con:settings/><con:config service="FedPS" methodName="GET" resourcePath="//driver/{id}/next_address" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="Get address to go" mediaType="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Accept" value="application/xml" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:originalUri>http://localhost//driver/driver1/next_address</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><entry key="id" value="${#TestCase#driver_id}" xmlns="http://eviware.com/soapui/config"/></con:parameters></con:restRequest></con:config></con:testStep><con:testStep type="transfer" name="Store address init"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>address</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>Get address to go</con:sourceStep><con:sourcePath>//@id</con:sourcePath><con:targetType>address_init</con:targetType><con:targetStep>#TestCase#</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="transfer" name="Store parcel id"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>id</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>Get address to go</con:sourceStep><con:sourcePath>//parcelId</con:sourcePath><con:targetType>parcel_id</con:targetType><con:targetStep>#TestCase#</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="restrequest" name="Read parcel"><con:settings/><con:config service="FedPS" methodName="GET" resourcePath="//manager/parcels/{id}" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="Read parcel" mediaType="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Accept" value="application/xml" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:originalUri>http://localhost//manager/parcels/</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><entry key="id" value="${#TestCase#parcel_id}" xmlns="http://eviware.com/soapui/config"/></con:parameters></con:restRequest></con:config></con:testStep><con:testStep type="transfer" name="Store state init"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>state</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>Read parcel</con:sourceStep><con:sourcePath>//status</con:sourcePath><con:targetType>state_init</con:targetType><con:targetStep>#TestCase#</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="restrequest" name="Update the status"><con:settings/><con:config service="FedPS" methodName="PUT" resourcePath="//driver/parcels/{id}/update" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="Update the status" mediaType="application/xml" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:originalUri>http://localhost//driver/parcels/753818080/update</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><entry key="id" value="${#TestCase#parcel_id}" xmlns="http://eviware.com/soapui/config"/></con:parameters></con:restRequest></con:config></con:testStep><con:testStep type="restrequest" name="Get status updated"><con:settings/><con:config service="FedPS" methodName="GET" resourcePath="//manager/parcels/{id}" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="Get status update" mediaType="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Accept" value="application/xml" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:originalUri>http://localhost//manager/parcels/726014599</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><entry key="id" value="${#TestCase#parcel_id}" xmlns="http://eviware.com/soapui/config"/></con:parameters></con:restRequest></con:config></con:testStep><con:testStep type="transfer" name="Store new status"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>status</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>Get status updated</con:sourceStep><con:sourcePath>//status</con:sourcePath><con:targetType>state_after</con:targetType><con:targetStep>#TestCase#</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="groovy" name="Check status change"><con:settings/><con:config><script>def before = testRunner.testCase.getPropertyValue("state_init");
+def after  = testRunner.testCase.getPropertyValue("state_after");
+
+if (before == "AWAITING_FOR_PICKUP")
+{
+	assert after == "PICKED UP";
+}
+else if (before == "IN_TRANSIT")
+{
+	assert after == "DELIVERED";
+}
+</script></con:config></con:testStep><con:testStep type="restrequest" name="Get new address to go"><con:settings/><con:config service="FedPS" methodName="GET" resourcePath="//driver/{id}/next_address" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="Get new address to go" mediaType="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Accept" value="application/xml" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:originalUri>http://localhost//driver/driver1/next_address</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><entry key="id" value="${#TestCase#driver_id}" xmlns="http://eviware.com/soapui/config"/></con:parameters></con:restRequest></con:config></con:testStep><con:testStep type="transfer" name="Store address after"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>address</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>Get new address to go</con:sourceStep><con:sourcePath>//@id</con:sourcePath><con:targetType>address_after</con:targetType><con:targetStep>#TestCase#</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="groovy" name="Check different address"><con:settings/><con:config><script>def before = testRunner.testCase.getPropertyValue("address_init");
+def after  = testRunner.testCase.getPropertyValue("address_after");  
+return after != before;</script></con:config></con:testStep><con:properties><con:property><con:name>parcel_id</con:name><con:value>876183915</con:value></con:property><con:property><con:name>state_init</con:name><con:value>AWAITING_PICK_UP</con:value></con:property><con:property><con:name>state_after</con:name><con:value>PICKED_UP</con:value></con:property><con:property><con:name>address_init</con:name><con:value>54</con:value></con:property><con:property><con:name>address_after</con:name><con:value>71</con:value></con:property><con:property><con:name>driver_id</con:name><con:value>driver1</con:value></con:property></con:properties></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
