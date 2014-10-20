@@ -23,8 +23,8 @@ import fr.unice.polytech.soa1.entities.OrderStatus;
 @Singleton(name = "Payment-DB-Mock")
 public class CustomerDAO {
 
-	private static final String fileSeparator = File.separator;
-	private static final String path = ".."+fileSeparator+".."+fileSeparator+"ressources"+fileSeparator ;
+	//private static final String fileSeparator = File.separator;
+	//private static final String path = ".."+fileSeparator+".."+fileSeparator+"ressources"+fileSeparator ;
 	private List<Customer> customers;
 	private List<Order> orders;
 	private List<Catalogue> catalogues;
@@ -70,31 +70,31 @@ public class CustomerDAO {
 
 	private void init() {
 		String str="";
-		String customersFile =path+"customers.csv";
-		String AddressesFile =path+"addresses.csv";
-		String OrderFile =path+"orders.csv";
-		String CatalogueFile =path+"catalogues.csv";
+		String customersFile = "customers.csv";
+		String AddressesFile = "addresses.csv";
+		String OrderFile = "orders.csv";
+		String CatalogueFile = "catalogues.csv";
 		customers = new ArrayList<Customer>();
 		orders = new ArrayList<Order>();
 		catalogues = new ArrayList<Catalogue>();
 		goods = new ArrayList<Good>();
 		
 		try{
-			InputStream ips=new FileInputStream(customersFile); 
-			InputStreamReader ipsr=new InputStreamReader(ips);
-			BufferedReader br=new BufferedReader(ipsr);
+			//InputStream ips=new FileInputStream(customersFile); 
+			//InputStreamReader ipsr=new InputStreamReader(ips);
+			BufferedReader br=new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(File.separator + customersFile)));
 			String line;
-			InputStream ipsO=new FileInputStream(OrderFile); 
-			InputStreamReader ipsrO=new InputStreamReader(ipsO);
-			BufferedReader brO=new BufferedReader(ipsrO);
+			//InputStream ipsO=new FileInputStream(OrderFile); 
+			//InputStreamReader ipsrO=new InputStreamReader(ipsO);
+			BufferedReader brO=new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(File.separator + OrderFile)));
 			String lineO;
-			InputStream ipsA=new FileInputStream(AddressesFile); 
-			InputStreamReader ipsrA=new InputStreamReader(ipsA);
-			BufferedReader brA=new BufferedReader(ipsrA);
+			//InputStream ipsA=new FileInputStream(AddressesFile); 
+			//InputStreamReader ipsrA=new InputStreamReader(ipsA);
+			BufferedReader brA=new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(File.separator + AddressesFile)));
 			String lineA;
-			InputStream ipsC=new FileInputStream(CatalogueFile); 
-			InputStreamReader ipsrC=new InputStreamReader(ipsC);
-			BufferedReader brC=new BufferedReader(ipsrC);
+			//InputStream ipsC=new FileInputStream(CatalogueFile); 
+			//InputStreamReader ipsrC=new InputStreamReader(ipsC);
+			BufferedReader brC=new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(File.separator + CatalogueFile)));
 			String lineC;
 			br.readLine();
 			brA.readLine();
