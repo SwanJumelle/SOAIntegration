@@ -12,15 +12,27 @@ import com.google.gson.GsonBuilder;
 
 import fr.unice.polytech.soa1.dao.CustomerDAO;
 import fr.unice.polytech.soa1.entities.Catalogue;
+import fr.unice.polytech.soa1.entities.Good;
 
-@Path("/rest/manager")
-public class ManagerRestImpl implements ManagerRest{
+@Path("/shop")
+public class ShopRestImpl implements ShopRest {
 
 	@EJB
 	CustomerDAO Cdao;
 	
 	final GsonBuilder builder = new GsonBuilder();
 	final Gson gson = builder.create();
+	
+	@Override
+	public Response goods(String id) {
+		Optional<Good> optO = Cdao.findGoodById(id);
+		if(optO.isPresent()){
+			final String json = gson.toJson(optO.get());
+			return Response.ok(json).build();
+		}else
+			return Response.status(Status.NOT_FOUND).build();
+	}
+
 
 	@Override
 	public Response getCatalogue(String id) {
@@ -38,13 +50,15 @@ public class ManagerRestImpl implements ManagerRest{
 	}
 
 	@Override
-	public Response createCatalogue(String id, String catalogue) {
-		Optional<Catalogue> opt = Cdao.findCatalogueById(id);
-		if(!opt.isPresent()){
-			return Response.ok().build();
-		}
+	public Response createCatalogue(String catalogue) {
 		return Response.status(Status.BAD_REQUEST).build();
 	}
 
-	
+
+	@Override
+	public Response deleteCatalogue(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

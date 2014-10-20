@@ -8,14 +8,16 @@ public class Order {
 	private String id;
 	private List<GoodOrder> goods;
 	private String price;
-	private Status status;
+	private OrderStatus status;
 	private String Date = "12/11/14";
+	private String customerId;
 	
-	public Order(String id, List<GoodOrder> goods, Status status) {
+	public Order(String id, List<GoodOrder> goods, OrderStatus status, String customerId) {
 		super();
 		this.id = id;
 		this.goods = goods;
 		this.status = status;
+		this.customerId = customerId;
 	}
 	
 	public List<GoodOrder> getGoods() {
@@ -39,11 +41,19 @@ public class Order {
 		this.id = id;
 	}
 
-	public Status getStatus() {
+	public OrderStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(Status status) {
+	public void setStatus(OrderStatus status) {
 		this.status = status;
+	}
+
+	public String getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
 	}
 }

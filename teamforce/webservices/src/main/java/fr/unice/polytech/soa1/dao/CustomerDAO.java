@@ -17,12 +17,12 @@ import fr.unice.polytech.soa1.entities.Customer;
 import fr.unice.polytech.soa1.entities.Good;
 import fr.unice.polytech.soa1.entities.GoodOrder;
 import fr.unice.polytech.soa1.entities.Order;
-import fr.unice.polytech.soa1.entities.Status;
+import fr.unice.polytech.soa1.entities.OrderStatus;
 
 @Singleton(name = "Payment-DB-Mock")
 public class CustomerDAO {
 
-	private static final String path = "C:\\Users\\Swan\\Documents\\Cours\\SOA\\teamforce\\" ;
+	private static final String path = "/home/user/Documents/SOA/SOAIntegration/teamforce/webservices/ressources/" ;
 	private List<Customer> customers;
 	private List<Order> orders;
 	private List<Catalogue> catalogues;
@@ -68,10 +68,10 @@ public class CustomerDAO {
 
 	private void init() {
 		String str="";
-		String customersFile =path+"ressources\\customers.csv";
-		String AddressesFile =path+"ressources\\addresses.csv";
-		String OrderFile =path+"ressources\\orders.csv";
-		String CatalogueFile =path+"ressources\\catalogues.csv";
+		String customersFile =path+"customers.csv";
+		String AddressesFile =path+"addresses.csv";
+		String OrderFile =path+"orders.csv";
+		String CatalogueFile =path+"catalogues.csv";
 		customers = new ArrayList<Customer>();
 		orders = new ArrayList<Order>();
 		catalogues = new ArrayList<Catalogue>();
@@ -135,9 +135,9 @@ public class CustomerDAO {
 					Good goodTemp = new Good(tabOrders[1],tabOrders[3], "None");
 					goods.add(goodTemp);
 					goodsOrder.add(new GoodOrder(Integer.valueOf(tabOrders[2]), goodTemp));
-					int pick = new Random().nextInt(Status.values().length);
-				    Status status =  Status.values()[pick];
-					Order newOrder = new Order(tabOrders[0],goodsOrder, status);
+					int pick = new Random().nextInt(OrderStatus.values().length);
+				    OrderStatus status =  OrderStatus.values()[pick];
+					Order newOrder = new Order(tabOrders[0],goodsOrder, status, customer.getId());
 					orders.add(newOrder);
 					if( customer.getOrders() != null){
 						customer.getOrders().add(newOrder);
