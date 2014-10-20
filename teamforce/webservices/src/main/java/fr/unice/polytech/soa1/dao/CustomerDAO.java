@@ -1,6 +1,7 @@
 package fr.unice.polytech.soa1.dao;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -22,7 +23,8 @@ import fr.unice.polytech.soa1.entities.OrderStatus;
 @Singleton(name = "Payment-DB-Mock")
 public class CustomerDAO {
 
-	private static final String path = "/home/user/Documents/SOA/SOAIntegration/teamforce/webservices/ressources/" ;
+	private static final String fileSeparator = File.separator;
+	private static final String path = ".."+fileSeparator+".."+fileSeparator+"ressources"+fileSeparator ;
 	private List<Customer> customers;
 	private List<Order> orders;
 	private List<Catalogue> catalogues;

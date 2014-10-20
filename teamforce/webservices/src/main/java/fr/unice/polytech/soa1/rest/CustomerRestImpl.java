@@ -15,8 +15,6 @@ import com.google.gson.GsonBuilder;
 import fr.unice.polytech.soa1.dao.CustomerDAO;
 import fr.unice.polytech.soa1.entities.Customer;
 import fr.unice.polytech.soa1.entities.Good;
-import fr.unice.polytech.soa1.entities.GoodOrder;
-import fr.unice.polytech.soa1.entities.Order;
 
 @Path("/customer")
 public class CustomerRestImpl implements CustomerRest {
