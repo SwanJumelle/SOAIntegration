@@ -24,6 +24,7 @@
 	<modules>
 		<module>fedps</module>
 		<module>teamforce</module>
+        <module>warehouse</module>
 	</modules>
 
 	<developers>
