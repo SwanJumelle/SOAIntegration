@@ -20,7 +20,7 @@ import fr.unice.polytech.soa1.entities.GoodOrder;
 import fr.unice.polytech.soa1.entities.Order;
 import fr.unice.polytech.soa1.entities.OrderStatus;
 
-@Singleton(name = "Payment-DB-Mock")
+@Singleton(name = "TeamForce-DB-Mock")
 public class CustomerDAO {
 
 	//private static final String fileSeparator = File.separator;
