@@ -25,6 +25,7 @@
 		<module>fedps</module>
 		<module>teamforce</module>
         <module>warehouse</module>
+        <module>creditgeneral</module>
 	</modules>
 
 	<developers>
@@ -113,8 +114,10 @@
                     <tomeeVersion>1.7.1</tomeeVersion>
                     <tomeeClassifier>plus</tomeeClassifier>
                     <webapps>
-                    	<webapp>${project.groupId}:teamforce:${project.version}</webapp>
-                    	<webapp>${project.groupId}:fedps:${project.version}</webapp>
+                        <webapp>${project.groupId}:teamforce:${project.version}</webapp>
+                        <webapp>${project.groupId}:fedps:${project.version}</webapp>
+                        <webapp>${project.groupId}:warehouse:${project.version}</webapp>
+                        <webapp>${project.groupId}:creditgeneral:${project.version}</webapp>
                     </webapps>
                     <synchronization>
                     	<extensions>
