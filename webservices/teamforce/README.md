@@ -1,164 +1,93 @@
-# FedPS
+# TeamForce
 
-## Order - Document
+/teamforce-1.1
 
-### Effectuer un devis
-
-#### Requête
-
-    <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ord="http://informatique.polytech.unice.fr/soa1/salle/services/order">
-       <soapenv:Header/>
-       <soapenv:Body>
-          <ord:submit>
-             <request xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ord:quote">
-               <fromZipCode>59300</fromZipCode>
-               <fromCountryCode>US</fromCountryCode>
-               <toZipCode>86901</toZipCode>
-               <toCountryCode>US</toCountryCode>
-               <pickup>1417302000000</pickup>
-               <shipping>STANDARD</shipping>
-               <currency>USD</currency>
-               <width>20</width>
-               <height>10</height>
-               <depth>5</depth>
-               <unitSize>INCH</unitSize>
-               <weight>7.5</weight>
-               <unitWeight>LBS</unitWeight>
-             </request>
-          </ord:submit>
-       </soapenv:Body>
-    </soapenv:Envelope>
-
-Les valeurs acceptables sont :
-
-* `pickup` : date au format timestamp, postérieure à la date courante
-* `shipping` : STANDARD, EXPRESS
-* `currency` : USD, EUR, GBP
-* `unitSize` : CM, INCH
-* `unitWeight` : KG, LBS 
-
-#### Réponse : succès
-
-    <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-       <soap:Body>
-          <ns2:submitResponse xmlns:ns2="http://informatique.polytech.unice.fr/soa1/salle/services/order">
-             <result xsi:type="ns2:quoteOutput" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                <id>0</id>
-                <eta>1417734000000</eta>
-                <cost>8.5</cost>
-             </result>
-          </ns2:submitResponse>
-       </soap:Body>
-    </soap:Envelope>
-
-* `id` : id du devis, nécessaire pour passer une commande à partir d'un devis
-* `eta` : date estimée d'arrivée au format timestamp
-* `cost` : coût dans la devise passée en paramètre de la requête
-
-### Effectuer une commande à partir d'un devis
+### Informations sur le customer
 
 #### Requête
 
-    <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ord="http://informatique.polytech.unice.fr/soa1/salle/services/order">
-       <soapenv:Header/>
-       <soapenv:Body>
-          <ord:submit>
-             <request xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ord:parcel_from_quote">
-               <quoteId>0</quoteId>
-               <cardNumber>carNumber</cardNumber>
-               <sender>Jean</sender>
-               <senderEmail>jean@mail.com</senderEmail>
-               <receiver>Jacques</receiver>
-               <pickup>1420000000000</pickup>
-               <fromStreetNb>20A</fromStreetNb>
-               <fromStreetName>Lombard Street</fromStreetName>
-               <toStreetNb>10</toStreetNb>
-               <toStreetName>Abc Avenue</toStreetName>
-             </request>
-          </ord:submit>
-       </soapenv:Body>
-    </soapenv:Envelope>
+    GET /customer/{id}
 
-#### Réponse : succès
+#### Réponse :
 
-    <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-       <soap:Body>
-          <ns2:submitResponse xmlns:ns2="http://informatique.polytech.unice.fr/soa1/salle/services/order">
-             <result xsi:type="ns2:orderOutput" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                <id>0</id>
-                <eta>1420604800000</eta>
-             </result>
-          </ns2:submitResponse>
-       </soap:Body>
-    </soap:Envelope>
+    Code de retour : `200`.
 
-* `id` : id du colis, nécessaire pour le suivi
-* `eta` : date estimée d'arrivée au format timestamp
+    {
+      "invoiceAddresses": {
+        "line1": "3943 Fusce Rd.",
+        "line2": "Wisconsin",
+        "zipCode": "51748",
+        "city": "Kenosha"
+      },
+      "deliveryAddresses": {
+        "line1": "3943 Fusce Rd.",
+        "line2": "Wisconsin",
+        "zipCode": "51748",
+        "city": "Kenosha"
+      },
+      "orders": [
+        {
+          "id": "4",
+          "goods": [
+            {
+              "quantity": 5,
+              "good": {
+                "id": "P7Z5UA8DN34QG6W",
+                "priceString": "$2.92",
+                "price": 2.92,
+                "categorie": "None"
+              }
+            },
+            {
+              "quantity": 10,
+              "good": {
+                "id": "J7W5PI2IQ29CQ6K",
+                "priceString": "$91.97",
+                "price": 91.97,
+                "categorie": "None"
+              }
+            },
+            {
+              "quantity": 4,
+              "good": {
+                "id": "S8K3AH9GH16FQ1B",
+                "priceString": "$72.15",
+                "price": 72.15,
+                "categorie": "None"
+              }
+            },
+            {
+              "quantity": 1,
+              "good": {
+                "id": "X6D4RB3RD94LK7M",
+                "priceString": "$99.90",
+                "price": 99.9,
+                "categorie": "None"
+              }
+            },
+            {
+              "quantity": 5,
+              "good": {
+                "id": "J4Q7PK4NG95BZ3Z",
+                "priceString": "$54.88",
+                "price": 54.88,
+                "categorie": "None"
+              }
+            }
+          ],
+          "status": "PREPARATION",
+          "Date": "12/11/14",
+          "customerId": "1"
+        }
+      ],
+      "id": "1",
+      "lastName": "Bolton",
+      "firstName": "Lucian",
+      "phoneNumber": "0800 155 4601",
+      "email": "Sed.nunc.est@euturpis.co.uk"
+    }
 
-### Effectuer directement une commande
-
-#### Requête
-
-    <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ord="http://informatique.polytech.unice.fr/soa1/salle/services/order">
-       <soapenv:Header/>
-       <soapenv:Body>
-          <ord:submit>
-             <request xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ord:parcel">
-               <cardNumber>cardNumber</cardNumber>
-               <sender>Jean</sender>
-               <senderEmail>jean@mail.com</senderEmail>
-               <receiver>Jacques</receiver>
-               <pickup>1420000000000</pickup>
-               <from>
-                 <streetNb>20A</streetNb>
-                 <streetName>Lombard Street</streetName>
-                 <zipCode>08986</zipCode>
-                 <countryCode>US</countryCode>
-               </from>
-               <to>
-                 <streetNb>10</streetNb>
-                 <streetName>Abc Avenue</streetName>
-                 <zipCode>8756</zipCode>
-                 <countryCode>UK</countryCode>
-               </to>
-               <shipping>STANDARD</shipping>
-               <currency>USD</currency>
-               <width>20</width>
-               <height>10</height>
-               <depth>5</depth>
-               <unitSize>INCH</unitSize>
-               <weight>7.5</weight>
-               <unitWeight>LBS</unitWeight>
-             </request>
-          </ord:submit>
-       </soapenv:Body>
-    </soapenv:Envelope>
-
-Les valeurs acceptables sont :
-
-* `pickup` : date au format timestamp, postérieure à la date courante
-* `shipping` : STANDARD, EXPRESS
-* `currency` : USD, EUR, GBP
-* `unitSize` : CM, INCH
-* `unitWeight` : KG, LBS
-
-#### Réponse : succès
-
-    <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-       <soap:Body>
-          <ns2:submitResponse xmlns:ns2="http://informatique.polytech.unice.fr/soa1/salle/services/order">
-             <result xsi:type="ns2:orderOutput" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                <id>0</id>
-                <eta>1420604800000</eta>
-             </result>
-          </ns2:submitResponse>
-       </soap:Body>
-    </soap:Envelope>
-
-* `id` : id du colis, nécessaire pour le suivi
-* `eta` : date estimée d'arrivée au format timestamp
-
-## Follow - REST
+* `id` : id du customer
 
 ### Récupérer tous les colis
 
