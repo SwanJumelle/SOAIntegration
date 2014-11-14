@@ -17,16 +17,9 @@
 
 	<groupId>fr.unice.polytech.soa1</groupId>
 	<artifactId>webservices</artifactId>
-	<version>1.1</version>
-	<packaging>pom</packaging>
+	<version>2.0</version>
+	<packaging>war</packaging>
 	<name>WebServices</name>
-
-	<modules>
-		<module>fedps</module>
-		<module>teamforce</module>
-        <module>warehouse</module>
-        <module>creditgeneral</module>
-	</modules>
 
 	<developers>
 		<developer>
@@ -113,18 +106,6 @@
 					<context>ROOT</context>
                     <tomeeVersion>1.7.1</tomeeVersion>
                     <tomeeClassifier>plus</tomeeClassifier>
-                    <webapps>
-                        <webapp>${project.groupId}:teamforce:${project.version}</webapp>
-                        <webapp>${project.groupId}:fedps:${project.version}</webapp>
-                        <webapp>${project.groupId}:warehouse:${project.version}</webapp>
-                        <webapp>${project.groupId}:creditgeneral:${project.version}</webapp>
-                    </webapps>
-                    <synchronization>
-                    	<extensions>
-                    		<extension>.class</extension> <!-- if you want to update each time you build with mvn compile -->
-                    	</extensions>
-                    </synchronization>
-                    <reloadOnUpdate>true</reloadOnUpdate>
 				</configuration>
 			</plugin>
 		</plugins>
