@@ -77,7 +77,7 @@ Nom       |Type       |Description
        </soapenv:Body>
     </soapenv:Envelope>
 
-</>
+<p></p>
 
     <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
        <soap:Body>
@@ -141,7 +141,7 @@ Nom      |Type   |Description
 
     GET http://localhost:8081/orders/ERZT67I8/status
 
-</>
+<p></p>
 
     WAITING_FOR_PAYMENT
 
@@ -161,7 +161,7 @@ Nom       |Type       |Description
 
     GET http://localhost:8081/orders/ERZT67I8/receipt
 
-</>
+<p></p>
 
     {
         "orderId": "ERZT67I8",
@@ -200,7 +200,7 @@ Nom         |Type  |Description
 
     GET http://localhost:8081/orders/ERZT67I8/transport
 
-</>
+<p></p>
 
     {
         "carrier": "FedPS",
