@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://informatique.polytech.unice.fr/soa1/fedps/order" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns3="http://schemas.xmlsoap.org/soap/http" xmlns:ns1="http://informatique.polytech.unice.fr/soa1/fedps/services/order" name="FedPSOrderService" targetNamespace="http://informatique.polytech.unice.fr/soa1/fedps/order">
+  <wsdl:import location="http://localhost:8080//webservices/FedPS-Order?wsdl=Order.wsdl" namespace="http://informatique.polytech.unice.fr/soa1/fedps/services/order">
+    </wsdl:import>
+  <wsdl:binding name="FedPSOrderServiceSoapBinding" type="ns1:Order">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="processOrderFromQuote">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="processOrderFromQuote">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="processOrderFromQuoteResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="BadJobFault">
+        <soap:fault name="BadJobFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="processQuote">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="processQuote">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="processQuoteResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="BadJobFault">
+        <soap:fault name="BadJobFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="processOrder">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="processOrder">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="processOrderResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="BadJobFault">
+        <soap:fault name="BadJobFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="FedPSOrderService">
+    <wsdl:port binding="tns:FedPSOrderServiceSoapBinding" name="FedPSOrderPort">
+      <soap:address location="http://localhost:8080//webservices/FedPS-Order"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -8,16 +8,14 @@ import fr.unice.polytech.soa1.fedps.bdd.model.TransportInformation;
 import fr.unice.polytech.soa1.fedps.bdd.model.units.Currency;
 import fr.unice.polytech.soa1.fedps.bdd.model.units.UnitSize;
 import fr.unice.polytech.soa1.fedps.bdd.model.units.UnitWeight;
-import fr.unice.polytech.soa1.fedps.services.order.input.OrderInput;
 import fr.unice.polytech.soa1.fedps.services.order.output.BadJobFault;
-import fr.unice.polytech.soa1.fedps.services.order.output.JobResult;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import java.util.Date;
 
 @XmlType(name = "quote")
-public class QuoteInput extends OrderInput {
+public class QuoteInput {
 
     private String fromZipCode;
     private String fromCountryCode;
@@ -39,7 +37,6 @@ public class QuoteInput extends OrderInput {
     // Method
     // ******
 
-    @Override
     public void check(DataAccessObject dao) throws BadJobFault
     {
         if ( fromZipCode== null || fromCountryCode == null || toZipCode== null || toCountryCode == null
@@ -60,8 +57,7 @@ public class QuoteInput extends OrderInput {
         }
     }
 
-    @Override
-    public JobResult run(DataAccessObject dao) throws BadJobFault
+    public QuoteOutput run(DataAccessObject dao) throws BadJobFault
     {
         Quote quote = new Quote();
         TransportInformation transportInformation = new TransportInformation();

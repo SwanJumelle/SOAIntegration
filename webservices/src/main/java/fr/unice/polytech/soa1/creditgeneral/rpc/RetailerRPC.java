@@ -19,7 +19,7 @@ public interface RetailerRPC {
 
 	@WebMethod(operationName = "process_payment")
 	@WebResult(name = "status")
-	public Status processPayment(@WebParam(name="id", header = true) String id,
+	public Status processPayment(@WebParam(name="id") String id,
 								 @WebParam(name="card") 	String card,
 								 @WebParam(name="customer") String customer,
 								 @WebParam(name="amount") 	Double amount)

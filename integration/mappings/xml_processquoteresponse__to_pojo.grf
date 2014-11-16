@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?><Graph __version="3.5.0" author="victorsalle" created="Sun Nov 16 01:29:33 CET 2014" description="Xml&lt;processQuoteResponse&gt; To Pojo" guiVersion="3.4.4.P" id="1416100533182" licenseCode="Unlicensed" licenseType="Unknown" modified="Sun Nov 16 01:29:33 CET 2014" modifiedBy="victorsalle" name="Xml_processQuoteResponse__To_Pojo" revision="1.0" showComponentDetails="false">
+<Global>
+<Metadata __index="1" __referenceCounter="0" __sourcePath="{}/object/items" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="7118f72b-29b2-43fd-9103-7e4173ab6198" _parent_id="__parent_id" _type="Output" id="c0400409-b857-4625-b318-fc82ad36da23">
+<Record fieldDelimiter="," name="items" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="1" __sourcePath="{}/object/items/productRef" containerType="SINGLE" label="productRef" name="productRef" type="string"/>
+<Field __index="2" __sourcePath="{}/object/items/quantity" containerType="SINGLE" label="quantity" name="quantity" type="integer"/>
+</Record>
+</Metadata>
+<Metadata __filteredMetadata="false" __index="0" __referenceCounter="1" __schemaType="{http://informatique.polytech.unice.fr/soa1/fedps/services/order}processQuoteResponse" __sourcePath="{http://informatique.polytech.unice.fr/soa1/fedps/services/order=ns0}/ns0:processQuoteResponse" _dataStructure="OBJECT" _id="__id" _type="Input" id="137cf11c-83a5-4458-957a-522584191019">
+<Record fieldDelimiter="," name="processQuoteResponse" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __schemaType="{http://informatique.polytech.unice.fr/soa1/fedps/services/order}quoteOutput" __sourcePath="{http://informatique.polytech.unice.fr/soa1/fedps/services/order=ns0}/ns0:processQuoteResponse/quoteOutput/id" containerType="SINGLE" label="id" name="id" type="string"/>
+<Field __index="1" __schemaType="{http://informatique.polytech.unice.fr/soa1/fedps/services/order}quoteOutput" __sourcePath="{http://informatique.polytech.unice.fr/soa1/fedps/services/order=ns0}/ns0:processQuoteResponse/quoteOutput/eta" containerType="SINGLE" label="eta" name="eta" type="long"/>
+<Field __index="2" __schemaType="{http://informatique.polytech.unice.fr/soa1/fedps/services/order}quoteOutput" __sourcePath="{http://informatique.polytech.unice.fr/soa1/fedps/services/order=ns0}/ns0:processQuoteResponse/quoteOutput/cost" containerType="SINGLE" label="cost" name="cost" type="number"/>
+</Record>
+</Metadata>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/object" _dataStructure="OBJECT" _id="__id" _type="Output" id="7118f72b-29b2-43fd-9103-7e4173ab6198">
+<Record fieldDelimiter="," name="Receipt" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __sourcePath="{}/object/eta" containerType="SINGLE" label="eta" name="eta" type="long"/>
+<Field __index="3" __sourcePath="{}/object/orderId" containerType="SINGLE" label="orderId" name="orderId" type="string"/>
+</Record>
+</Metadata>
+<Dictionary>
+<Entry id="DictionaryEntry0" input="true" name="inputPayload" output="false" type="object"/>
+<Entry id="DictionaryEntry1" input="false" name="outputPayload" output="true" type="object"/>
+</Dictionary>
+</Global>
+<Phase number="0">
+<Node cacheInMemory="true" enabled="enabled" fileURL="dict:outputPayload" guiName="Pojo WRITER" guiX="900" guiY="20" id="BEAN_WRITER0" type="BEAN_WRITER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<object xmlns:clover="http://www.cloveretl.com/ns/xmlmapping" clover:inPort="0">
+  <eta>$0.eta</eta>
+  <orderId>$0.orderId</orderId>
+</object>]]></attr>
+<attr name="_data_format"><![CDATA[JAVA]]></attr>
+<attr name="schema"><![CDATA[<?xml version="1.0" encoding="UTF-8"?><schema-object>
+  <typed-object-ref type-ref="fr.unice.polytech.soa1.misterdiscount.business.Receipt"/>
+  <typed-object type="java.lang.Long"/>
+  <typed-object type="fr.unice.polytech.soa1.misterdiscount.business.Receipt">
+    <typed-object-ref name="eta" type-ref="java.lang.Long"/>
+    <schema-collection name="items" type="java.util.List">
+      <typed-object-ref type-ref="fr.unice.polytech.soa1.misterdiscount.business.Item"/>
+    </schema-collection>
+    <typed-object-ref name="orderId" type-ref="java.lang.String"/>
+  </typed-object>
+  <typed-object type="fr.unice.polytech.soa1.misterdiscount.business.Item">
+    <typed-object-ref name="productRef" type-ref="java.lang.String"/>
+    <typed-object-ref name="quantity" type-ref="java.lang.Integer"/>
+  </typed-object>
+  <typed-object type="java.lang.String"/>
+  <typed-object type="java.lang.Integer"/>
+</schema-object>
+]]></attr>
+</Node>
+<Node enabled="enabled" guiName="Foreach 'ns0:processQuoteResponse' -&gt; 'object'" guiX="460" guiY="20" id="FOREACH_NS0_PROCESS_QUOTE_RESPONSE_OBJECT" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+//END -> DO NOT REMOVE
+output.eta = input.eta;
+
+//TODO
+output.orderId = "IOHOIH12";]]></attr>
+</Node>
+<Node charset="UTF-8" enabled="enabled" fileURL="dict:inputPayload" guiName="XML READER" guiX="20" guiY="20" id="XML_READER0" type="XML_READER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Context namespacePaths="ns0=&quot;http://informatique.polytech.unice.fr/soa1/fedps/services/order&quot;" outPort="0" sequenceField="__id" xpath="/ns0:processQuoteResponse">
+  <Mapping cloverField="id" trim="true" xpath="quoteOutput/id"/>
+  <Mapping cloverField="eta" trim="true" xpath="quoteOutput/eta"/>
+  <Mapping cloverField="cost" trim="true" xpath="quoteOutput/cost"/>
+</Context>
+]]></attr>
+<attr name="_data_format"><![CDATA[XML]]></attr>
+<attr name="__metadata"><![CDATA[true]]></attr>
+</Node>
+<Edge debugMode="true" fromNode="FOREACH_NS0_PROCESS_QUOTE_RESPONSE_OBJECT:0" guiBendpoints="" id="Edge1" inPort="Port 0 (in)" metadata="7118f72b-29b2-43fd-9103-7e4173ab6198" outPort="Port 0 (out)" toNode="BEAN_WRITER0:0"/>
+<Edge debugMode="true" fromNode="XML_READER0:0" guiBendpoints="" id="Edge0" inPort="Port 0 (in)" metadata="137cf11c-83a5-4458-957a-522584191019" outPort="Port 0 (out)" toNode="FOREACH_NS0_PROCESS_QUOTE_RESPONSE_OBJECT:0"/>
+</Phase>
+</Graph>

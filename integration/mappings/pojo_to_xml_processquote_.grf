@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?><Graph __version="3.5.0" author="victorsalle" created="Sun Nov 16 01:29:33 CET 2014" description="Pojo To Xml&lt;processQuote&gt;" guiVersion="3.4.4.P" id="1416100473681" licenseCode="Unlicensed" licenseType="Unknown" modified="Sun Nov 16 01:29:33 CET 2014" modifiedBy="victorsalle" name="Pojo_To_Xml_processQuote_" revision="1.0" showComponentDetails="false">
+<Global>
+<Metadata __index="2" __referenceCounter="0" __sourcePath="{}/object/items" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="35930097-fc29-474f-977f-1333e8868cbe" _parent_id="__parent_id" _type="Input" id="5f948bd0-c08e-4299-b285-146ed56b448e">
+<Record fieldDelimiter="," name="items" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="2" __sourcePath="{}/object/items/productRef" containerType="SINGLE" label="productRef" name="productRef" type="string"/>
+<Field __index="3" __sourcePath="{}/object/items/quantity" containerType="SINGLE" label="quantity" name="quantity" type="integer"/>
+</Record>
+</Metadata>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/object" _dataStructure="OBJECT" _id="__id" _type="Input" id="35930097-fc29-474f-977f-1333e8868cbe">
+<Record fieldDelimiter="," name="OrderInput" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __sourcePath="{}/object/cardNb" containerType="SINGLE" label="cardNb" name="cardNb" type="long"/>
+<Field __index="1" __sourcePath="{}/object/customerId" containerType="SINGLE" label="customerId" name="customerId" type="string"/>
+<Field __index="4" __sourcePath="{}/object/shippingAddress/city" containerType="SINGLE" label="city" name="city" type="string"/>
+<Field __index="5" __sourcePath="{}/object/shippingAddress/countryCode" containerType="SINGLE" label="countryCode" name="countryCode" type="string"/>
+<Field __index="6" __sourcePath="{}/object/shippingAddress/streetName" containerType="SINGLE" label="streetName" name="streetName" type="string"/>
+<Field __index="7" __sourcePath="{}/object/shippingAddress/streetNb" containerType="SINGLE" label="streetNb" name="streetNb" type="string"/>
+<Field __index="8" __sourcePath="{}/object/shippingAddress/zipCode" containerType="SINGLE" label="zipCode" name="zipCode" type="string"/>
+</Record>
+</Metadata>
+<Metadata __filteredMetadata="false" __index="0" __referenceCounter="1" __schemaType="{http://informatique.polytech.unice.fr/soa1/fedps/services/order}processQuote" __sourcePath="{http://informatique.polytech.unice.fr/soa1/fedps/services/order=ns0}/ns0:processQuote" _dataStructure="OBJECT" _id="__id" _type="Output" id="a9e9a02f-08e1-4d63-9e4f-31ac1ae32b48">
+<Record fieldDelimiter="," name="processQuote" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __schemaType="{http://informatique.polytech.unice.fr/soa1/fedps/services/order}quote" __sourcePath="{http://informatique.polytech.unice.fr/soa1/fedps/services/order=ns0}/ns0:processQuote/arg0/currency" containerType="SINGLE" label="currency" name="currency" type="string"/>
+<Field __index="1" __schemaType="{http://informatique.polytech.unice.fr/soa1/fedps/services/order}quote" __sourcePath="{http://informatique.polytech.unice.fr/soa1/fedps/services/order=ns0}/ns0:processQuote/arg0/depth" containerType="SINGLE" label="depth" name="depth" type="number"/>
+<Field __index="2" __schemaType="{http://informatique.polytech.unice.fr/soa1/fedps/services/order}quote" __sourcePath="{http://informatique.polytech.unice.fr/soa1/fedps/services/order=ns0}/ns0:processQuote/arg0/fromCountryCode" containerType="SINGLE" label="fromCountryCode" name="fromCountryCode" type="string"/>
+<Field __index="3" __schemaType="{http://informatique.polytech.unice.fr/soa1/fedps/services/order}quote" __sourcePath="{http://informatique.polytech.unice.fr/soa1/fedps/services/order=ns0}/ns0:processQuote/arg0/fromZipCode" containerType="SINGLE" label="fromZipCode" name="fromZipCode" type="string"/>
+<Field __index="4" __schemaType="{http://informatique.polytech.unice.fr/soa1/fedps/services/order}quote" __sourcePath="{http://informatique.polytech.unice.fr/soa1/fedps/services/order=ns0}/ns0:processQuote/arg0/height" containerType="SINGLE" label="height" name="height" type="number"/>
+<Field __index="5" __schemaType="{http://informatique.polytech.unice.fr/soa1/fedps/services/order}quote" __sourcePath="{http://informatique.polytech.unice.fr/soa1/fedps/services/order=ns0}/ns0:processQuote/arg0/pickup" containerType="SINGLE" label="pickup" name="pickup" type="long"/>
+<Field __index="6" __schemaType="{http://informatique.polytech.unice.fr/soa1/fedps/services/order}quote" __sourcePath="{http://informatique.polytech.unice.fr/soa1/fedps/services/order=ns0}/ns0:processQuote/arg0/shipping" containerType="SINGLE" label="shipping" name="shipping" type="string"/>
+<Field __index="7" __schemaType="{http://informatique.polytech.unice.fr/soa1/fedps/services/order}quote" __sourcePath="{http://informatique.polytech.unice.fr/soa1/fedps/services/order=ns0}/ns0:processQuote/arg0/toCountryCode" containerType="SINGLE" label="toCountryCode" name="toCountryCode" type="string"/>
+<Field __index="8" __schemaType="{http://informatique.polytech.unice.fr/soa1/fedps/services/order}quote" __sourcePath="{http://informatique.polytech.unice.fr/soa1/fedps/services/order=ns0}/ns0:processQuote/arg0/toZipCode" containerType="SINGLE" label="toZipCode" name="toZipCode" type="string"/>
+<Field __index="9" __schemaType="{http://informatique.polytech.unice.fr/soa1/fedps/services/order}quote" __sourcePath="{http://informatique.polytech.unice.fr/soa1/fedps/services/order=ns0}/ns0:processQuote/arg0/unitSize" containerType="SINGLE" label="unitSize" name="unitSize" type="string"/>
+<Field __index="10" __schemaType="{http://informatique.polytech.unice.fr/soa1/fedps/services/order}quote" __sourcePath="{http://informatique.polytech.unice.fr/soa1/fedps/services/order=ns0}/ns0:processQuote/arg0/unitWeight" containerType="SINGLE" label="unitWeight" name="unitWeight" type="string"/>
+<Field __index="11" __schemaType="{http://informatique.polytech.unice.fr/soa1/fedps/services/order}quote" __sourcePath="{http://informatique.polytech.unice.fr/soa1/fedps/services/order=ns0}/ns0:processQuote/arg0/weight" containerType="SINGLE" label="weight" name="weight" type="number"/>
+<Field __index="12" __schemaType="{http://informatique.polytech.unice.fr/soa1/fedps/services/order}quote" __sourcePath="{http://informatique.polytech.unice.fr/soa1/fedps/services/order=ns0}/ns0:processQuote/arg0/width" containerType="SINGLE" label="width" name="width" type="number"/>
+</Record>
+</Metadata>
+<Dictionary>
+<Entry id="DictionaryEntry0" input="true" name="inputPayload" output="false" type="object"/>
+<Entry id="DictionaryEntry1" input="false" name="outputPayload" output="true" type="object"/>
+</Dictionary>
+</Global>
+<Phase number="0">
+<Node enabled="enabled" fileURL="dict:inputPayload" guiName="Pojo READER" guiX="20" guiY="20" id="BEAN_READER0" type="BEAN_READER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Context outPort="0" sequenceField="__id" xpath=".">
+  <Mapping cloverField="cardNb" trim="true" xpath="cardNb"/>
+  <Mapping cloverField="customerId" trim="true" xpath="customerId"/>
+  <Mapping cloverField="city" trim="true" xpath="shippingAddress/city"/>
+  <Mapping cloverField="countryCode" trim="true" xpath="shippingAddress/countryCode"/>
+  <Mapping cloverField="streetName" trim="true" xpath="shippingAddress/streetName"/>
+  <Mapping cloverField="streetNb" trim="true" xpath="shippingAddress/streetNb"/>
+  <Mapping cloverField="zipCode" trim="true" xpath="shippingAddress/zipCode"/>
+</Context>
+]]></attr>
+<attr name="_data_format"><![CDATA[JAVA]]></attr>
+<attr name="schema"><![CDATA[<?xml version="1.0" encoding="UTF-8"?><schema-object>
+  <typed-object-ref type-ref="fr.unice.polytech.soa1.misterdiscount.business.OrderInput"/>
+  <typed-object type="fr.unice.polytech.soa1.misterdiscount.business.Address">
+    <typed-object-ref name="city" type-ref="java.lang.String"/>
+    <typed-object-ref name="countryCode" type-ref="java.lang.String"/>
+    <typed-object-ref name="streetName" type-ref="java.lang.String"/>
+    <typed-object-ref name="streetNb" type-ref="java.lang.String"/>
+    <typed-object-ref name="zipCode" type-ref="java.lang.String"/>
+  </typed-object>
+  <typed-object type="java.lang.Long"/>
+  <typed-object type="fr.unice.polytech.soa1.misterdiscount.business.OrderInput">
+    <typed-object-ref name="cardNb" type-ref="java.lang.Long"/>
+    <typed-object-ref name="customerId" type-ref="java.lang.String"/>
+    <schema-collection name="items" type="java.util.List">
+      <typed-object-ref type-ref="fr.unice.polytech.soa1.misterdiscount.business.Item"/>
+    </schema-collection>
+    <typed-object-ref name="shippingAddress" type-ref="fr.unice.polytech.soa1.misterdiscount.business.Address"/>
+  </typed-object>
+  <typed-object type="fr.unice.polytech.soa1.misterdiscount.business.Item">
+    <typed-object-ref name="productRef" type-ref="java.lang.String"/>
+    <typed-object-ref name="quantity" type-ref="java.lang.Integer"/>
+  </typed-object>
+  <typed-object type="java.lang.String"/>
+  <typed-object type="java.lang.Integer"/>
+</schema-object>
+]]></attr>
+</Node>
+<Node cacheInMemory="true" charset="UTF-8" enabled="enabled" fileURL="dict:outputPayload" guiName="XML WRITER" guiX="900" guiY="20" id="EXT_XML_WRITER0" type="EXT_XML_WRITER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<clover:element clover:name="ns0:processQuote" xmlns:clover="http://www.cloveretl.com/ns/xmlmapping" xmlns:ns0="http://informatique.polytech.unice.fr/soa1/fedps/services/order" clover:inPort="0">
+  <arg0>
+    <currency>$0.currency</currency>
+    <depth>$0.depth</depth>
+    <fromCountryCode>$0.fromCountryCode</fromCountryCode>
+    <fromZipCode>$0.fromZipCode</fromZipCode>
+    <height>$0.height</height>
+    <pickup>$0.pickup</pickup>
+    <shipping>$0.shipping</shipping>
+    <toCountryCode>$0.toCountryCode</toCountryCode>
+    <toZipCode>$0.toZipCode</toZipCode>
+    <unitSize>$0.unitSize</unitSize>
+    <unitWeight>$0.unitWeight</unitWeight>
+    <weight>$0.weight</weight>
+    <width>$0.width</width>
+  </arg0>
+</clover:element>]]></attr>
+<attr name="_data_format"><![CDATA[XML]]></attr>
+<attr name="__metadata"><![CDATA[true]]></attr>
+</Node>
+<Node enabled="enabled" guiName="Foreach 'object' -&gt; 'ns0:processQuote'" guiX="460" guiY="20" id="FOREACH_OBJECT_NS0_PROCESS_QUOTE" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+//END -> DO NOT REMOVE
+output.toCountryCode = input.countryCode;
+output.toZipCode = input.zipCode;
+
+output.currency = "EUR";
+output.unitSize = "CM";
+output.unitWeight = "KG";
+
+// TODO
+
+output.shipping = "STANDARD";
+output.fromZipCode = "06560";
+output.fromCountryCode = "FR";
+output.pickup = 1426098618750;
+output.width = 20.0;
+output.height = 20.0;
+output.depth = 20.0;
+output.weight = 20.0;]]></attr>
+</Node>
+<Edge debugMode="true" fromNode="BEAN_READER0:0" guiBendpoints="" id="Edge0" inPort="Port 0 (in)" metadata="35930097-fc29-474f-977f-1333e8868cbe" outPort="Port 0 (out)" toNode="FOREACH_OBJECT_NS0_PROCESS_QUOTE:0"/>
+<Edge debugMode="true" fromNode="FOREACH_OBJECT_NS0_PROCESS_QUOTE:0" guiBendpoints="" id="Edge1" inPort="Port 0 (in)" metadata="a9e9a02f-08e1-4d63-9e4f-31ac1ae32b48" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:0"/>
+</Phase>
+</Graph>

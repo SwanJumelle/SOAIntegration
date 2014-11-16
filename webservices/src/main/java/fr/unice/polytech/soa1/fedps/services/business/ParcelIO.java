@@ -5,7 +5,6 @@ import fr.unice.polytech.soa1.fedps.bdd.model.*;
 import fr.unice.polytech.soa1.fedps.bdd.model.units.Currency;
 import fr.unice.polytech.soa1.fedps.bdd.model.units.UnitSize;
 import fr.unice.polytech.soa1.fedps.bdd.model.units.UnitWeight;
-import fr.unice.polytech.soa1.fedps.services.order.input.OrderInput;
 import fr.unice.polytech.soa1.fedps.services.order.output.BadJobFault;
 import fr.unice.polytech.soa1.fedps.services.order.output.JobResult;
 
@@ -16,7 +15,7 @@ import java.util.Date;
          propOrder = { "id", "status", "sender", "senderEmail", "cardNumber", "receiver", "from", "to", "shipping",
                 "pickup", "eta", "cost", "currency", "width", "height", "depth", "unitSize", "weight", "unitWeight" })
 @XmlRootElement(name = "parcel")
-public class ParcelIO extends OrderInput {
+public class ParcelIO {
 
     private String id;
     private String cardNumber;
@@ -66,7 +65,6 @@ public class ParcelIO extends OrderInput {
     // Methods
     // *******
 
-    @Override
     public void check(DataAccessObject dao) throws BadJobFault
     {
         if (sender == null || senderEmail == null || receiver == null || cardNumber == null
@@ -88,8 +86,7 @@ public class ParcelIO extends OrderInput {
         }
     }
 
-    @Override
-    public JobResult run(DataAccessObject dao) throws BadJobFault
+    public OrderOutput run(DataAccessObject dao) throws BadJobFault
     {
         Parcel parcel = new Parcel();
         TransportInformation transportInformation = new TransportInformation();

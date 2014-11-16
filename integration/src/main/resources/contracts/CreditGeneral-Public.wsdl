@@ -1,0 +1,195 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://informatique.polytech.unice.fr/soa1/payment/rpc/public" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="PaymentRPCPublicService" targetNamespace="http://informatique.polytech.unice.fr/soa1/payment/rpc/public">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://informatique.polytech.unice.fr/soa1/payment/rpc/public" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://informatique.polytech.unice.fr/soa1/payment/rpc/public">
+  <xs:element name="get_all_transactions_for_customer" type="tns:get_all_transactions_for_customer"/>
+  <xs:element name="get_all_transactions_for_customerResponse" type="tns:get_all_transactions_for_customerResponse"/>
+  <xs:element name="process_payment" type="tns:process_payment"/>
+  <xs:element name="process_paymentResponse" type="tns:process_paymentResponse"/>
+  <xs:element name="retailer" type="tns:retailer"/>
+  <xs:complexType name="get_all_transactions_for_customer">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="get_all_transactions_for_customerResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="transactions" type="tns:transaction"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="transaction">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="transaction_amount" type="xs:double"/>
+      <xs:element minOccurs="0" name="card_number" type="xs:string"/>
+      <xs:element minOccurs="0" name="customer_info" type="xs:string"/>
+      <xs:element minOccurs="0" name="transaction_status" type="tns:status"/>
+    </xs:sequence>
+    <xs:attribute name="retailer" type="xs:IDREF"/>
+  </xs:complexType>
+  <xs:complexType name="retailer">
+    <xs:complexContent>
+      <xs:extension base="tns:jobResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="address" type="xs:string"/>
+          <xs:element minOccurs="0" name="name" type="xs:string"/>
+          <xs:element minOccurs="0" name="transactions">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="transaction" type="tns:transaction"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType abstract="true" name="jobResult">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="admin_info">
+    <xs:complexContent>
+      <xs:extension base="tns:jobResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="contents" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="list_of_retailers">
+    <xs:complexContent>
+      <xs:extension base="tns:jobResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="retailers">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="retailer_id" type="xs:string"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="list_of_information">
+    <xs:complexContent>
+      <xs:extension base="tns:jobResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="data">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="information" type="tns:admin_info"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="list_of_transactions">
+    <xs:complexContent>
+      <xs:extension base="tns:jobResult">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="transaction" type="tns:transaction"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="process_payment">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="xs:string"/>
+      <xs:element minOccurs="0" name="card" type="xs:string"/>
+      <xs:element minOccurs="0" name="customer" type="xs:string"/>
+      <xs:element minOccurs="0" name="amount" type="xs:double"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="process_paymentResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="status" type="tns:status"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="status">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PROCESSING"/>
+      <xs:enumeration value="APPROVED"/>
+      <xs:enumeration value="DECLINED"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="UnknownRetailer" type="tns:UnknownRetailer"/>
+  <xs:complexType name="UnknownRetailer">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="get_all_transactions_for_customerResponse">
+    <wsdl:part element="tns:get_all_transactions_for_customerResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="UnknownRetailerFault">
+    <wsdl:part element="tns:UnknownRetailer" name="UnknownRetailerFault">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="process_payment">
+    <wsdl:part element="tns:process_payment" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="process_paymentResponse">
+    <wsdl:part element="tns:process_paymentResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="get_all_transactions_for_customer">
+    <wsdl:part element="tns:get_all_transactions_for_customer" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="RetailerRPC">
+    <wsdl:operation name="get_all_transactions_for_customer">
+      <wsdl:input message="tns:get_all_transactions_for_customer" name="get_all_transactions_for_customer">
+    </wsdl:input>
+      <wsdl:output message="tns:get_all_transactions_for_customerResponse" name="get_all_transactions_for_customerResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:UnknownRetailerFault" name="UnknownRetailerFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="process_payment">
+      <wsdl:input message="tns:process_payment" name="process_payment">
+    </wsdl:input>
+      <wsdl:output message="tns:process_paymentResponse" name="process_paymentResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:UnknownRetailerFault" name="UnknownRetailerFault">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PaymentRPCPublicServiceSoapBinding" type="tns:RetailerRPC">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="get_all_transactions_for_customer">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="get_all_transactions_for_customer">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="get_all_transactions_for_customerResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="UnknownRetailerFault">
+        <soap:fault name="UnknownRetailerFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="process_payment">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="process_payment">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="process_paymentResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="UnknownRetailerFault">
+        <soap:fault name="UnknownRetailerFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PaymentRPCPublicService">
+    <wsdl:port binding="tns:PaymentRPCPublicServiceSoapBinding" name="PaymentRPCPublicPort">
+      <soap:address location="http://localhost:8080//webservices/Payment-Public-RPC"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

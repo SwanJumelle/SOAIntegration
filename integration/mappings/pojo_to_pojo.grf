@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?><Graph __version="3.5.0" author="victorsalle" created="Sun Nov 16 13:32:36 CET 2014" description="Pojo To Pojo" guiVersion="3.4.4.P" id="1416160817605" licenseCode="Unlicensed" licenseType="Unknown" modified="Sun Nov 16 13:32:36 CET 2014" modifiedBy="victorsalle" name="Pojo_To_Pojo" revision="1.0" showComponentDetails="false">
+<Global>
+<Metadata __index="16" __referenceCounter="1" __sourcePath="{}/object/items" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="76610025-9232-4441-9bbf-717dcfe1e7a5" _parent_id="__parent_id" _type="Input" id="93cdce35-d03e-4595-b14b-4fe88d59d42e">
+<Record fieldDelimiter="," name="items" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="16" __sourcePath="{}/object/items/productRef" containerType="SINGLE" label="productRef" name="productRef" type="string"/>
+<Field __index="17" __sourcePath="{}/object/items/quantity" containerType="SINGLE" label="quantity" name="quantity" type="integer"/>
+<Field __index="18" __sourcePath="{}/object/items/unitPrice" containerType="SINGLE" label="unitPrice" name="unitPrice" type="number"/>
+</Record>
+</Metadata>
+<Metadata __index="4" __referenceCounter="1" __sourcePath="{}/object/receipt/items" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="979a097c-774f-408d-a9e0-76e696096dc4" _parent_id="__parent_id" _type="Output" id="b019325a-aad6-4130-9555-1cb363da03a6">
+<Record fieldDelimiter="," name="items" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="4" __sourcePath="{}/object/receipt/items/productRef" containerType="SINGLE" label="productRef" name="productRef" type="string"/>
+<Field __index="5" __sourcePath="{}/object/receipt/items/quantity" containerType="SINGLE" label="quantity" name="quantity" type="integer"/>
+</Record>
+</Metadata>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/object" _dataStructure="OBJECT" _id="__id" _type="Input" id="76610025-9232-4441-9bbf-717dcfe1e7a5">
+<Record fieldDelimiter="," name="Order" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __sourcePath="{}/object/address/city" containerType="SINGLE" label="city" name="city" type="string"/>
+<Field __index="1" __sourcePath="{}/object/address/countryCode" containerType="SINGLE" label="countryCode" name="countryCode" type="string"/>
+<Field __index="2" __sourcePath="{}/object/address/streetName" containerType="SINGLE" label="streetName" name="streetName" type="string"/>
+<Field __index="3" __sourcePath="{}/object/address/streetNb" containerType="SINGLE" label="streetNb" name="streetNb" type="string"/>
+<Field __index="4" __sourcePath="{}/object/address/zipCode" containerType="SINGLE" label="zipCode" name="zipCode" type="string"/>
+<Field __index="5" __sourcePath="{}/object/carrier" containerType="SINGLE" label="carrier" name="carrier" type="string"/>
+<Field __index="6" __sourcePath="{}/object/customer/address/city" containerType="SINGLE" label="city" name="city_1" type="string"/>
+<Field __index="7" __sourcePath="{}/object/customer/address/countryCode" containerType="SINGLE" label="countryCode" name="countryCode_1" type="string"/>
+<Field __index="8" __sourcePath="{}/object/customer/address/streetName" containerType="SINGLE" label="streetName" name="streetName_1" type="string"/>
+<Field __index="9" __sourcePath="{}/object/customer/address/streetNb" containerType="SINGLE" label="streetNb" name="streetNb_1" type="string"/>
+<Field __index="10" __sourcePath="{}/object/customer/address/zipCode" containerType="SINGLE" label="zipCode" name="zipCode_1" type="string"/>
+<Field __index="11" __sourcePath="{}/object/customer/email" containerType="SINGLE" label="email" name="email" type="string"/>
+<Field __index="12" __sourcePath="{}/object/customer/firstName" containerType="SINGLE" label="firstName" name="firstName" type="string"/>
+<Field __index="13" __sourcePath="{}/object/customer/lastName" containerType="SINGLE" label="lastName" name="lastName" type="string"/>
+<Field __index="14" __sourcePath="{}/object/date" containerType="SINGLE" label="date" name="date" type="date"/>
+<Field __index="15" __sourcePath="{}/object/id" containerType="SINGLE" label="id" name="id" type="integer"/>
+<Field __index="19" __sourcePath="{}/object/trackingNb" containerType="SINGLE" label="trackingNb" name="trackingNb" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/object" _dataStructure="OBJECT" _id="__id" _type="Output" id="979a097c-774f-408d-a9e0-76e696096dc4">
+<Record fieldDelimiter="," name="OrderInformation" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __sourcePath="{}/object/deliveryTracking/carrier" containerType="SINGLE" label="carrier" name="carrier" type="string"/>
+<Field __index="1" __sourcePath="{}/object/deliveryTracking/trackingNb" containerType="SINGLE" label="trackingNb" name="trackingNb" type="string"/>
+<Field __index="2" __sourcePath="{}/object/deliveryTracking/url" containerType="SINGLE" label="url" name="url" type="string"/>
+<Field __index="3" __sourcePath="{}/object/receipt/eta" containerType="SINGLE" label="eta" name="eta" type="long"/>
+<Field __index="6" __sourcePath="{}/object/receipt/orderId" containerType="SINGLE" label="orderId" name="orderId" type="string"/>
+<Field __index="7" __sourcePath="{}/object/status" containerType="SINGLE" label="status" name="status" type="string"/>
+</Record>
+</Metadata>
+<Dictionary>
+<Entry id="DictionaryEntry0" input="true" name="inputPayload" output="false" type="object"/>
+<Entry id="DictionaryEntry1" input="false" name="outputPayload" output="true" type="object"/>
+</Dictionary>
+</Global>
+<Phase number="0">
+<Node enabled="enabled" fileURL="dict:inputPayload" guiName="Pojo READER" guiX="20" guiY="20" id="BEAN_READER0" type="BEAN_READER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Context outPort="0" sequenceField="__id" xpath=".">
+  <Mapping cloverField="city" trim="true" xpath="address/city"/>
+  <Mapping cloverField="countryCode" trim="true" xpath="address/countryCode"/>
+  <Mapping cloverField="streetName" trim="true" xpath="address/streetName"/>
+  <Mapping cloverField="streetNb" trim="true" xpath="address/streetNb"/>
+  <Mapping cloverField="zipCode" trim="true" xpath="address/zipCode"/>
+  <Mapping cloverField="carrier" trim="true" xpath="carrier"/>
+  <Mapping cloverField="city_1" trim="true" xpath="customer/address/city"/>
+  <Mapping cloverField="countryCode_1" trim="true" xpath="customer/address/countryCode"/>
+  <Mapping cloverField="streetName_1" trim="true" xpath="customer/address/streetName"/>
+  <Mapping cloverField="streetNb_1" trim="true" xpath="customer/address/streetNb"/>
+  <Mapping cloverField="zipCode_1" trim="true" xpath="customer/address/zipCode"/>
+  <Mapping cloverField="email" trim="true" xpath="customer/email"/>
+  <Mapping cloverField="firstName" trim="true" xpath="customer/firstName"/>
+  <Mapping cloverField="lastName" trim="true" xpath="customer/lastName"/>
+  <Mapping cloverField="date" trim="true" xpath="date"/>
+  <Mapping cloverField="id" trim="true" xpath="id"/>
+  <Mapping cloverField="trackingNb" trim="true" xpath="trackingNb"/>
+  <Context generatedKey="__parent_id" outPort="1" parentKey="__id" sequenceField="__id" xpath="items">
+    <Mapping cloverField="productRef" trim="true" xpath="productRef"/>
+    <Mapping cloverField="quantity" trim="true" xpath="quantity"/>
+    <Mapping cloverField="unitPrice" trim="true" xpath="unitPrice"/>
+  </Context>
+</Context>
+]]></attr>
+<attr name="_data_format"><![CDATA[JAVA]]></attr>
+<attr name="schema"><![CDATA[<?xml version="1.0" encoding="UTF-8"?><schema-object>
+  <typed-object-ref type-ref="fr.unice.polytech.soa1.misterdiscount.bdd.Order"/>
+  <typed-object type="fr.unice.polytech.soa1.misterdiscount.bdd.Order">
+    <typed-object-ref name="address" type-ref="fr.unice.polytech.soa1.misterdiscount.business.Address"/>
+    <typed-object-ref name="carrier" type-ref="java.lang.String"/>
+    <typed-object-ref name="customer" type-ref="fr.unice.polytech.soa1.misterdiscount.business.Customer"/>
+    <typed-object-ref name="date" type-ref="java.sql.Date"/>
+    <typed-object-ref name="id" type-ref="java.lang.Integer"/>
+    <schema-collection name="items" type="java.util.List">
+      <typed-object-ref type-ref="fr.unice.polytech.soa1.misterdiscount.bdd.OrderItem"/>
+    </schema-collection>
+    <typed-object-ref name="trackingNb" type-ref="java.lang.String"/>
+  </typed-object>
+  <typed-object type="fr.unice.polytech.soa1.misterdiscount.business.Address">
+    <typed-object-ref name="city" type-ref="java.lang.String"/>
+    <typed-object-ref name="countryCode" type-ref="java.lang.String"/>
+    <typed-object-ref name="streetName" type-ref="java.lang.String"/>
+    <typed-object-ref name="streetNb" type-ref="java.lang.String"/>
+    <typed-object-ref name="zipCode" type-ref="java.lang.String"/>
+  </typed-object>
+  <typed-object type="double"/>
+  <typed-object type="fr.unice.polytech.soa1.misterdiscount.bdd.OrderItem">
+    <typed-object-ref name="productRef" type-ref="java.lang.String"/>
+    <typed-object-ref name="quantity" type-ref="int"/>
+    <typed-object-ref name="unitPrice" type-ref="double"/>
+  </typed-object>
+  <typed-object type="java.lang.String"/>
+  <typed-object type="java.lang.Integer"/>
+  <typed-object type="fr.unice.polytech.soa1.misterdiscount.business.Customer">
+    <typed-object-ref name="address" type-ref="fr.unice.polytech.soa1.misterdiscount.business.Address"/>
+    <typed-object-ref name="email" type-ref="java.lang.String"/>
+    <typed-object-ref name="firstName" type-ref="java.lang.String"/>
+    <typed-object-ref name="lastName" type-ref="java.lang.String"/>
+  </typed-object>
+  <typed-object type="int"/>
+  <typed-object type="java.sql.Date"/>
+</schema-object>
+]]></attr>
+</Node>
+<Node cacheInMemory="true" enabled="enabled" fileURL="dict:outputPayload" guiName="Pojo WRITER" guiX="900" guiY="20" id="BEAN_WRITER0" type="BEAN_WRITER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<object xmlns:clover="http://www.cloveretl.com/ns/xmlmapping" clover:inPort="0">
+  <deliveryTracking>
+    <carrier>$0.carrier</carrier>
+    <trackingNb>$0.trackingNb</trackingNb>
+    <url>$0.url</url>
+  </deliveryTracking>
+  <receipt>
+    <eta>$0.eta</eta>
+    <clover:collection clover:name="items">
+      <item clover:inPort="1" clover:key="__parent_id" clover:parentKey="__id">
+        <productRef>$1.productRef</productRef>
+        <quantity>$1.quantity</quantity>
+      </item>
+    </clover:collection>
+    <orderId>$0.orderId</orderId>
+  </receipt>
+  <status>$0.status</status>
+</object>]]></attr>
+<attr name="_data_format"><![CDATA[JAVA]]></attr>
+<attr name="schema"><![CDATA[<?xml version="1.0" encoding="UTF-8"?><schema-object>
+  <typed-object-ref type-ref="fr.unice.polytech.soa1.misterdiscount.business.OrderInformation"/>
+  <typed-object type="fr.unice.polytech.soa1.misterdiscount.business.DeliveryTracking">
+    <typed-object-ref name="carrier" type-ref="java.lang.String"/>
+    <typed-object-ref name="trackingNb" type-ref="java.lang.String"/>
+    <typed-object-ref name="url" type-ref="java.lang.String"/>
+  </typed-object>
+  <typed-object type="java.lang.Long"/>
+  <typed-object type="fr.unice.polytech.soa1.misterdiscount.business.Receipt">
+    <typed-object-ref name="eta" type-ref="java.lang.Long"/>
+    <schema-collection name="items" type="java.util.List">
+      <typed-object-ref type-ref="fr.unice.polytech.soa1.misterdiscount.business.Item"/>
+    </schema-collection>
+    <typed-object-ref name="orderId" type-ref="java.lang.String"/>
+  </typed-object>
+  <typed-object type="fr.unice.polytech.soa1.misterdiscount.business.OrderInformation">
+    <typed-object-ref name="deliveryTracking" type-ref="fr.unice.polytech.soa1.misterdiscount.business.DeliveryTracking"/>
+    <typed-object-ref name="receipt" type-ref="fr.unice.polytech.soa1.misterdiscount.business.Receipt"/>
+    <typed-object-ref name="status" type-ref="java.lang.String"/>
+  </typed-object>
+  <typed-object type="fr.unice.polytech.soa1.misterdiscount.business.Item">
+    <typed-object-ref name="productRef" type-ref="java.lang.String"/>
+    <typed-object-ref name="quantity" type-ref="java.lang.Integer"/>
+  </typed-object>
+  <typed-object type="java.lang.String"/>
+  <typed-object type="java.lang.Integer"/>
+</schema-object>
+]]></attr>
+</Node>
+<Node enabled="enabled" guiName="Foreach 'items' -&gt; 'items'" guiX="460" guiY="120" id="FOREACH_ITEMS_ITEMS" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+output.__parent_id = input.__parent_id;
+//END -> DO NOT REMOVE
+output.productRef = input.productRef;
+output.quantity = input.quantity;
+]]></attr>
+</Node>
+<Node enabled="enabled" guiName="Foreach 'object' -&gt; 'object'" guiX="460" guiY="20" id="FOREACH_OBJECT_OBJECT" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+//END -> DO NOT REMOVE
+output.carrier = input.carrier;
+output.trackingNb = input.trackingNb;
+output.orderId = num2str(input.id);]]></attr>
+</Node>
+<Edge debugMode="true" fromNode="BEAN_READER0:0" guiBendpoints="" id="Edge0" inPort="Port 0 (in)" metadata="76610025-9232-4441-9bbf-717dcfe1e7a5" outPort="Port 0 (out)" toNode="FOREACH_OBJECT_OBJECT:0"/>
+<Edge debugMode="true" fromNode="BEAN_READER0:1" guiBendpoints="" id="Edge2" inPort="Port 0 (in)" metadata="93cdce35-d03e-4595-b14b-4fe88d59d42e" outPort="Port 1 (out)" toNode="FOREACH_ITEMS_ITEMS:0"/>
+<Edge debugMode="true" fromNode="FOREACH_ITEMS_ITEMS:0" guiBendpoints="" id="Edge3" inPort="Port 1 (in)" metadata="b019325a-aad6-4130-9555-1cb363da03a6" outPort="Port 0 (out)" toNode="BEAN_WRITER0:1"/>
+<Edge debugMode="true" fromNode="FOREACH_OBJECT_OBJECT:0" guiBendpoints="" id="Edge1" inPort="Port 0 (in)" metadata="979a097c-774f-408d-a9e0-76e696096dc4" outPort="Port 0 (out)" toNode="BEAN_WRITER0:0"/>
+</Phase>
+</Graph>

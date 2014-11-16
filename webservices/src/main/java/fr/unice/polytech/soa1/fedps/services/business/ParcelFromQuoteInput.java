@@ -4,7 +4,6 @@ import fr.unice.polytech.soa1.fedps.bdd.dao.DataAccessObject;
 import fr.unice.polytech.soa1.fedps.bdd.model.Parcel;
 import fr.unice.polytech.soa1.fedps.bdd.model.ParcelStatus;
 import fr.unice.polytech.soa1.fedps.bdd.model.Quote;
-import fr.unice.polytech.soa1.fedps.services.order.input.OrderInput;
 import fr.unice.polytech.soa1.fedps.services.order.output.BadJobFault;
 import fr.unice.polytech.soa1.fedps.services.order.output.JobResult;
 
@@ -14,7 +13,7 @@ import java.util.Date;
 import java.util.Optional;
 
 @XmlType(name = "parcel_from_quote")
-public class ParcelFromQuoteInput extends OrderInput {
+public class ParcelFromQuoteInput {
 
     private String quoteId;
     private String cardNumber;
@@ -33,7 +32,6 @@ public class ParcelFromQuoteInput extends OrderInput {
     // Method
     // ******
 
-    @Override
     public void check(DataAccessObject dao) throws BadJobFault
     {
         if (quoteId == null || cardNumber == null || sender == null || senderEmail == null || receiver == null
@@ -65,8 +63,7 @@ public class ParcelFromQuoteInput extends OrderInput {
         }
     }
 
-    @Override
-    public JobResult run(DataAccessObject dao) throws BadJobFault
+    public OrderOutput run(DataAccessObject dao) throws BadJobFault
     {
         Parcel parcel = new Parcel();
 
