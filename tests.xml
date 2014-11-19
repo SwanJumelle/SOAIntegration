@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project activeEnvironment="Default" name="MisterDiscount" resourceRoot="" soapui-version="5.0.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="MisterDiscountOrderServiceSoapBinding" type="wsdl" bindingName="{http://informatique.polytech.unice.fr/soa1/MisterDiscount/order}MisterDiscountOrderServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8081/misterdiscount/order?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8081/misterdiscount/order?wsdl"><con:part><con:url>http://localhost:8081/misterdiscount/order?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="MisterDiscountOrderService" targetNamespace="http://informatique.polytech.unice.fr/soa1/MisterDiscount/order" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://informatique.polytech.unice.fr/soa1/MisterDiscount/order" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http">
+  <wsdl:types>
+    <xs:schema elementFormDefault="unqualified" targetNamespace="http://informatique.polytech.unice.fr/soa1/MisterDiscount/order" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="GetOrderInformation" type="tns:GetOrderInformation"/>
+      <xs:element name="GetOrderInformationResponse" type="tns:GetOrderInformationResponse"/>
+      <xs:element name="ProcessOrder" type="tns:ProcessOrder"/>
+      <xs:element name="ProcessOrderResponse" type="tns:ProcessOrderResponse"/>
+      <xs:complexType name="GetOrderInformation">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="orderId" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetOrderInformationResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="orderInformation" type="tns:orderInformation"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="orderInformation">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="deliveryTracking" type="tns:deliveryTracking"/>
+          <xs:element minOccurs="0" name="eta" type="xs:long"/>
+          <xs:element name="items">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="item" type="tns:item_with_price"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" name="orderId" type="xs:int"/>
+          <xs:element minOccurs="0" name="shippingAddress" type="tns:address"/>
+          <xs:element minOccurs="0" name="status" type="xs:string"/>
+          <xs:element minOccurs="0" name="totalCost" type="xs:double"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="deliveryTracking">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="carrier" type="xs:string"/>
+          <xs:element minOccurs="0" name="trackingNb" type="xs:string"/>
+          <xs:element minOccurs="0" name="url" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="item_with_price">
+        <xs:sequence>
+          <xs:element name="productRef" type="xs:string"/>
+          <xs:element name="quantity" type="xs:int"/>
+          <xs:element name="unitPrice" type="xs:double"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="address">
+        <xs:sequence>
+          <xs:element name="city" type="xs:string"/>
+          <xs:element name="countryCode" type="xs:string"/>
+          <xs:element name="streetName" type="xs:string"/>
+          <xs:element name="streetNb" type="xs:string"/>
+          <xs:element name="zipCode" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ProcessOrder">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="orderinput" type="tns:orderInput"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="orderInput">
+        <xs:sequence>
+          <xs:element name="cardNb" type="xs:string"/>
+          <xs:element name="customerId" type="xs:string"/>
+          <xs:element name="items">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="item" type="tns:item"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" name="shippingAddress" type="tns:address"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="item">
+        <xs:sequence>
+          <xs:element name="productRef" type="xs:string"/>
+          <xs:element name="quantity" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ProcessOrderResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="receipt" type="tns:receipt"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="receipt">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="eta" type="xs:long"/>
+          <xs:element name="items">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="item" type="tns:item"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" name="orderId" type="xs:string"/>
+          <xs:element minOccurs="0" name="totalCost" type="xs:double"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="ProcessOrderResponse">
+    <wsdl:part element="tns:ProcessOrderResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetOrderInformationResponse">
+    <wsdl:part element="tns:GetOrderInformationResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetOrderInformation">
+    <wsdl:part element="tns:GetOrderInformation" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ProcessOrder">
+    <wsdl:part element="tns:ProcessOrder" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="MisterDiscountOrder">
+    <wsdl:operation name="GetOrderInformation">
+      <wsdl:input message="tns:GetOrderInformation" name="GetOrderInformation"></wsdl:input>
+      <wsdl:output message="tns:GetOrderInformationResponse" name="GetOrderInformationResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcessOrder">
+      <wsdl:input message="tns:ProcessOrder" name="ProcessOrder"></wsdl:input>
+      <wsdl:output message="tns:ProcessOrderResponse" name="ProcessOrderResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MisterDiscountOrderServiceSoapBinding" type="tns:MisterDiscountOrder">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetOrderInformation">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="GetOrderInformation">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="GetOrderInformationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcessOrder">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="ProcessOrder">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ProcessOrderResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MisterDiscountOrderService">
+    <wsdl:port binding="tns:MisterDiscountOrderServiceSoapBinding" name="MisterDiscountOrderPort">
+      <soap:address location="http://localhost:8081/misterdiscount/order"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8081/misterdiscount/order</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="GetOrderInformation" bindingOperationName="GetOrderInformation" type="Request-Response" outputName="GetOrderInformationResponse" inputName="GetOrderInformation" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/misterdiscount/order</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ord="http://informatique.polytech.unice.fr/soa1/MisterDiscount/order">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ord:GetOrderInformation>
+         <orderId>1</orderId>
+      </ord:GetOrderInformation>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://informatique.polytech.unice.fr/soa1/MisterDiscount/order/MisterDiscountOrder/GetOrderInformation"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="" name="ProcessOrder" bindingOperationName="ProcessOrder" type="Request-Response" outputName="ProcessOrderResponse" inputName="ProcessOrder" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1 - Without address"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/misterdiscount/order</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ord="http://informatique.polytech.unice.fr/soa1/MisterDiscount/order">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ord:ProcessOrder>
+         <orderinput>
+            <cardNb>ABC123</cardNb>
+            <customerId>1</customerId>
+            <items>
+               <item>
+                  <productRef>OIH211</productRef>
+                  <quantity>3</quantity>
+               </item>
+               <item>
+                  <productRef>SXC266</productRef>
+                  <quantity>1</quantity>
+               </item>
+            </items>
+         </orderinput>>
+      </ord:ProcessOrder>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://informatique.polytech.unice.fr/soa1/MisterDiscount/order/MisterDiscountOrder/ProcessOrder"/><con:wsrmConfig version="1.2"/></con:call><con:call name="Request 1 - With address"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/misterdiscount/order</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ord="http://informatique.polytech.unice.fr/soa1/MisterDiscount/order">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ord:ProcessOrder>
+         <orderinput>
+            <cardNb>ABC123</cardNb>
+            <customerId>1</customerId>
+            <items>
+               <item>
+                  <productRef>OIH211</productRef>
+                  <quantity>3</quantity>
+               </item>
+               <item>
+                  <productRef>SXC266</productRef>
+                  <quantity>1</quantity>
+               </item>
+            </items>
+            <shippingAddress>
+            	<streetNb>2400</streetNb>
+            	<streetName>Route des Dolines</streetName>
+            	<zipCode>06560</zipCode>
+            	<city>Valbonne</city>
+            	<countryCode>FR</countryCode>
+            </shippingAddress>
+         </orderinput>>
+      </ord:ProcessOrder>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://informatique.polytech.unice.fr/soa1/MisterDiscount/order/MisterDiscountOrder/ProcessOrder"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="MisterDiscountCatalogueServiceSoapBinding" type="wsdl" bindingName="{http://informatique.polytech.unice.fr/soa1/MisterDiscount/catalogue}MisterDiscountCatalogueServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8081/misterdiscount/catalogue?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8081/misterdiscount/catalogue?wsdl"><con:part><con:url>http://localhost:8081/misterdiscount/catalogue?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="MisterDiscountCatalogueService" targetNamespace="http://informatique.polytech.unice.fr/soa1/MisterDiscount/catalogue" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://informatique.polytech.unice.fr/soa1/MisterDiscount/catalogue" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http">
+  <wsdl:types>
+    <xs:schema elementFormDefault="unqualified" targetNamespace="http://informatique.polytech.unice.fr/soa1/MisterDiscount/catalogue" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="GetAddressesToSend" type="tns:GetAddressesToSend"/>
+      <xs:element name="GetAddressesToSendResponse" type="tns:GetAddressesToSendResponse"/>
+      <xs:element name="RegisterCatalogueExistingCustomer" type="tns:RegisterCatalogueExistingCustomer"/>
+      <xs:element name="RegisterCatalogueExistingCustomerResponse" type="tns:RegisterCatalogueExistingCustomerResponse"/>
+      <xs:element name="RegisterCatalogueNewCustomer" type="tns:RegisterCatalogueNewCustomer"/>
+      <xs:element name="RegisterCatalogueNewCustomerResponse" type="tns:RegisterCatalogueNewCustomerResponse"/>
+      <xs:complexType name="GetAddressesToSend">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:complexType name="GetAddressesToSendResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="addresses">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="address" type="tns:full_address"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="full_address">
+        <xs:sequence>
+          <xs:element name="city" type="xs:string"/>
+          <xs:element name="countryCode" type="xs:string"/>
+          <xs:element name="firstName" type="xs:string"/>
+          <xs:element name="lastName" type="xs:string"/>
+          <xs:element name="streetName" type="xs:string"/>
+          <xs:element name="streetNb" type="xs:string"/>
+          <xs:element name="zipCode" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="RegisterCatalogueExistingCustomer">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="customerId" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="RegisterCatalogueExistingCustomerResponse">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:complexType name="RegisterCatalogueNewCustomer">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="customer" type="tns:customer"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="customer">
+        <xs:sequence>
+          <xs:element name="address" type="tns:address"/>
+          <xs:element minOccurs="0" name="email" type="xs:string"/>
+          <xs:element name="firstName" type="xs:string"/>
+          <xs:element name="lastName" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="address">
+        <xs:sequence>
+          <xs:element name="city" type="xs:string"/>
+          <xs:element name="countryCode" type="xs:string"/>
+          <xs:element name="streetName" type="xs:string"/>
+          <xs:element name="streetNb" type="xs:string"/>
+          <xs:element name="zipCode" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="RegisterCatalogueNewCustomerResponse">
+        <xs:sequence/>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="RegisterCatalogueExistingCustomerResponse">
+    <wsdl:part element="tns:RegisterCatalogueExistingCustomerResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="RegisterCatalogueNewCustomer">
+    <wsdl:part element="tns:RegisterCatalogueNewCustomer" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetAddressesToSend">
+    <wsdl:part element="tns:GetAddressesToSend" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="RegisterCatalogueNewCustomerResponse">
+    <wsdl:part element="tns:RegisterCatalogueNewCustomerResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="RegisterCatalogueExistingCustomer">
+    <wsdl:part element="tns:RegisterCatalogueExistingCustomer" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetAddressesToSendResponse">
+    <wsdl:part element="tns:GetAddressesToSendResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="MisterDiscountCatalogue">
+    <wsdl:operation name="GetAddressesToSend">
+      <wsdl:input message="tns:GetAddressesToSend" name="GetAddressesToSend"></wsdl:input>
+      <wsdl:output message="tns:GetAddressesToSendResponse" name="GetAddressesToSendResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegisterCatalogueExistingCustomer">
+      <wsdl:input message="tns:RegisterCatalogueExistingCustomer" name="RegisterCatalogueExistingCustomer"></wsdl:input>
+      <wsdl:output message="tns:RegisterCatalogueExistingCustomerResponse" name="RegisterCatalogueExistingCustomerResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegisterCatalogueNewCustomer">
+      <wsdl:input message="tns:RegisterCatalogueNewCustomer" name="RegisterCatalogueNewCustomer"></wsdl:input>
+      <wsdl:output message="tns:RegisterCatalogueNewCustomerResponse" name="RegisterCatalogueNewCustomerResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MisterDiscountCatalogueServiceSoapBinding" type="tns:MisterDiscountCatalogue">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetAddressesToSend">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="GetAddressesToSend">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="GetAddressesToSendResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegisterCatalogueExistingCustomer">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="RegisterCatalogueExistingCustomer">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="RegisterCatalogueExistingCustomerResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegisterCatalogueNewCustomer">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="RegisterCatalogueNewCustomer">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="RegisterCatalogueNewCustomerResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MisterDiscountCatalogueService">
+    <wsdl:port binding="tns:MisterDiscountCatalogueServiceSoapBinding" name="MisterDiscountCataloguePort">
+      <soap:address location="http://localhost:8081/misterdiscount/catalogue"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8081/misterdiscount/catalogue</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="GetAddressesToSend" bindingOperationName="GetAddressesToSend" type="Request-Response" outputName="GetAddressesToSendResponse" inputName="GetAddressesToSend" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/misterdiscount/catalogue</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cat="http://informatique.polytech.unice.fr/soa1/MisterDiscount/catalogue">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <cat:GetAddressesToSend/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://informatique.polytech.unice.fr/soa1/MisterDiscount/catalogue/MisterDiscountCatalogue/GetAddressesToSend"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="" name="RegisterCatalogueExistingCustomer" bindingOperationName="RegisterCatalogueExistingCustomer" type="Request-Response" outputName="RegisterCatalogueExistingCustomerResponse" inputName="RegisterCatalogueExistingCustomer" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/misterdiscount/catalogue</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cat="http://informatique.polytech.unice.fr/soa1/MisterDiscount/catalogue">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <cat:RegisterCatalogueExistingCustomer>
+         <customerId>1</customerId>
+      </cat:RegisterCatalogueExistingCustomer>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://informatique.polytech.unice.fr/soa1/MisterDiscount/catalogue/MisterDiscountCatalogue/RegisterCatalogueExistingCustomer"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="" name="RegisterCatalogueNewCustomer" bindingOperationName="RegisterCatalogueNewCustomer" type="Request-Response" outputName="RegisterCatalogueNewCustomerResponse" inputName="RegisterCatalogueNewCustomer" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/misterdiscount/catalogue</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cat="http://informatique.polytech.unice.fr/soa1/MisterDiscount/catalogue">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <cat:RegisterCatalogueNewCustomer>
+         <customer>
+            <address>
+               <city>Valbonne</city>
+               <countryCode>FR</countryCode>
+               <streetName>Route des Dolines</streetName>
+               <streetNb>2400</streetNb>
+               <zipCode>06560</zipCode>
+            </address>
+            <!--Optional:-->
+            <email>salle@polytech.unice.fr</email>
+            <firstName>Victor</firstName>
+            <lastName>Sallé</lastName>
+         </customer>
+      </cat:RegisterCatalogueNewCustomer>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://informatique.polytech.unice.fr/soa1/MisterDiscount/catalogue/MisterDiscountCatalogue/RegisterCatalogueNewCustomer"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite name="MisterDiscount - TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Subscribe catalogue - New customer" searchProperties="true" id="938c9643-5da7-4a74-8510-bccf995682e3"><con:settings/><con:testStep type="request" name="list addresses before"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MisterDiscountCatalogueServiceSoapBinding</con:interface><con:operation>GetAddressesToSend</con:operation><con:request name="list addresses before"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/misterdiscount/catalogue</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cat="http://informatique.polytech.unice.fr/soa1/MisterDiscount/catalogue">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <cat:GetAddressesToSend/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="transfer" name="count addresses before"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>counter</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>list addresses before</con:sourceStep><con:sourcePath>count(//address)</con:sourcePath><con:targetType>counter_init</con:targetType><con:targetStep>#TestCase#</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="request" name="subscribe new customer"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MisterDiscountCatalogueServiceSoapBinding</con:interface><con:operation>RegisterCatalogueNewCustomer</con:operation><con:request name="subscribe new customer"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/misterdiscount/catalogue</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cat="http://informatique.polytech.unice.fr/soa1/MisterDiscount/catalogue">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <cat:RegisterCatalogueNewCustomer>
+         <customer>
+            <address>
+               <city>Valbonne</city>
+               <countryCode>FR</countryCode>
+               <streetName>Route des Dolines</streetName>
+               <streetNb>2400</streetNb>
+               <zipCode>06560</zipCode>
+            </address>
+            <!--Optional:-->
+            <email>salle@polytech.unice.fr</email>
+            <firstName>Victor</firstName>
+            <lastName>Sallé</lastName>
+         </customer>
+      </cat:RegisterCatalogueNewCustomer>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="list addresses after"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MisterDiscountCatalogueServiceSoapBinding</con:interface><con:operation>GetAddressesToSend</con:operation><con:request name="list addresses after"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/misterdiscount/catalogue</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cat="http://informatique.polytech.unice.fr/soa1/MisterDiscount/catalogue">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <cat:GetAddressesToSend/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="transfer" name="count addresses after"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>counter</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>list addresses after</con:sourceStep><con:sourcePath>count(//address)</con:sourcePath><con:targetType>counter_after</con:targetType><con:targetStep>#TestCase#</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="groovy" name="check counters"><con:settings/><con:config><script>def before = testRunner.testCase.getPropertyValue("counter_init");
+def after  = testRunner.testCase.getPropertyValue("counter_after");  
+return after == before + 1;</script></con:config></con:testStep><con:properties><con:property><con:name>counter_init</con:name><con:value>10</con:value></con:property><con:property><con:name>counter_after</con:name><con:value>11</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Subscribe catalogue - Existing customer" searchProperties="true" id="ee71ebe4-840b-4364-bc37-451bdcbe2ecd"><con:settings/><con:testStep type="request" name="list addresses before"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MisterDiscountCatalogueServiceSoapBinding</con:interface><con:operation>GetAddressesToSend</con:operation><con:request name="list addresses before"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/misterdiscount/catalogue</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cat="http://informatique.polytech.unice.fr/soa1/MisterDiscount/catalogue">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <cat:GetAddressesToSend/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="transfer" name="count addresses before"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>counter</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>list addresses before</con:sourceStep><con:sourcePath>count(//address)</con:sourcePath><con:targetType>counter_init</con:targetType><con:targetStep>#TestCase#</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="request" name="subscribe new customer"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MisterDiscountCatalogueServiceSoapBinding</con:interface><con:operation>RegisterCatalogueNewCustomer</con:operation><con:request name="subscribe new customer"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/misterdiscount/catalogue</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cat="http://informatique.polytech.unice.fr/soa1/MisterDiscount/catalogue">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <cat:RegisterCatalogueExistingCustomer>
+         <customerId>1</customerId>
+      </cat:RegisterCatalogueExistingCustomer>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="list addresses after"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MisterDiscountCatalogueServiceSoapBinding</con:interface><con:operation>GetAddressesToSend</con:operation><con:request name="list addresses after"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/misterdiscount/catalogue</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cat="http://informatique.polytech.unice.fr/soa1/MisterDiscount/catalogue">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <cat:GetAddressesToSend/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="transfer" name="count addresses after"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>counter</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>list addresses after</con:sourceStep><con:sourcePath>count(//address)</con:sourcePath><con:targetType>counter_after</con:targetType><con:targetStep>#TestCase#</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="groovy" name="check counters"><con:settings/><con:config><script>def before = testRunner.testCase.getPropertyValue("counter_init");
+def after  = testRunner.testCase.getPropertyValue("counter_after");  
+return after == before + 1;</script></con:config></con:testStep><con:properties><con:property><con:name>counter_init</con:name><con:value>11</con:value></con:property><con:property><con:name>counter_after</con:name><con:value>11</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Process Order" searchProperties="true" id="93dab58f-cc9f-42e3-8a73-23dec888e0de"><con:settings/><con:testStep type="request" name="create order"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MisterDiscountOrderServiceSoapBinding</con:interface><con:operation>ProcessOrder</con:operation><con:request name="create order"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/misterdiscount/order</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ord="http://informatique.polytech.unice.fr/soa1/MisterDiscount/order">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ord:ProcessOrder>
+         <orderinput>
+            <cardNb>ABC123</cardNb>
+            <customerId>1</customerId>
+            <items>
+               <item>
+                  <productRef>OIH211</productRef>
+                  <quantity>3</quantity>
+               </item>
+               <item>
+                  <productRef>SXC266</productRef>
+                  <quantity>1</quantity>
+               </item>
+            </items>
+            <shippingAddress>
+            	<streetNb>2400</streetNb>
+            	<streetName>Route des Dolines</streetName>
+            	<zipCode>06560</zipCode>
+            	<city>Valbonne</city>
+            	<countryCode>FR</countryCode>
+            </shippingAddress>
+         </orderinput>>
+      </ord:ProcessOrder>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="transfer" name="store nb_items_request"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>items</con:name><con:sourceType>Request</con:sourceType><con:sourceStep>create order</con:sourceStep><con:sourcePath>sum(//item/quantity)</con:sourcePath><con:targetType>nb_items_request</con:targetType><con:targetStep>#TestCase#</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="transfer" name="store nb_items_response"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>items</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>create order</con:sourceStep><con:sourcePath>sum(//item/quantity)</con:sourcePath><con:targetType>nb_items_response</con:targetType><con:targetStep>#TestCase#</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="groovy" name="check same items nb"><con:settings/><con:config><script>def request = testRunner.testCase.getPropertyValue("nb_items_request");
+def response  = testRunner.testCase.getPropertyValue("nb_items_response");  
+return request == response;</script></con:config></con:testStep><con:testStep type="transfer" name="store order_id"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>id</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>create order</con:sourceStep><con:sourcePath>//orderId</con:sourcePath><con:targetType>order_id</con:targetType><con:targetStep>#TestCase#</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="request" name="info about the order"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MisterDiscountOrderServiceSoapBinding</con:interface><con:operation>GetOrderInformation</con:operation><con:request name="info about the order"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/misterdiscount/order</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ord="http://informatique.polytech.unice.fr/soa1/MisterDiscount/order">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ord:GetOrderInformation>
+         <orderId>${#TestCase#order_id}</orderId>
+      </ord:GetOrderInformation>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="Simple Contains" name="Contains &quot;orderId&quot;"><con:configuration><token>orderId</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>order_id</con:name><con:value>9</con:value></con:property><con:property><con:name>nb_items_request</con:name><con:value>4.0</con:value></con:property><con:property><con:name>nb_items_response</con:name><con:value>4.0</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Process invalid order" searchProperties="true"><con:settings/><con:testStep type="request" name="invalid items"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MisterDiscountOrderServiceSoapBinding</con:interface><con:operation>ProcessOrder</con:operation><con:request name="invalid items"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/misterdiscount/order</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ord="http://informatique.polytech.unice.fr/soa1/MisterDiscount/order">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ord:ProcessOrder>
+         <orderinput>
+            <cardNb>ABC123</cardNb>
+            <customerId>1</customerId>
+            <items>
+               <item>
+                  <productRef>aaaaaaa</productRef>
+                  <quantity>1</quantity>
+               </item>
+            </items>
+         </orderinput>>
+      </ord:ProcessOrder>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Not SOAP Fault Assertion" name="SOAP Fault"/><con:assertion type="Simple Contains" name="Contains &quot;ProductNotFoundException&quot;"><con:configuration><token>ProductNotFoundException</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="invalid customer id"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MisterDiscountOrderServiceSoapBinding</con:interface><con:operation>ProcessOrder</con:operation><con:request name="invalid customer id"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/misterdiscount/order</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ord="http://informatique.polytech.unice.fr/soa1/MisterDiscount/order">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ord:ProcessOrder>
+         <orderinput>
+            <cardNb>ABC123</cardNb>
+            <customerId>1000</customerId>
+            <items>
+               <item>
+                  <productRef>SXC266</productRef>
+                  <quantity>1</quantity>
+               </item>
+            </items>
+         </orderinput>>
+      </ord:ProcessOrder>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Not SOAP Fault Assertion" name="SOAP Fault"/><con:assertion type="Simple Contains" name="Contains &quot;CustomerNotFoundException&quot;"><con:configuration><token>CustomerNotFoundException</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/></con:soapui-project>

@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlType;
 public class OrderInput {
 
 	private String customerId;
-	private Long cardNb;
+	private String cardNb;
 	private List<Item> items;
 	private Address shippingAddress;
 	
@@ -19,8 +19,8 @@ public class OrderInput {
 	public void setCustomerId(String customerId) { this.customerId = customerId; }
 	
 	@XmlElement(name="cardNb", required=true)
-	public Long getCardNb() { return cardNb; }
-	public void setCardNb(Long cardNb) { this.cardNb = cardNb; }
+	public String getCardNb() { return cardNb; }
+	public void setCardNb(String cardNb) { this.cardNb = cardNb; }
 	
 	@XmlElementWrapper(name="items", required=true)
 	@XmlElement(name="item", required=true)

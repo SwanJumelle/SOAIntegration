@@ -6,6 +6,7 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
+import javax.xml.bind.annotation.XmlElementWrapper;
 
 import fr.unice.polytech.soa1.misterdiscount.business.AddressWithName;
 import fr.unice.polytech.soa1.misterdiscount.business.Customer;
@@ -23,6 +24,7 @@ public interface Catalogue {
 	
 	@WebMethod(operationName = "GetAddressesToSend")
 	@WebResult(name = "address")
+	@XmlElementWrapper(name="addresses")
 	public List<AddressWithName> getAddressesToSend();
 	
 }

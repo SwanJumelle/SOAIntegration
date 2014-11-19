@@ -107,7 +107,7 @@ VALUES ('Alice', 'Durand', 'alice@durand.com', false, 1)]]></db:parameterized-qu
         </db:insert>
         <db:insert config-ref="Derby-Glue" doc:name="insert customer 2">
             <db:parameterized-query><![CDATA[INSERT INTO customer (first_name, last_name, catalogue, address_id)
-VALUES ('Germaine', 'Martin', false, 2)]]></db:parameterized-query>
+VALUES ('Germaine', 'Martin', true, 2)]]></db:parameterized-query>
         </db:insert>
         <db:insert config-ref="Derby-Glue" doc:name="insert product 1">
             <db:parameterized-query><![CDATA[INSERT INTO product (price, reference) 
@@ -163,6 +163,22 @@ throw new UnknownOperationException(operation);]]></scripting:script>
     </flow>
     <flow name="ProcessOrder-VM" doc:name="ProcessOrder-VM">
         <vm:inbound-endpoint exchange-pattern="request-response" path="/misterdiscount/order" doc:name="/misterdiscount/order"/>
+        <scripting:component doc:name="check customer existence">
+            <scripting:script engine="Groovy"><![CDATA[import groovy.sql.*
+import java.sql.*
+
+import fr.unice.polytech.soa1.misterdiscount.business.exceptions.CustomerNotFoundException
+
+def sql = Sql.newInstance("jdbc:derby:memory:glue", new Properties());
+
+def query = "SELECT * FROM customer WHERE id=" + message.payload.customerId;
+def result = sql.rows(query);
+
+if (result.size() == 0)
+	throw new CustomerNotFoundException(String.valueOf(message.payload.customerId));
+
+return payload;]]></scripting:script>
+        </scripting:component>
         <flow-ref name="AddressToShip-SubFlow" doc:name="AddressToShip-SubFlow"/>
         <scripting:component doc:name="select best carrier">
             <scripting:script engine="Groovy"><![CDATA[flowVars.bestCarrier = "FedPS";
@@ -319,7 +335,7 @@ return result[0]['FIRST_NAME'] + " " + result[0]['LAST_NAME'];]]></scripting:scr
                 </data-mapper:transform>
                 <ws:consumer config-ref="CreditGeneral-Public" operation="process_payment" doc:name="CreditGeneral-Public-process_payment"/>
                 <data-mapper:transform config-ref="Xml_process_paymentResponse__To_Map" doc:name="Xml&lt;process_paymentResponse&gt; To Map"/>
-                <scripting:component doc:name="paiement status?">
+                <scripting:component doc:name="payment status?">
                     <scripting:script engine="Groovy"><![CDATA[return (payload.status == 'APPROVED' || payload.status == 'PROCESSING');]]></scripting:script>
                 </scripting:component>
             </processor-chain>
@@ -419,8 +435,6 @@ import fr.unice.polytech.soa1.misterdiscount.bdd.Order
 import fr.unice.polytech.soa1.misterdiscount.bdd.OrderItem
 import fr.unice.polytech.soa1.misterdiscount.business.Customer
 import fr.unice.polytech.soa1.misterdiscount.business.Address
-
-System.out.println("RECORD DB : " + flowVars['dbRecord']);
 
 def sql = Sql.newInstance("jdbc:derby:memory:glue", new Properties());
 
@@ -606,6 +620,11 @@ return result;]]></scripting:script>
             </when>
             <otherwise>
                 <logger message="Unknown Operation" level="INFO" doc:name="Unknown Operation"/>
+                <scripting:component doc:name="UnknownOperationException">
+                    <scripting:script engine="Groovy"><![CDATA[import fr.unice.polytech.soa1.misterdiscount.business.exceptions.UnknownOperationException
+
+throw new UnknownOperationException(operation);]]></scripting:script>
+                </scripting:component>
             </otherwise>
         </choice>
     </flow>
