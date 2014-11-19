@@ -207,7 +207,7 @@ a.setCountryCode(result[0]['COUNTRY_CODE']);
 
 payload.shippingAddress = a;
 
-flowVars.addressId = result[0]['ID'];
+flowVars.addressId = result[0]['ADDRESS_ID'];
 
 return payload;]]></scripting:script>
                 </scripting:component>
@@ -238,7 +238,7 @@ def sql = Sql.newInstance("jdbc:derby:memory:glue", new Properties());
 def query = "SELECT max(id) FROM address"
 def result = sql.rows(query);
 
-return result[0]['ID'];]]></scripting:script>
+return result[0]['1'];]]></scripting:script>
                         </scripting:component>
                     </processor-chain>
                 </enricher>
@@ -374,9 +374,9 @@ sql.execute("INSERT INTO md_order(customer_id, cost, order_date, address_id, car
 	message.payload.customerId + ", " +
 	flowVars.totalCost + " , " +
 	"CURRENT_DATE, " +
-	flowVars.addressId + "," +
-	flowVars.selectedCarrier + ", '" +
-	flowVars.trackingNb + " ')"
+	flowVars.addressId + ",'" +
+	flowVars.bestCarrier + "', '" +
+	flowVars.trackingNb + "')"
 );
 
 def query = "SELECT max(id) FROM md_order";

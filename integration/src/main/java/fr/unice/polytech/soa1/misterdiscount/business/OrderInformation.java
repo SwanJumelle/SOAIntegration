@@ -13,7 +13,7 @@ public class OrderInformation {
 	private Integer orderId;
 	private Double totalCost;
 	private Long eta;
-	private List<Item> items;
+	private List<ItemWithPrice> items;
 	private Address shippingAddress;
 	private DeliveryTracking deliveryTracking;
 	
@@ -35,8 +35,8 @@ public class OrderInformation {
 
 	@XmlElementWrapper(name="items", required=true)
 	@XmlElement(name="item", required=true)
-	public List<Item> getItems() { return items; }
-	public void setItems(List<Item> items) { this.items = items; }
+	public List<ItemWithPrice> getItems() { return items; }
+	public void setItems(List<ItemWithPrice> items) { this.items = items; }
 	
 	@XmlElement(name="shippingAddress")
 	public Address getShippingAddress() { return shippingAddress; }
