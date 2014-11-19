@@ -1,8 +1,12 @@
+# Warning
+
+This file is not up to date!
+
 # MisterDiscount
 
 Adresse : `http://informatique.polytech.unice.fr/soa1/MisterDiscount`
 
-## Passer une commande [SOAP]
+## Passer une commande
 
 Adresse : `/order`
 
@@ -109,7 +113,7 @@ Nom       |Type       |Description
 
 (Pas d'appel direct du service, cela doit se faire automatiquement lorsque l'une des choses est validée.)
 
-## Consulter les informations d'une commande [REST]
+## Consulter les informations d'une commande
 
 #### Généralités
 

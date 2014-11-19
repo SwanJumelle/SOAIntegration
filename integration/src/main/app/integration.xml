@@ -180,6 +180,7 @@ if (result.size() == 0)
 return payload;]]></scripting:script>
         </scripting:component>
         <flow-ref name="AddressToShip-SubFlow" doc:name="AddressToShip-SubFlow"/>
+        <logger message="Check availabilty of products, change item quantity if needed, get warehouse address to ship from" level="WARN" doc:name="RedWarehouse : availability &amp; pickup"/>
         <scripting:component doc:name="select best carrier">
             <scripting:script engine="Groovy"><![CDATA[flowVars.bestCarrier = "FedPS";
 
@@ -189,6 +190,7 @@ return payload;]]></scripting:script>
         <flow-ref name="CreditGeneral-ProcessPayment-SubFlow" doc:name="CreditGeneral-ProcessPayment-SubFlow"/>
         <flow-ref name="Transportation-Order-SubFlow" doc:name="Transportation-Order-SubFlow"/>
         <flow-ref name="MisterDiscount-SaveOrder-SubFlow" doc:name="MisterDiscount-SaveOrder-SubFlow"/>
+        <logger message="Save the order to TeamForce system" level="WARN" doc:name="TeamForce : save customer order"/>
         <data-mapper:transform config-ref="Pojo_To_Pojo_1" doc:name="Pojo To Pojo">
             <data-mapper:input-arguments>
                 <data-mapper:input-argument key="finalEta">#[flowVars.finalEta]</data-mapper:input-argument>
