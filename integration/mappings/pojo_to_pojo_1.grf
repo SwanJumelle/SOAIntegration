@@ -44,6 +44,7 @@
 <Entry id="DictionaryEntry1" input="false" name="outputPayload" output="true" type="object"/>
 <Entry dictval.__javaType="java.lang.Long" id="DictionaryEntry2" input="true" name="finalEta" output="false" type="long"/>
 <Entry dictval.__javaType="java.lang.Double" id="DictionaryEntry3" input="true" name="totalCost" output="false" type="number"/>
+<Entry dictval.__javaType="java.lang.Integer" id="DictionaryEntry4" input="true" name="orderId" output="false" type="integer"/>
 </Dictionary>
 </Global>
 <Phase number="0">
@@ -153,7 +154,7 @@ output.totalCost = inputArguments.totalCost;
 output.eta = inputArguments.finalEta;
 
 // TODO
-output.orderId = "1";]]></attr>
+output.orderId = num2str(inputArguments.orderId);]]></attr>
 </Node>
 <Edge debugMode="true" fromNode="BEAN_READER0:0" guiBendpoints="" id="Edge0" inPort="Port 0 (in)" metadata="b3ee2b47-25a8-4018-b4f4-4985444dd33c" outPort="Port 0 (out)" toNode="FOREACH_OBJECT_OBJECT:0"/>
 <Edge debugMode="true" fromNode="BEAN_READER0:1" guiBendpoints="" id="Edge2" inPort="Port 0 (in)" metadata="2ab9328f-051e-4958-b528-4df58af11205" outPort="Port 1 (out)" toNode="FOREACH_ITEMS_ITEMS:0"/>

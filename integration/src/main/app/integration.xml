@@ -163,31 +163,7 @@ throw new UnknownOperationException(operation);]]></scripting:script>
     </flow>
     <flow name="ProcessOrder-VM" doc:name="ProcessOrder-VM">
         <vm:inbound-endpoint exchange-pattern="request-response" path="/misterdiscount/order" doc:name="/misterdiscount/order"/>
-        <scripting:component doc:name="set shipping address if needed">
-            <scripting:script engine="Groovy"><![CDATA[import groovy.sql.*
-import java.sql.*
-import java.util.*
-
-import fr.unice.polytech.soa1.misterdiscount.business.Address
-
-if (payload.shippingAddress == null) {
-	def sql = Sql.newInstance("jdbc:derby:memory:glue", new Properties());
-
-	def query = "SELECT * FROM address LEFT JOIN customer ON customer.address_id = address.id WHERE customer.id=" + payload.customerId;
-	def result = sql.rows(query);
-
-	Address a = new Address();
-	a.setStreetNb(result[0]['STREET_NB']);
-	a.setStreetName(result[0]['STREET_NAME']);
-	a.setZipCode(result[0]['ZIP_CODE']);
-	a.setCity(result[0]['CITY']);
-	a.setCountryCode(result[0]['COUNTRY_CODE']);
-
-	payload.shippingAddress = a;
-}
-
-return payload;]]></scripting:script>
-        </scripting:component>
+        <flow-ref name="AddressToShip-SubFlow" doc:name="AddressToShip-SubFlow"/>
         <scripting:component doc:name="select best carrier">
             <scripting:script engine="Groovy"><![CDATA[flowVars.bestCarrier = "FedPS";
 
@@ -196,15 +172,79 @@ return payload;]]></scripting:script>
         <flow-ref name="Transportation-Quote-SubFlow" doc:name="Transportation-Quote-SubFlow"/>
         <flow-ref name="CreditGeneral-ProcessPayment-SubFlow" doc:name="CreditGeneral-ProcessPayment-SubFlow"/>
         <flow-ref name="Transportation-Order-SubFlow" doc:name="Transportation-Order-SubFlow"/>
+        <flow-ref name="MisterDiscount-SaveOrder-SubFlow" doc:name="MisterDiscount-SaveOrder-SubFlow"/>
         <data-mapper:transform config-ref="Pojo_To_Pojo_1" doc:name="Pojo To Pojo">
             <data-mapper:input-arguments>
                 <data-mapper:input-argument key="finalEta">#[flowVars.finalEta]</data-mapper:input-argument>
                 <data-mapper:input-argument key="totalCost">#[flowVars.totalCost]</data-mapper:input-argument>
+                <data-mapper:input-argument key="orderId">#[flowVars.orderId]</data-mapper:input-argument>
             </data-mapper:input-arguments>
         </data-mapper:transform>
         <!--<vm:outbound-endpoint exchange-pattern="one-way" path="/payment/process" doc:name="/payment/process"/>-->
         <!--<flow-ref name="CreditGeneral-Process-SubFlow" doc:name="CreditGeneral-Process"/>-->
     </flow>
+    <sub-flow name="AddressToShip-SubFlow" doc:name="AddressToShip-SubFlow">
+        <choice doc:name="specified address?">
+            <when expression="#[payload.shippingAddress == null]">
+                <scripting:component doc:name="set shipping address">
+                    <scripting:script engine="Groovy"><![CDATA[import groovy.sql.*
+import java.sql.*
+import java.util.*
+
+import fr.unice.polytech.soa1.misterdiscount.business.Address
+
+def sql = Sql.newInstance("jdbc:derby:memory:glue", new Properties());
+
+def query = "SELECT * FROM address LEFT JOIN customer ON customer.address_id = address.id WHERE customer.id=" + payload.customerId;
+def result = sql.rows(query);
+
+Address a = new Address();
+a.setStreetNb(result[0]['STREET_NB']);
+a.setStreetName(result[0]['STREET_NAME']);
+a.setZipCode(result[0]['ZIP_CODE']);
+a.setCity(result[0]['CITY']);
+a.setCountryCode(result[0]['COUNTRY_CODE']);
+
+payload.shippingAddress = a;
+
+flowVars.addressId = result[0]['ID'];
+
+return payload;]]></scripting:script>
+                </scripting:component>
+            </when>
+            <otherwise>
+                <enricher target="#[flowVars.addressId]" doc:name="Enriche flowVars.addressId">
+                    <processor-chain doc:name="Processor Chain">
+                        <db:insert config-ref="Derby-Glue" doc:name="insert new address">
+                            <db:parameterized-query><![CDATA[INSERT INTO address (street_nb, street_name, zip_code, city, country_code)
+VALUES (
+        #[message.payload.shippingAddress.streetNb],
+        #[message.payload.shippingAddress.streetName],
+        #[message.payload.shippingAddress.zipCode],
+        #[message.payload.shippingAddress.city],
+        #[message.payload.shippingAddress.countryCode]
+)]]></db:parameterized-query>
+                        </db:insert>
+                        <scripting:component doc:name="save address id">
+                            <scripting:script engine="Groovy"><![CDATA[import groovy.sql.*
+import java.sql.*
+import java.util.*
+
+import fr.unice.polytech.soa1.misterdiscount.business.Item
+import fr.unice.polytech.soa1.misterdiscount.business.exceptions.ProductNotFoundException
+
+def sql = Sql.newInstance("jdbc:derby:memory:glue", new Properties());
+
+def query = "SELECT max(id) FROM address"
+def result = sql.rows(query);
+
+return result[0]['ID'];]]></scripting:script>
+                        </scripting:component>
+                    </processor-chain>
+                </enricher>
+            </otherwise>
+        </choice>
+    </sub-flow>
     <sub-flow name="Transportation-Quote-SubFlow" doc:name="Transportation-Quote-SubFlow">
         <choice doc:name="carrier?">
             <when expression="#[flowVars.bestCarrier == 'FedPS']">
@@ -304,7 +344,7 @@ return payload;]]></scripting:script>
         </choice>
     </sub-flow>
     <sub-flow name="FedPS-OrderFromQuote-SubFlow" doc:name="FedPS-OrderFromQuote-SubFlow">
-        <enricher target="#[flowVars.finalEta]" doc:name="flowVars.finalEta">
+        <enricher  doc:name="Enrich flowVars.finalEta and flowVars.trackingNb">
             <processor-chain doc:name="Processor Chain">
                 <data-mapper:transform config-ref="Pojo_To_Xml_processOrderFromQuote_" doc:name="Pojo To Xml&lt;processOrderFromQuote&gt;">
                     <data-mapper:input-arguments>
@@ -314,10 +354,50 @@ return payload;]]></scripting:script>
                 </data-mapper:transform>
                 <ws:consumer config-ref="FedPS-Order" operation="processOrderFromQuote" doc:name="FedPS-OrderFromQuote"/>
                 <data-mapper:transform config-ref="Xml_processOrderFromQuoteResponse__To_Map" doc:name="Xml&lt;processOrderFromQuoteResponse&gt; To Map"/>
-                <set-payload value="#[message.payload['eta']]" doc:name="eta"/>
             </processor-chain>
+            <enrich source="#[message.payload['trackingNb']]" target="#[flowVars.trackingNb]"/>
+            <enrich source="#[message.payload['eta']]" target="#[flowVars.finalEta]"/>
         </enricher>
         <!-- <data-mapper:transform config-ref="Xml_processQuoteResponse__To_Pojo" doc:name="Xml&lt;processQuoteResponse&gt; To Pojo"/>-->
+    </sub-flow>
+    <sub-flow name="MisterDiscount-SaveOrder-SubFlow" doc:name="MisterDiscount-SaveOrder-SubFlow">
+        <scripting:component doc:name="save order and get id">
+            <scripting:script engine="Groovy"><![CDATA[import groovy.sql.*
+import java.sql.*
+import java.util.*
+
+import fr.unice.polytech.soa1.misterdiscount.business.Item;
+
+def sql = Sql.newInstance("jdbc:derby:memory:glue", new Properties());
+
+sql.execute("INSERT INTO md_order(customer_id, cost, order_date, address_id, carrier, tracking_nb) VALUES (" +
+	message.payload.customerId + ", " +
+	flowVars.totalCost + " , " +
+	"CURRENT_DATE, " +
+	flowVars.addressId + "," +
+	flowVars.selectedCarrier + ", '" +
+	flowVars.trackingNb + " ')"
+);
+
+def query = "SELECT max(id) FROM md_order";
+def orderId = sql.rows(query)[0]["1"];
+
+for (Item i : payload.items) {
+	query = "SELECT * FROM product WHERE reference='" + i.getProductRef() + "'";
+	def result = sql.rows(query);
+
+	sql.execute("INSERT INTO order_item (order_id, product_ref, quantity, unit_price) VALUES (" +
+		orderId + " , '" +
+		i.getProductRef() + "', " +
+		i.getQuantity() + ", " +
+		result[0]['PRICE'] + ")"
+	);
+}
+
+flowVars.orderId = orderId;
+
+return payload;]]></scripting:script>
+        </scripting:component>
     </sub-flow>
     <flow name="GetOrderInformation-VM" doc:name="GetOrderInformation-VM">
         <vm:inbound-endpoint exchange-pattern="request-response" path="/misterdiscount/orderinformation" doc:name="/misterdiscount/orderinformation"/>
