@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml" xmlns:jersey="http://www.mulesoft.org/schema/mule/jersey" xmlns:batch="http://www.mulesoft.org/schema/mule/batch" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:ws="http://www.mulesoft.org/schema/mule/ws" xmlns:data-mapper="http://www.mulesoft.org/schema/mule/ee/data-mapper" xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting" xmlns:vm="http://www.mulesoft.org/schema/mule/vm"
-	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.5.1"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd
+<mule xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml" xmlns:jersey="http://www.mulesoft.org/schema/mule/jersey" xmlns:batch="http://www.mulesoft.org/schema/mule/batch" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:ws="http://www.mulesoft.org/schema/mule/ws" xmlns:data-mapper="http://www.mulesoft.org/schema/mule/ee/data-mapper" xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting" xmlns:vm="http://www.mulesoft.org/schema/mule/vm"
+    xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+    xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.5.1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
@@ -16,7 +16,8 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd
 http://www.mulesoft.org/schema/mule/jersey http://www.mulesoft.org/schema/mule/jersey/current/mule-jersey.xsd
 http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
-http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd">
+http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
     <ws:consumer-config name="FedPS-Order" wsdlLocation="contracts/FedPS-Order.wsdl" service="FedPSOrderService" port="FedPSOrderPort" serviceAddress="http://localhost:8080//webservices/FedPS-Order" doc:name="Web Service Consumer"/>
     <ws:consumer-config name="Web_Service_Consumer" wsdlLocation="contracts/FedPS-Order.wsdl" service="FedPSOrderService" port="FedPSOrderPort" serviceAddress="http://localhost:8080//webservices/FedPS-Order" doc:name="Web Service Consumer"/>
     <data-mapper:config name="Pojo_To_Xml_processQuote_" transformationGraphPath="pojo_to_xml_processquote_.grf" doc:name="Pojo_To_Xml_processQuote_"/>
@@ -24,82 +25,97 @@ http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/
     <ws:consumer-config name="CreditGeneral-Public" wsdlLocation="contracts/CreditGeneral-Public.wsdl" service="PaymentRPCPublicService" port="PaymentRPCPublicPort" serviceAddress="http://localhost:8080//webservices/Payment-Public-RPC" doc:name="Web Service Consumer"/>
     <data-mapper:config name="Xml_processOrderFromQuoteResponse__To_Pojo" transformationGraphPath="xml_processorderfromquoteresponse__to_pojo.grf" doc:name="Xml_processOrderFromQuoteResponse__To_Pojo"/>
     <data-mapper:config name="Pojo_To_Pojo" transformationGraphPath="pojo_to_pojo.grf" doc:name="Pojo_To_Pojo"/>
+    <db:derby-config name="Derby-Glue" url="jdbc:derby:memory:glue;create=true" doc:name="Derby Configuration"/>
+    <data-mapper:config name="JSON_To_Pojo" transformationGraphPath="json_to_pojo.grf" doc:name="JSON_To_Pojo"/>
     <flow name="init-database" doc:name="init-database">
         <http:inbound-endpoint exchange-pattern="request-response" host="localhost" port="9090" path="admin/db/init" doc:name="localhost:9090/admin/db/init"/>
-        <scripting:component doc:name="init-script">
-            <scripting:script engine="Groovy"><![CDATA[import groovy.sql.*
-import java.sql.*
-
-System.out.println("Initializing database");
-
-def sql = Sql.newInstance("jdbc:derby:memory:glue;create=true", new Properties());
-
-// Create tables
-sql.execute("CREATE TABLE address " +
-			"(id int GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), " +
-			" street_nb varchar(10), " +
-			" street_name varchar(256), " +
-			" zip_code varchar(5), " +
-			" city varchar(30), " +
-			" country_code varchar(3), " +
-			" CONSTRAINT address_pk PRIMARY KEY (id))");
-sql.execute("CREATE TABLE customer " +
-			"(id int GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), " +
-			" first_name varchar(256), " +
-			" last_name varchar(256), " +
-			" email varchar(256), " +
-			" catalogue boolean, " +
-			" address_id int, " +
-			" CONSTRAINT customer_pk PRIMARY KEY (id), " +
-			" FOREIGN KEY(address_id) REFERENCES address(id))");
-sql.execute("CREATE TABLE md_order" +
-			"(id int GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), " +
-			" customer_id int, " +
-			" order_date date, " +
-			" address_id int, " +
-			" carrier varchar(256), " +
-			" tracking_nb varchar(256), " +
-			" CONSTRAINT order_pk PRIMARY KEY (id), " +
-			" FOREIGN KEY(customer_id) REFERENCES customer(id), " +
-			" FOREIGN KEY(address_id) REFERENCES address(id))");
-sql.execute("CREATE TABLE order_item " +
-			"(id int GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), " +
-			" order_id int, " +
-			" product_ref varchar(256), " +
-			" quantity int, " +
-			" unit_price double, " +
-			" CONSTRAINT order_item_pk PRIMARY KEY (id), " +
-			" FOREIGN KEY(order_id) REFERENCES md_order(id))");
-
-// Insert first values
-sql.execute("INSERT INTO address (street_nb, street_name, zip_code, city, country_code) " +
- 			 "VALUES ('930', 'Route des Colles', '06410', 'Biot', 'FR')");
-sql.execute("INSERT INTO address (street_nb, street_name, zip_code, city, country_code) " +
- 			 "VALUES ('641', 'Avenue des Champs Elysees', '75008', 'Paris', 'FR')");
-
-sql.execute("INSERT INTO customer (first_name, last_name, email, catalogue, address_id) " +
- 			 "VALUES ('Alice', 'Durand', 'alice@durand.com', false, 1)");
-sql.execute("INSERT INTO customer (first_name, last_name, catalogue, address_id) " +
- 			 "VALUES ('Germaine', 'Martin', false, 2)");
-
-sql.execute("INSERT INTO md_order(customer_id, order_date, address_id, carrier, tracking_nb) " +
- 			 "VALUES (1, CURRENT_DATE, 1, 'FedPS', '722466204')");
-sql.execute("INSERT INTO md_order(customer_id, order_date, address_id, carrier, tracking_nb) " +
- 			 "VALUES (2, CURRENT_DATE, 2, 'FedPS', '185509339')");
-
-sql.execute("INSERT INTO order_item (order_id, product_ref, quantity, unit_price) " +
- 			 "VALUES (1, 'OIH211', 2, 18.6)");
-sql.execute("INSERT INTO order_item (order_id, product_ref, quantity, unit_price) " +
- 			 "VALUES (1, 'SXC266', 1, 54.99)");
-sql.execute("INSERT INTO order_item (order_id, product_ref, quantity, unit_price) " +
- 			 "VALUES (2, 'AZY878', 5, 9.50)");
-
-
-System.out.println("Database initialized");
-
-return "initialized";]]></scripting:script>
-        </scripting:component>
+        <flow-ref name="create-tables" doc:name="create-tables"/>
+        <flow-ref name="insert-first-values" doc:name="insert-first-values"/>
+        <set-payload value="initialized" doc:name="initialized"/>
     </flow>
+    <sub-flow name="create-tables" doc:name="create-tables">
+        <db:execute-ddl config-ref="Derby-Glue" doc:name="create table ADDRESS">
+            <db:dynamic-query><![CDATA[CREATE TABLE address
+(id int GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+ street_nb varchar(10),
+ street_name varchar(256),
+ zip_code varchar(5),
+ city varchar(30),
+ country_code varchar(3),
+ CONSTRAINT address_pk PRIMARY KEY (id))]]></db:dynamic-query>
+        </db:execute-ddl>
+        <db:execute-ddl config-ref="Derby-Glue" doc:name="create table CUSTOMER">
+            <db:dynamic-query><![CDATA[CREATE TABLE customer
+(id int GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), 
+ first_name varchar(256),
+ last_name varchar(256), 
+ email varchar(256), 
+ catalogue boolean, 
+ address_id int,
+ CONSTRAINT customer_pk PRIMARY KEY (id),
+ FOREIGN KEY(address_id) REFERENCES address(id))]]></db:dynamic-query>
+        </db:execute-ddl>
+        <db:execute-ddl config-ref="Derby-Glue" doc:name="create table MD_ORDER">
+            <db:dynamic-query><![CDATA[CREATE TABLE md_order
+(id int GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+ customer_id int,
+ order_date date,
+ address_id int,
+ carrier varchar(256),
+ tracking_nb varchar(256),
+ CONSTRAINT order_pk PRIMARY KEY (id),
+ FOREIGN KEY(customer_id) REFERENCES customer(id),
+ FOREIGN KEY(address_id) REFERENCES address(id))]]></db:dynamic-query>
+        </db:execute-ddl>
+        <db:execute-ddl config-ref="Derby-Glue" doc:name="create table ORDER_ITEM">
+            <db:dynamic-query><![CDATA[CREATE TABLE order_item 
+(id int GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), 
+ order_id int, 
+ product_ref varchar(256), 
+ quantity int, 
+ unit_price double, 
+ CONSTRAINT order_item_pk PRIMARY KEY (id),
+ FOREIGN KEY(order_id) REFERENCES md_order(id))]]></db:dynamic-query>
+        </db:execute-ddl>
+    </sub-flow>
+    <sub-flow name="insert-first-values" doc:name="insert-first-values">
+        <db:insert config-ref="Derby-Glue" doc:name="insert address 1">
+            <db:parameterized-query><![CDATA[INSERT INTO address (street_nb, street_name, zip_code, city, country_code)
+VALUES ('930', 'Route des Colles', '06410', 'Biot', 'FR')]]></db:parameterized-query>
+        </db:insert>
+        <db:insert config-ref="Derby-Glue" doc:name="insert address 1">
+            <db:parameterized-query><![CDATA[INSERT INTO address (street_nb, street_name, zip_code, city, country_code)
+VALUES ('641', 'Avenue des Champs Elysees', '75008', 'Paris', 'FR')]]></db:parameterized-query>
+        </db:insert>
+        <db:insert config-ref="Derby-Glue" doc:name="insert customer 1">
+            <db:parameterized-query><![CDATA[INSERT INTO customer (first_name, last_name, email, catalogue, address_id)
+VALUES ('Alice', 'Durand', 'alice@durand.com', false, 1)]]></db:parameterized-query>
+        </db:insert>
+        <db:insert config-ref="Derby-Glue" doc:name="insert customer 2">
+            <db:parameterized-query><![CDATA[INSERT INTO customer (first_name, last_name, catalogue, address_id)
+VALUES ('Germaine', 'Martin', false, 2)]]></db:parameterized-query>
+        </db:insert>
+        <db:insert config-ref="Derby-Glue" doc:name="insert md-order 1">
+            <db:parameterized-query><![CDATA[INSERT INTO md_order(customer_id, order_date, address_id, carrier, tracking_nb) 
+VALUES (1, CURRENT_DATE, 1, 'FedPS', '722466204')]]></db:parameterized-query>
+        </db:insert>
+        <db:insert config-ref="Derby-Glue" doc:name="insert md-order 2">
+            <db:parameterized-query><![CDATA[INSERT INTO md_order(customer_id, order_date, address_id, carrier, tracking_nb)
+VALUES (2, CURRENT_DATE, 2, 'FedPS', '185509339')]]></db:parameterized-query>
+        </db:insert>
+        <db:insert config-ref="Derby-Glue" doc:name="insert order-item 1">
+            <db:parameterized-query><![CDATA[INSERT INTO order_item (order_id, product_ref, quantity, unit_price) 
+VALUES (1, 'OIH211', 2, 18.6)]]></db:parameterized-query>
+        </db:insert>
+        <db:insert config-ref="Derby-Glue" doc:name="insert order-item 2">
+            <db:parameterized-query><![CDATA[INSERT INTO order_item (order_id, product_ref, quantity, unit_price) 
+VALUES (1, 'SXC266', 1, 54.99)]]></db:parameterized-query>
+        </db:insert>
+        <db:insert config-ref="Derby-Glue" doc:name="insert order-item 3">
+            <db:parameterized-query><![CDATA[INSERT INTO order_item (order_id, product_ref, quantity, unit_price) 
+VALUES (2, 'AZY878', 5, 9.50)]]></db:parameterized-query>
+        </db:insert>
+    </sub-flow>
     <flow name="MisterDiscount-Order-WS" doc:name="MisterDiscount-Order-WS">
         <http:inbound-endpoint exchange-pattern="request-response" host="localhost" port="8081" path="misterdiscount/order" doc:name="http://localhost:8081/misterdiscount/order"/>
         <cxf:jaxws-service serviceClass="fr.unice.polytech.soa1.misterdiscount.services.Order" doc:name="Order"/>
@@ -119,7 +135,7 @@ return "initialized";]]></scripting:script>
         </choice>
     </flow>
     <flow name="ProcessOrder-VM" doc:name="ProcessOrder-VM">
-    	<vm:inbound-endpoint exchange-pattern="request-response" path="/misterdiscount/order" doc:name="/misterdiscount/order"/>
+        <vm:inbound-endpoint exchange-pattern="request-response" path="/misterdiscount/order" doc:name="/misterdiscount/order"/>
         <flow-ref name="FedPS-Quote-SubFlow" doc:name="FedPS-Quote"/>
         <!--<vm:outbound-endpoint exchange-pattern="one-way" path="/payment/process" doc:name="/payment/process"/>-->
         <!--<flow-ref name="CreditGeneral-Process-SubFlow" doc:name="CreditGeneral-Process"/>-->
@@ -127,10 +143,10 @@ return "initialized";]]></scripting:script>
     </flow>
     <sub-flow name="FedPS-Quote-SubFlow" doc:name="FedPS-Quote-SubFlow">
         <!-- <enricher doc:name="Enrich message.payload.quoteId">-->
-        	<data-mapper:transform config-ref="Pojo_To_Xml_processQuote_" doc:name="Pojo To Xml&lt;processQuote&gt;"/>
-        	<ws:consumer config-ref="FedPS-Order" operation="processQuote" doc:name="FedPS-Quote"/>
-        	<!-- <enrich target="#[message.payload.quoteId]" source="/id"/>
-        	<enrich target="#[message.payload.transportCost]" source="/eta"/>
+            <data-mapper:transform config-ref="Pojo_To_Xml_processQuote_" doc:name="Pojo To Xml&lt;processQuote&gt;"/>
+            <ws:consumer config-ref="FedPS-Order" operation="processQuote" doc:name="FedPS-Quote"/>
+            <!-- <enrich target="#[message.payload.quoteId]" source="/id"/>
+            <enrich target="#[message.payload.transportCost]" source="/eta"/>
         </enricher>-->
     </sub-flow>
     
@@ -151,8 +167,17 @@ return "initialized";]]></scripting:script>
     </sub-flow>
     <flow name="GetOrderInformation-VM" doc:name="GetOrderInformation-VM">
         <vm:inbound-endpoint exchange-pattern="request-response" path="/misterdiscount/orderinformation" doc:name="/misterdiscount/orderinformation"/>
-        <scripting:component doc:name="Get order from id">
-            <scripting:script engine="Groovy"><![CDATA[import groovy.sql.*
+        <enricher doc:name="Enrich flowVars.exists and flowVars.dbRecord">
+            <db:select config-ref="Derby-Glue" doc:name="Check existance">
+                <db:parameterized-query><![CDATA[SELECT customer_id, address_id FROM md_order WHERE id=#[message.payload]]]></db:parameterized-query>
+            </db:select>
+            <enrich source="#[payload.size() > 0]" target="#[flowVars.exists]"/>
+            <enrich source="#[payload]" target="#[flowVars.dbRecord]"/>
+        </enricher>
+        <choice doc:name="order exists or not">
+            <when expression="#[flowVars.exists==true]">
+                <scripting:component doc:name="Get order from id">
+                    <scripting:script engine="Groovy"><![CDATA[import groovy.sql.*
 import java.sql.*
 import java.util.*
 
@@ -160,6 +185,8 @@ import fr.unice.polytech.soa1.misterdiscount.bdd.Order
 import fr.unice.polytech.soa1.misterdiscount.bdd.OrderItem
 import fr.unice.polytech.soa1.misterdiscount.business.Customer
 import fr.unice.polytech.soa1.misterdiscount.business.Address
+
+System.out.println("RECORD DB : " + flowVars['dbRecord']);
 
 def sql = Sql.newInstance("jdbc:derby:memory:glue", new Properties());
 
@@ -192,11 +219,11 @@ def itemsQuery = "SELECT * FROM order_item WHERE order_id=" + message.payload;
 def itemsResult = sql.rows(itemsQuery); // TODO: manage case 'address not found'
 
 for (int i = 0; i < itemsResult.size(); i++) {
-	OrderItem oi = new OrderItem();
-	oi.setProductRef(itemsResult[i]['PRODUCT_REF']);
-	oi.setQuantity(itemsResult[i]['QUANTITY']);
-	oi.setUnitPrice(itemsResult[i]['UNIT_PRICE']);
-	items.add(oi);
+    OrderItem oi = new OrderItem();
+    oi.setProductRef(itemsResult[i]['PRODUCT_REF']);
+    oi.setQuantity(itemsResult[i]['QUANTITY']);
+    oi.setUnitPrice(itemsResult[i]['UNIT_PRICE']);
+    items.add(oi);
 }
 
 // Build order
@@ -211,74 +238,79 @@ order.setTrackingNb(orderResult['TRACKING_NB']);
 
 return order;
 ]]></scripting:script>
-        </scripting:component>
-        <data-mapper:transform config-ref="Pojo_To_Pojo" doc:name="Pojo To Pojo"/>
-        <flow-ref name="get-eta" doc:name="get-eta"/>
-    </flow>
-    <sub-flow name="get-eta" doc:name="get-eta">
-        <enricher target="#[message.payload.receipt.eta]" doc:name="Enrich message.payload.receipt.eta">
-            <processor-chain doc:name="Processor Chain">
-                <set-variable variableName="trackingNb" value="#[payload.deliveryTracking.trackingNb]" doc:name="save trackingNb"/>
-            	<expression-transformer expression="#[new Object[]{}]" doc:name="init request"/>
-               	<!-- <http:outbound-endpoint exchange-pattern="request-response" method="GET" address="http://localhost:8080/fedps/follow/parcels/#[payload.deliveryTracking.trackingNb]" mimeType="application/json" doc:name="localhost:8080/fedps/follow/"/>-->
-                <http:outbound-endpoint exchange-pattern="request-response" method="GET" address="http://localhost:8080/fedps/follow/parcels/#[flowVars.trackingNb]"  doc:name="localhost:8080/fedps/follow/"/>
-                <object-to-string-transformer doc:name="Object to String"/>
-                <scripting:component doc:name="select ETA">
-                    <scripting:script engine="Groovy"><![CDATA[import groovy.json.*
-
-def jsonSlurper = new JsonSlurper()
-def object = jsonSlurper.parseText(message.payload);
-
-return object.eta;]]></scripting:script>
                 </scripting:component>
-              </processor-chain>
-        </enricher>
+                <data-mapper:transform config-ref="Pojo_To_Pojo" doc:name="Pojo To Pojo"/>
+                <flow-ref name="get-eta-and-url" doc:name="get-eta-and-url"/>
+            </when>
+            <otherwise>
+                <logger message="Order #[payload] not found" level="INFO" doc:name="Not found"/>
+            </otherwise>
+        </choice>
+    </flow>
+    <sub-flow name="get-eta-and-url" doc:name="get-eta-and-url">
+        <set-variable variableName="trackingNb" value="#[payload.deliveryTracking.trackingNb]" doc:name="save trackingNb"/>
+        <choice doc:name="Which carrier?">
+            <when expression="#[payload.deliveryTracking.carrier=='FedPS']">
+                <enricher target="#[message.payload.deliveryTracking.url]" doc:name="Enrich message.payload.deliveryTracking.url">
+                    <set-payload value="http://localhost:8080/fedps/follow/parcels/#[flowVars.trackingNb]" doc:name="Set Payload"/>
+                </enricher>
+                <enricher target="#[message.payload.receipt.eta]" doc:name="Enrich message.payload.receipt.eta">
+                    <processor-chain doc:name="Processor Chain">
+                        <expression-transformer expression="#[new Object[]{}]" doc:name="init request"/>
+                        <http:outbound-endpoint exchange-pattern="request-response" method="GET" address="http://localhost:8080/fedps/follow/parcels/#[flowVars.trackingNb]" doc:name="localhost:8080/fedps/follow/"/>
+                        <json:json-to-object-transformer returnClass="java.lang.Object" doc:name="JSON to Object"/>
+                        <set-payload value="#[message.payload['eta']]" doc:name="eta"/>
+                    </processor-chain>
+                </enricher>
+            </when>
+            <otherwise>
+                <logger message="Unknown carrier" level="INFO" doc:name="Unknown carrier"/>
+            </otherwise>
+        </choice>
     </sub-flow>
+   <!--  <flow name="integrationFlow1" doc:name="integrationFlow1">
+        <http:inbound-endpoint exchange-pattern="request-response" host="localhost" port="8081" doc:name="HTTP"/>
+        <choice doc:name="http.method">
+            <when expression="message.inboundProperties['http.method'] == 'GET'">
+                <set-payload value="Nice. Payload is #[message.payload]" doc:name="Set Payload"/>
+            </when>
+            <otherwise>
+                <set-payload value="Bad request" doc:name="Set Payload"/>
+            </otherwise>
+        </choice>
+    </flow>-->
     <flow name="MisterDiscount-Catalogue-WS" doc:name="MisterDiscount-Catalogue-WS">
         <http:inbound-endpoint exchange-pattern="request-response" host="localhost" port="8081" path="misterdiscount/catalogue" doc:name="http://localhost:8081/misterdiscount/catalogue"/>
         <cxf:jaxws-service serviceClass="fr.unice.polytech.soa1.misterdiscount.services.Catalogue" doc:name="Catalogue"/>
         <set-variable variableName="operation" value="#[flowVars.cxf_operation.localPart]" doc:name="operation?"/>
         <choice doc:name="Choice">
             <when expression="#[operation == &quot;RegisterCatalogueExistingCustomer&quot;]">
-                <scripting:component doc:name="catalogue-RegisterExistingCustomer">
-                    <scripting:script engine="Groovy"><![CDATA[import groovy.sql.*
-import java.sql.*
-
-def sql = Sql.newInstance("jdbc:derby:memory:glue", new Properties());
-
-sql.execute("UPDATE customer " +
-			" SET catalogue=true " +
-			" WHERE id=" + message.payload);
-
-System.out.println("Info stored for customer #" + message.payload);]]></scripting:script>
-                </scripting:component>
+                <db:update config-ref="Derby-Glue" doc:name="update customer">
+                    <db:parameterized-query><![CDATA[UPDATE customer
+SET catalogue=true
+WHERE id=#[message.payload]]]></db:parameterized-query>
+                </db:update>
             </when>
             <when expression="#[operation == &quot;RegisterCatalogueNewCustomer&quot;]">
-                <scripting:component doc:name="catalogue-RegisterNewCustomer">
-                    <scripting:script engine="Groovy"><![CDATA[import groovy.sql.*
-import java.sql.*
-
-def sql = Sql.newInstance("jdbc:derby:memory:glue", new Properties());
-
-sql.execute("INSERT INTO address (street_nb, street_name, zip_code, city, country_code) " +
- 			 "VALUES ('"+
- 			 	message.payload.address.streetNb + "', '" +
-				message.payload.address.streetName + "', '" +
- 			 	message.payload.address.zipCode + "', '" +
- 			 	message.payload.address.city + "', '" +
- 			 	message.payload.address.countryCode + "'" +
- 			 ")");
-
-sql.execute("INSERT INTO customer (first_name, last_name, catalogue, address_id) " +
- 			 "VALUES ('"+ 
- 			 	message.payload.firstName + "', '" +
- 			 	message.payload.lastName + "', " +
- 			 	"true, " +
- 			 	"(SELECT max(id) FROM address)" +
- 			 ")");
-
-System.out.println("Info stored for customer " + message.payload.firstName + " " + message.payload.lastName);]]></scripting:script>
-                </scripting:component>
+                <db:insert config-ref="Derby-Glue" doc:name="insert address">
+                    <db:parameterized-query><![CDATA[INSERT INTO address (street_nb, street_name, zip_code, city, country_code)
+VALUES (
+        #[message.payload.address.streetNb],
+        #[message.payload.address.streetName],
+        #[message.payload.address.zipCode],
+        #[message.payload.address.city],
+        #[message.payload.address.countryCode]
+)]]></db:parameterized-query>
+                </db:insert>
+                <db:insert config-ref="Derby-Glue" doc:name="insert customer">
+                    <db:parameterized-query><![CDATA[INSERT INTO customer (first_name, last_name, catalogue, address_id)
+VALUES (
+    #[message.payload.firstName],
+    #[message.payload.lastName],
+    true,
+    (SELECT max(id) FROM address)
+)]]></db:parameterized-query>
+                </db:insert>
             </when>
             <otherwise>
                 <logger message="Unknown Operation" level="INFO" doc:name="Unknown Operation"/>

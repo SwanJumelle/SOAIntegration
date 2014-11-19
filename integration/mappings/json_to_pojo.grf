@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?><Graph __version="3.5.0" author="victorsalle" created="Wed Nov 19 09:38:35 CET 2014" description="JSON To Pojo" guiVersion="3.4.4.P" id="1416389722558" licenseCode="Unlicensed" licenseType="Unknown" modified="Wed Nov 19 09:38:35 CET 2014" modifiedBy="victorsalle" name="JSON_To_Pojo" preview-file="${Project_Home}/src/main/resources/jsonSample/FedPS-Follow.json" revision="1.0" showComponentDetails="false">
+<Global>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/object" _dataStructure="OBJECT" _id="__id" _type="Output" id="1c1f9eb4-e275-482e-a9cc-dc06b2b69f81">
+<Record fieldDelimiter="," name="Long" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __sourcePath="{}/object/text()" containerType="SINGLE" label="text()" name="text" type="long"/>
+</Record>
+</Metadata>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/object" _dataStructure="OBJECT" _id="__id" _type="Input" id="ecb02ed8-2458-4416-95f5-c762698f1f9a">
+<Record fieldDelimiter="," name="object" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __sourcePath="{}/object/id" containerType="SINGLE" label="id" name="id" type="string"/>
+<Field __index="1" __sourcePath="{}/object/status" containerType="SINGLE" label="status" name="status" type="string"/>
+<Field __index="2" __sourcePath="{}/object/sender" containerType="SINGLE" label="sender" name="sender" type="string"/>
+<Field __index="3" __sourcePath="{}/object/senderEmail" containerType="SINGLE" label="senderEmail" name="senderEmail" type="string"/>
+<Field __index="4" __sourcePath="{}/object/receiver" containerType="SINGLE" label="receiver" name="receiver" type="string"/>
+<Field __index="5" __sourcePath="{}/object/from/id" containerType="SINGLE" label="id" name="id_1" type="string"/>
+<Field __index="6" __sourcePath="{}/object/from/streetNb" containerType="SINGLE" label="streetNb" name="streetNb" type="string"/>
+<Field __index="7" __sourcePath="{}/object/from/streetName" containerType="SINGLE" label="streetName" name="streetName" type="string"/>
+<Field __index="8" __sourcePath="{}/object/from/zipCode" containerType="SINGLE" label="zipCode" name="zipCode" type="string"/>
+<Field __index="9" __sourcePath="{}/object/from/cityName" containerType="SINGLE" label="cityName" name="cityName" type="string"/>
+<Field __index="10" __sourcePath="{}/object/from/countryCode" containerType="SINGLE" label="countryCode" name="countryCode" type="string"/>
+<Field __index="11" __sourcePath="{}/object/to/id" containerType="SINGLE" label="id" name="id_2" type="string"/>
+<Field __index="12" __sourcePath="{}/object/to/streetNb" containerType="SINGLE" label="streetNb" name="streetNb_1" type="string"/>
+<Field __index="13" __sourcePath="{}/object/to/streetName" containerType="SINGLE" label="streetName" name="streetName_1" type="string"/>
+<Field __index="14" __sourcePath="{}/object/to/zipCode" containerType="SINGLE" label="zipCode" name="zipCode_1" type="string"/>
+<Field __index="15" __sourcePath="{}/object/to/cityName" containerType="SINGLE" label="cityName" name="cityName_1" type="string"/>
+<Field __index="16" __sourcePath="{}/object/to/countryCode" containerType="SINGLE" label="countryCode" name="countryCode_1" type="string"/>
+<Field __index="17" __sourcePath="{}/object/shipping" containerType="SINGLE" label="shipping" name="shipping" type="string"/>
+<Field __index="18" __sourcePath="{}/object/pickup" containerType="SINGLE" label="pickup" name="pickup" type="number"/>
+<Field __index="19" __sourcePath="{}/object/eta" containerType="SINGLE" label="eta" name="eta" type="long"/>
+<Field __index="20" __sourcePath="{}/object/cost" containerType="SINGLE" label="cost" name="cost" type="number"/>
+<Field __index="21" __sourcePath="{}/object/currency" containerType="SINGLE" label="currency" name="currency" type="string"/>
+<Field __index="22" __sourcePath="{}/object/width" containerType="SINGLE" label="width" name="width" type="integer"/>
+<Field __index="23" __sourcePath="{}/object/height" containerType="SINGLE" label="height" name="height" type="integer"/>
+<Field __index="24" __sourcePath="{}/object/depth" containerType="SINGLE" label="depth" name="depth" type="integer"/>
+<Field __index="25" __sourcePath="{}/object/unitSize" containerType="SINGLE" label="unitSize" name="unitSize" type="string"/>
+<Field __index="26" __sourcePath="{}/object/weight" containerType="SINGLE" label="weight" name="weight" type="integer"/>
+<Field __index="27" __sourcePath="{}/object/unitWeight" containerType="SINGLE" label="unitWeight" name="unitWeight" type="string"/>
+</Record>
+</Metadata>
+<Dictionary>
+<Entry id="DictionaryEntry0" input="true" name="inputPayload" output="false" type="object"/>
+<Entry id="DictionaryEntry1" input="false" name="outputPayload" output="true" type="object"/>
+</Dictionary>
+</Global>
+<Phase number="0">
+<Node cacheInMemory="true" enabled="enabled" fileURL="dict:outputPayload" guiName="Pojo WRITER" guiX="900" guiY="20" id="BEAN_WRITER0" type="BEAN_WRITER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<object xmlns:clover="http://www.cloveretl.com/ns/xmlmapping" clover:inPort="0">$0.text</object>]]></attr>
+<attr name="_data_format"><![CDATA[JAVA]]></attr>
+<attr name="schema"><![CDATA[<?xml version="1.0" encoding="UTF-8"?><schema-object>
+  <typed-object-ref type-ref="java.lang.Long"/>
+  <typed-object type="java.lang.Long"/>
+</schema-object>
+]]></attr>
+</Node>
+<Node enabled="enabled" guiName="Foreach 'object' -&gt; 'object'" guiX="460" guiY="20" id="FOREACH_OBJECT_OBJECT" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+//END -> DO NOT REMOVE
+output.text = input.eta;]]></attr>
+</Node>
+<Node charset="UTF-8" enabled="enabled" fileURL="dict:inputPayload" guiName="JSON READER" guiX="20" guiY="20" id="JSON_READER0" type="JSON_READER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Context xpath="/root">
+  <Context outPort="0" sequenceField="__id" xpath="object">
+    <Mapping cloverField="id" trim="true" xpath="id"/>
+    <Mapping cloverField="status" trim="true" xpath="status"/>
+    <Mapping cloverField="sender" trim="true" xpath="sender"/>
+    <Mapping cloverField="senderEmail" trim="true" xpath="senderEmail"/>
+    <Mapping cloverField="receiver" trim="true" xpath="receiver"/>
+    <Mapping cloverField="id_1" trim="true" xpath="from/id"/>
+    <Mapping cloverField="streetNb" trim="true" xpath="from/streetNb"/>
+    <Mapping cloverField="streetName" trim="true" xpath="from/streetName"/>
+    <Mapping cloverField="zipCode" trim="true" xpath="from/zipCode"/>
+    <Mapping cloverField="cityName" trim="true" xpath="from/cityName"/>
+    <Mapping cloverField="countryCode" trim="true" xpath="from/countryCode"/>
+    <Mapping cloverField="id_2" trim="true" xpath="to/id"/>
+    <Mapping cloverField="streetNb_1" trim="true" xpath="to/streetNb"/>
+    <Mapping cloverField="streetName_1" trim="true" xpath="to/streetName"/>
+    <Mapping cloverField="zipCode_1" trim="true" xpath="to/zipCode"/>
+    <Mapping cloverField="cityName_1" trim="true" xpath="to/cityName"/>
+    <Mapping cloverField="countryCode_1" trim="true" xpath="to/countryCode"/>
+    <Mapping cloverField="shipping" trim="true" xpath="shipping"/>
+    <Mapping cloverField="pickup" trim="true" xpath="pickup"/>
+    <Mapping cloverField="eta" trim="true" xpath="eta"/>
+    <Mapping cloverField="cost" trim="true" xpath="cost"/>
+    <Mapping cloverField="currency" trim="true" xpath="currency"/>
+    <Mapping cloverField="width" trim="true" xpath="width"/>
+    <Mapping cloverField="height" trim="true" xpath="height"/>
+    <Mapping cloverField="depth" trim="true" xpath="depth"/>
+    <Mapping cloverField="unitSize" trim="true" xpath="unitSize"/>
+    <Mapping cloverField="weight" trim="true" xpath="weight"/>
+    <Mapping cloverField="unitWeight" trim="true" xpath="unitWeight"/>
+  </Context>
+</Context>
+]]></attr>
+<attr name="_data_format"><![CDATA[JSON]]></attr>
+<attr name="jsonSchemaURL"><![CDATA[./src/main/resources/jsonSample/FedPS-Follow.json]]></attr>
+</Node>
+<Edge debugMode="true" fromNode="FOREACH_OBJECT_OBJECT:0" guiBendpoints="" id="Edge1" inPort="Port 0 (in)" metadata="1c1f9eb4-e275-482e-a9cc-dc06b2b69f81" outPort="Port 0 (out)" toNode="BEAN_WRITER0:0"/>
+<Edge debugMode="true" fromNode="JSON_READER0:0" guiBendpoints="" id="Edge0" inPort="Port 0 (in)" metadata="ecb02ed8-2458-4416-95f5-c762698f1f9a" outPort="Port 0 (out)" toNode="FOREACH_OBJECT_OBJECT:0"/>
+</Phase>
+</Graph>
