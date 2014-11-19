@@ -9,6 +9,7 @@ import fr.unice.polytech.soa1.misterdiscount.business.Customer;
 public class Order {
 
 	private Integer id;
+	private Double cost;
 	private Customer customer;
 	private Address address;
 	private List<OrderItem> items;
@@ -18,6 +19,9 @@ public class Order {
 	
 	public Integer getId() { return id; }
 	public void setId(Integer id) { this.id = id; }
+	
+	public Double getCost() { return cost; }
+	public void setCost(Double cost) { this.cost = cost; }
 	
 	public Customer getCustomer() { return customer; }
 	public void setCustomer(Customer customer) { this.customer = customer; }

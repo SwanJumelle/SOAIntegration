@@ -8,6 +8,7 @@ public class Item {
 	
 	private String productRef;
 	private Integer quantity;
+	private Double unitPrice;
 	
 	@XmlElement(name="productRef", required=true)
 	public String getProductRef() { return productRef; }
@@ -16,5 +17,9 @@ public class Item {
 	@XmlElement(name="quantity", required=true)
 	public Integer getQuantity() { return quantity; }
 	public void setQuantity(Integer quantity) { this.quantity = quantity; }
+	
+	@XmlElement(name="unitPrice", required=true)
+	public Double getUnitPrice() { return unitPrice; }
+	public void setUnitPrice(Double unitPrice) { this.unitPrice = unitPrice; }
 	
 }

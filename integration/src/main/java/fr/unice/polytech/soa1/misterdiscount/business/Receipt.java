@@ -10,12 +10,17 @@ import javax.xml.bind.annotation.XmlType;
 public class Receipt {
 
 	private String orderId;
+	private Double totalCost;
 	private Long eta;
 	private List<Item> items;
 
 	@XmlElement(name="orderId")
 	public String getOrderId() { return orderId; }
 	public void setOrderId(String orderId) { this.orderId = orderId; }
+	
+	@XmlElement(name="totalCost")
+	public Double getTotalCost() { return totalCost; }
+	public void setTotalCost(Double totalCost) { this.totalCost = totalCost; }
 
 	@XmlElement(name="eta")
 	public Long getEta() { return eta; }

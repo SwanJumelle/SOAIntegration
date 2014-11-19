@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Graph __version="3.5.0" author="victorsalle" created="Wed Nov 19 13:24:35 CET 2014" description="Pojo To Xml&lt;process_payment&gt;" guiVersion="3.4.4.P" id="1416400171111" licenseCode="Unlicensed" licenseType="Unknown" modified="Wed Nov 19 13:24:35 CET 2014" modifiedBy="victorsalle" name="Pojo_To_Xml_process_payment_" revision="1.0" showComponentDetails="false">
+<Global>
+<Metadata __index="2" __referenceCounter="0" __sourcePath="{}/object/items" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="3cec52af-a1fa-4f83-ba9e-44bfdd0e4c09" _parent_id="__parent_id" _type="Input" id="bab77b10-d7b4-4445-b22b-d097d2195905">
+<Record fieldDelimiter="," name="items" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __index="2" __sourcePath="{}/object/items/productRef" containerType="SINGLE" label="productRef" name="productRef" type="string"/>
+<Field __index="3" __sourcePath="{}/object/items/quantity" containerType="SINGLE" label="quantity" name="quantity" type="integer"/>
+<Field __index="4" __sourcePath="{}/object/items/unitPrice" containerType="SINGLE" label="unitPrice" name="unitPrice" type="number"/>
+</Record>
+</Metadata>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/object" _dataStructure="OBJECT" _id="__id" _type="Input" id="3cec52af-a1fa-4f83-ba9e-44bfdd0e4c09">
+<Record fieldDelimiter="," name="OrderInput" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __sourcePath="{}/object/cardNb" containerType="SINGLE" label="cardNb" name="cardNb" type="long"/>
+<Field __index="1" __sourcePath="{}/object/customerId" containerType="SINGLE" label="customerId" name="customerId" type="string"/>
+<Field __index="5" __sourcePath="{}/object/shippingAddress/city" containerType="SINGLE" label="city" name="city" type="string"/>
+<Field __index="6" __sourcePath="{}/object/shippingAddress/countryCode" containerType="SINGLE" label="countryCode" name="countryCode" type="string"/>
+<Field __index="7" __sourcePath="{}/object/shippingAddress/streetName" containerType="SINGLE" label="streetName" name="streetName" type="string"/>
+<Field __index="8" __sourcePath="{}/object/shippingAddress/streetNb" containerType="SINGLE" label="streetNb" name="streetNb" type="string"/>
+<Field __index="9" __sourcePath="{}/object/shippingAddress/zipCode" containerType="SINGLE" label="zipCode" name="zipCode" type="string"/>
+</Record>
+</Metadata>
+<Metadata __filteredMetadata="false" __index="0" __referenceCounter="1" __schemaType="{http://informatique.polytech.unice.fr/soa1/payment/rpc/public}process_payment" __sourcePath="{http://informatique.polytech.unice.fr/soa1/payment/rpc/public=ns0}/ns0:process_payment" _dataStructure="OBJECT" _id="__id" _type="Output" id="eac83e04-f16b-4339-b0f1-de56caa775ba">
+<Record fieldDelimiter="," name="process_payment" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __schemaType="{http://informatique.polytech.unice.fr/soa1/payment/rpc/public}process_payment" __sourcePath="{http://informatique.polytech.unice.fr/soa1/payment/rpc/public=ns0}/ns0:process_payment/id" containerType="SINGLE" label="id" name="id" type="string"/>
+<Field __index="1" __schemaType="{http://informatique.polytech.unice.fr/soa1/payment/rpc/public}process_payment" __sourcePath="{http://informatique.polytech.unice.fr/soa1/payment/rpc/public=ns0}/ns0:process_payment/card" containerType="SINGLE" label="card" name="card" type="string"/>
+<Field __index="2" __schemaType="{http://informatique.polytech.unice.fr/soa1/payment/rpc/public}process_payment" __sourcePath="{http://informatique.polytech.unice.fr/soa1/payment/rpc/public=ns0}/ns0:process_payment/customer" containerType="SINGLE" label="customer" name="customer" type="string"/>
+<Field __index="3" __schemaType="{http://informatique.polytech.unice.fr/soa1/payment/rpc/public}process_payment" __sourcePath="{http://informatique.polytech.unice.fr/soa1/payment/rpc/public=ns0}/ns0:process_payment/amount" containerType="SINGLE" label="amount" name="amount" type="number"/>
+</Record>
+</Metadata>
+<Dictionary>
+<Entry id="DictionaryEntry0" input="true" name="inputPayload" output="false" type="object"/>
+<Entry id="DictionaryEntry1" input="false" name="outputPayload" output="true" type="object"/>
+<Entry dictval.__javaType="java.lang.Double" id="DictionaryEntry2" input="true" name="totalCost" output="false" type="number"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry3" input="true" name="customerName" output="false" type="string"/>
+</Dictionary>
+</Global>
+<Phase number="0">
+<Node enabled="enabled" fileURL="dict:inputPayload" guiName="Pojo READER" guiX="20" guiY="20" id="BEAN_READER0" type="BEAN_READER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Context outPort="0" sequenceField="__id" xpath=".">
+  <Mapping cloverField="cardNb" trim="true" xpath="cardNb"/>
+  <Mapping cloverField="customerId" trim="true" xpath="customerId"/>
+  <Mapping cloverField="city" trim="true" xpath="shippingAddress/city"/>
+  <Mapping cloverField="countryCode" trim="true" xpath="shippingAddress/countryCode"/>
+  <Mapping cloverField="streetName" trim="true" xpath="shippingAddress/streetName"/>
+  <Mapping cloverField="streetNb" trim="true" xpath="shippingAddress/streetNb"/>
+  <Mapping cloverField="zipCode" trim="true" xpath="shippingAddress/zipCode"/>
+</Context>
+]]></attr>
+<attr name="_data_format"><![CDATA[JAVA]]></attr>
+<attr name="schema"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<schema-object>
+  <typed-object-ref type-ref="fr.unice.polytech.soa1.misterdiscount.business.OrderInput"/>
+  <typed-object type="fr.unice.polytech.soa1.misterdiscount.business.OrderInput">
+    <typed-object-ref name="cardNb" type-ref="java.lang.Long"/>
+    <typed-object-ref name="customerId" type-ref="java.lang.String"/>
+    <schema-collection name="items" type="java.util.List">
+      <typed-object-ref type-ref="fr.unice.polytech.soa1.misterdiscount.business.Item"/>
+    </schema-collection>
+    <typed-object-ref name="shippingAddress" type-ref="fr.unice.polytech.soa1.misterdiscount.business.Address"/>
+  </typed-object>
+  <typed-object type="fr.unice.polytech.soa1.misterdiscount.business.Address">
+    <typed-object-ref name="city" type-ref="java.lang.String"/>
+    <typed-object-ref name="countryCode" type-ref="java.lang.String"/>
+    <typed-object-ref name="streetName" type-ref="java.lang.String"/>
+    <typed-object-ref name="streetNb" type-ref="java.lang.String"/>
+    <typed-object-ref name="zipCode" type-ref="java.lang.String"/>
+  </typed-object>
+  <typed-object type="java.lang.Double"/>
+  <typed-object type="fr.unice.polytech.soa1.misterdiscount.business.Item">
+    <typed-object-ref name="productRef" type-ref="java.lang.String"/>
+    <typed-object-ref name="quantity" type-ref="java.lang.Integer"/>
+    <typed-object-ref name="unitPrice" type-ref="java.lang.Double"/>
+  </typed-object>
+  <typed-object type="java.lang.Long"/>
+  <typed-object type="java.lang.Integer"/>
+  <typed-object type="java.lang.String"/>
+</schema-object>
+]]></attr>
+</Node>
+<Node cacheInMemory="true" charset="UTF-8" enabled="enabled" fileURL="dict:outputPayload" guiName="XML WRITER" guiX="900" guiY="20" id="EXT_XML_WRITER0" type="EXT_XML_WRITER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<clover:element clover:name="ns0:process_payment" xmlns:clover="http://www.cloveretl.com/ns/xmlmapping" xmlns:ns0="http://informatique.polytech.unice.fr/soa1/payment/rpc/public" clover:inPort="0">
+  <id>$0.id</id>
+  <card>$0.card</card>
+  <customer>$0.customer</customer>
+  <amount>$0.amount</amount>
+</clover:element>]]></attr>
+<attr name="_data_format"><![CDATA[XML]]></attr>
+<attr name="__metadata"><![CDATA[true]]></attr>
+</Node>
+<Node enabled="enabled" guiName="Foreach 'object' -&gt; 'ns0:process_payment'" guiX="460" guiY="20" id="FOREACH_OBJECT_NS0_PROCESS_PAYMENT" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+//END -> DO NOT REMOVE
+output.card = num2str(input.cardNb);
+output.customer = inputArguments.customerName;
+output.amount = inputArguments.totalCost;
+output.id = "s-002";]]></attr>
+</Node>
+<Edge debugMode="true" fromNode="BEAN_READER0:0" guiBendpoints="" id="Edge0" inPort="Port 0 (in)" metadata="3cec52af-a1fa-4f83-ba9e-44bfdd0e4c09" outPort="Port 0 (out)" toNode="FOREACH_OBJECT_NS0_PROCESS_PAYMENT:0"/>
+<Edge debugMode="true" fromNode="FOREACH_OBJECT_NS0_PROCESS_PAYMENT:0" guiBendpoints="" id="Edge1" inPort="Port 0 (in)" metadata="eac83e04-f16b-4339-b0f1-de56caa775ba" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:0"/>
+</Phase>
+</Graph>

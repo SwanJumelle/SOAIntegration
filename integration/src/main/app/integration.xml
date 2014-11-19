@@ -23,10 +23,14 @@ http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/cu
     <data-mapper:config name="Pojo_To_Xml_processQuote_" transformationGraphPath="pojo_to_xml_processquote_.grf" doc:name="Pojo_To_Xml_processQuote_"/>
     <data-mapper:config name="Xml_processQuoteResponse__To_Pojo" transformationGraphPath="xml_processquoteresponse__to_pojo.grf" doc:name="Xml_processQuoteResponse__To_Pojo"/>
     <ws:consumer-config name="CreditGeneral-Public" wsdlLocation="contracts/CreditGeneral-Public.wsdl" service="PaymentRPCPublicService" port="PaymentRPCPublicPort" serviceAddress="http://localhost:8080//webservices/Payment-Public-RPC" doc:name="Web Service Consumer"/>
-    <data-mapper:config name="Xml_processOrderFromQuoteResponse__To_Pojo" transformationGraphPath="xml_processorderfromquoteresponse__to_pojo.grf" doc:name="Xml_processOrderFromQuoteResponse__To_Pojo"/>
     <data-mapper:config name="Pojo_To_Pojo" transformationGraphPath="pojo_to_pojo.grf" doc:name="Pojo_To_Pojo"/>
     <db:derby-config name="Derby-Glue" url="jdbc:derby:memory:glue;create=true" doc:name="Derby Configuration"/>
     <data-mapper:config name="JSON_To_Pojo" transformationGraphPath="json_to_pojo.grf" doc:name="JSON_To_Pojo"/>
+    <data-mapper:config name="Pojo_To_Xml_process_payment_" transformationGraphPath="pojo_to_xml_process_payment_.grf" doc:name="Pojo_To_Xml_process_payment_"/>
+    <data-mapper:config name="Pojo_To_Pojo_1" transformationGraphPath="pojo_to_pojo_1.grf" doc:name="Pojo_To_Pojo_1"/>
+    <data-mapper:config name="Xml_processOrderFromQuoteResponse__To_Map" transformationGraphPath="xml_processorderfromquoteresponse__to_map.grf" doc:name="Xml_processOrderFromQuoteResponse__To_Map"/>
+    <data-mapper:config name="Xml_processQuoteResponse__To_Map" transformationGraphPath="xml_processquoteresponse__to_map.grf" doc:name="Xml_processQuoteResponse__To_Map"/>
+    <data-mapper:config name="Pojo_To_Xml_processOrderFromQuote_" transformationGraphPath="pojo_to_xml_processorderfromquote_.grf" doc:name="Pojo_To_Xml_processOrderFromQuote_"/>
     <flow name="init-database" doc:name="init-database">
         <http:inbound-endpoint exchange-pattern="request-response" host="localhost" port="9090" path="admin/db/init" doc:name="localhost:9090/admin/db/init"/>
         <flow-ref name="create-tables" doc:name="create-tables"/>
@@ -55,10 +59,18 @@ http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/cu
  CONSTRAINT customer_pk PRIMARY KEY (id),
  FOREIGN KEY(address_id) REFERENCES address(id))]]></db:dynamic-query>
         </db:execute-ddl>
+        <db:execute-ddl config-ref="Derby-Glue" doc:name="create table PRODUCT">
+            <db:dynamic-query><![CDATA[CREATE TABLE product
+(id int GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), 
+ price double,
+ reference varchar(256) UNIQUE,
+ CONSTRAINT product_pk PRIMARY KEY (id))]]></db:dynamic-query>
+        </db:execute-ddl>
         <db:execute-ddl config-ref="Derby-Glue" doc:name="create table MD_ORDER">
             <db:dynamic-query><![CDATA[CREATE TABLE md_order
 (id int GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
  customer_id int,
+ cost double,
  order_date date,
  address_id int,
  carrier varchar(256),
@@ -75,7 +87,8 @@ http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/cu
  quantity int, 
  unit_price double, 
  CONSTRAINT order_item_pk PRIMARY KEY (id),
- FOREIGN KEY(order_id) REFERENCES md_order(id))]]></db:dynamic-query>
+ FOREIGN KEY(order_id) REFERENCES md_order(id),
+ FOREIGN KEY(product_ref) REFERENCES product(reference))]]></db:dynamic-query>
         </db:execute-ddl>
     </sub-flow>
     <sub-flow name="insert-first-values" doc:name="insert-first-values">
@@ -83,7 +96,7 @@ http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/cu
             <db:parameterized-query><![CDATA[INSERT INTO address (street_nb, street_name, zip_code, city, country_code)
 VALUES ('930', 'Route des Colles', '06410', 'Biot', 'FR')]]></db:parameterized-query>
         </db:insert>
-        <db:insert config-ref="Derby-Glue" doc:name="insert address 1">
+        <db:insert config-ref="Derby-Glue" doc:name="insert address 2">
             <db:parameterized-query><![CDATA[INSERT INTO address (street_nb, street_name, zip_code, city, country_code)
 VALUES ('641', 'Avenue des Champs Elysees', '75008', 'Paris', 'FR')]]></db:parameterized-query>
         </db:insert>
@@ -95,13 +108,21 @@ VALUES ('Alice', 'Durand', 'alice@durand.com', false, 1)]]></db:parameterized-qu
             <db:parameterized-query><![CDATA[INSERT INTO customer (first_name, last_name, catalogue, address_id)
 VALUES ('Germaine', 'Martin', false, 2)]]></db:parameterized-query>
         </db:insert>
+        <db:insert config-ref="Derby-Glue" doc:name="insert product 1">
+            <db:parameterized-query><![CDATA[INSERT INTO product (price, reference) 
+VALUES (18.6, 'OIH211')]]></db:parameterized-query>
+        </db:insert>
+        <db:insert config-ref="Derby-Glue" doc:name="insert product 2">
+            <db:parameterized-query><![CDATA[INSERT INTO product (price, reference) 
+VALUES (54.99, 'SXC266')]]></db:parameterized-query>
+        </db:insert>
         <db:insert config-ref="Derby-Glue" doc:name="insert md-order 1">
-            <db:parameterized-query><![CDATA[INSERT INTO md_order(customer_id, order_date, address_id, carrier, tracking_nb) 
-VALUES (1, CURRENT_DATE, 1, 'FedPS', '722466204')]]></db:parameterized-query>
+            <db:parameterized-query><![CDATA[INSERT INTO md_order(customer_id, cost, order_date, address_id, carrier, tracking_nb) 
+VALUES (1, 92.19, CURRENT_DATE, 1, 'FedPS', '722466204')]]></db:parameterized-query>
         </db:insert>
         <db:insert config-ref="Derby-Glue" doc:name="insert md-order 2">
-            <db:parameterized-query><![CDATA[INSERT INTO md_order(customer_id, order_date, address_id, carrier, tracking_nb)
-VALUES (2, CURRENT_DATE, 2, 'FedPS', '185509339')]]></db:parameterized-query>
+            <db:parameterized-query><![CDATA[INSERT INTO md_order(customer_id, cost, order_date, address_id, carrier, tracking_nb)
+VALUES (2, 47.5, CURRENT_DATE, 2, 'FedPS', '185509339')]]></db:parameterized-query>
         </db:insert>
         <db:insert config-ref="Derby-Glue" doc:name="insert order-item 1">
             <db:parameterized-query><![CDATA[INSERT INTO order_item (order_id, product_ref, quantity, unit_price) 
@@ -113,7 +134,7 @@ VALUES (1, 'SXC266', 1, 54.99)]]></db:parameterized-query>
         </db:insert>
         <db:insert config-ref="Derby-Glue" doc:name="insert order-item 3">
             <db:parameterized-query><![CDATA[INSERT INTO order_item (order_id, product_ref, quantity, unit_price) 
-VALUES (2, 'AZY878', 5, 9.50)]]></db:parameterized-query>
+VALUES (2, 'OIH211', 5, 18.6)]]></db:parameterized-query>
         </db:insert>
     </sub-flow>
     <flow name="MisterDiscount-Order-WS" doc:name="MisterDiscount-Order-WS">
@@ -136,33 +157,138 @@ VALUES (2, 'AZY878', 5, 9.50)]]></db:parameterized-query>
     </flow>
     <flow name="ProcessOrder-VM" doc:name="ProcessOrder-VM">
         <vm:inbound-endpoint exchange-pattern="request-response" path="/misterdiscount/order" doc:name="/misterdiscount/order"/>
+        <scripting:component doc:name="if empty shipping address">
+            <scripting:script engine="Groovy"><![CDATA[import groovy.sql.*
+import java.sql.*
+import java.util.*
+
+import fr.unice.polytech.soa1.misterdiscount.business.Address
+
+if (payload.shippingAddress == null) {
+	def sql = Sql.newInstance("jdbc:derby:memory:glue", new Properties());
+
+	def query = "SELECT * FROM address LEFT JOIN customer ON customer.address_id = address.id WHERE customer.id=" + payload.customerId;
+	def result = sql.rows(query);
+
+	Address a = new Address();
+	a.setStreetNb(result[0]['STREET_NB']);
+	a.setStreetName(result[0]['STREET_NAME']);
+	a.setZipCode(result[0]['ZIP_CODE']);
+	a.setCity(result[0]['CITY']);
+	a.setCountryCode(result[0]['COUNTRY_CODE']);
+
+	payload.shippingAddress = a;
+}
+
+return payload;]]></scripting:script>
+        </scripting:component>
         <flow-ref name="FedPS-Quote-SubFlow" doc:name="FedPS-Quote"/>
+        <flow-ref name="CreditGeneral-ProcessPayment-SubFlow" doc:name="CreditGeneral-ProcessPayment-SubFlow"/>
+        <choice doc:name="payment success?">
+            <when expression="#[flowVars.paymentSuccess==true]">
+                <flow-ref name="FedPS-OrderFromQuote-SubFlow" doc:name="FedPS-OrderFromQuote"/>
+            </when>
+            <otherwise>
+                <scripting:component doc:name="PaymentException">
+                    <scripting:script engine="Groovy"><![CDATA[import fr.unice.polytech.soa1.misterdiscount.business.exceptions.PaymentException
+
+throw new PaymentException();]]></scripting:script>
+                </scripting:component>
+            </otherwise>
+        </choice>
         <!--<vm:outbound-endpoint exchange-pattern="one-way" path="/payment/process" doc:name="/payment/process"/>-->
         <!--<flow-ref name="CreditGeneral-Process-SubFlow" doc:name="CreditGeneral-Process"/>-->
-        <flow-ref name="FedPS-OrderFromQuote-SubFlow" doc:name="FedPS-OrderFromQuote"/>
     </flow>
     <sub-flow name="FedPS-Quote-SubFlow" doc:name="FedPS-Quote-SubFlow">
-        <!-- <enricher doc:name="Enrich message.payload.quoteId">-->
-            <data-mapper:transform config-ref="Pojo_To_Xml_processQuote_" doc:name="Pojo To Xml&lt;processQuote&gt;"/>
-            <ws:consumer config-ref="FedPS-Order" operation="processQuote" doc:name="FedPS-Quote"/>
-            <!-- <enrich target="#[message.payload.quoteId]" source="/id"/>
-            <enrich target="#[message.payload.transportCost]" source="/eta"/>
-        </enricher>-->
+        <enricher  doc:name="flowVars.FedPScost and flowVars.FedPSquoteID">
+            <processor-chain doc:name="Processor Chain">
+                <data-mapper:transform config-ref="Pojo_To_Xml_processQuote_" doc:name="Pojo To Xml&lt;processQuote&gt;"/>
+                <ws:consumer config-ref="FedPS-Order" operation="processQuote" doc:name="FedPS-Quote"/>
+                <data-mapper:transform config-ref="Xml_processQuoteResponse__To_Map" doc:name="Xml&lt;processQuoteResponse&gt; To Map"/>
+            </processor-chain>
+            <enrich source="#[message.payload['cost']]" target="#[flowVars.FedPScost]"/>
+            <enrich source="#[message.payload['id']]" target="#[flowVars.FedPSquoteID]"/>
+        </enricher>
     </sub-flow>
-    
-    <!-- <sub-flow name="CreditGeneral-Process-SubFlow" doc:name="CreditGeneral-Process-SubFlow">
-        <logger message="CreditGeneral - Process payment" level="INFO" doc:name="Logger"/>
-        <batch:set-record-variable variableName="paymentStatus" value="" doc:name="Payment-Status?"/>
-    </sub-flow>-->
-   <!-- <flow name="integrationFlow1" doc:name="integrationFlow1">
-        <vm:inbound-endpoint exchange-pattern="one-way"  doc:name="/payment/process" path="/payment/process"/>
-        <ws:consumer config-ref="CreditGeneral-Public" operation="process_payment" doc:name="Web Service Consumer"/>
-        <logger message="Payment status is : #[flowVars.paymentStatus]" level="INFO" doc:name="Logger"/>
-    </flow> -->
+    <sub-flow name="CreditGeneral-ProcessPayment-SubFlow" doc:name="CreditGeneral-ProcessPayment-SubFlow">
+        <enricher target="#[flowVars.totalCost]" doc:name="flowVars.totalCost">
+            <scripting:component doc:name="Compute amount">
+                <scripting:script engine="Groovy"><![CDATA[import groovy.sql.*
+import java.sql.*
+import java.util.*
+
+import fr.unice.polytech.soa1.misterdiscount.business.Item
+import fr.unice.polytech.soa1.misterdiscount.business.exceptions.ProductNotFoundException
+
+def sql = Sql.newInstance("jdbc:derby:memory:glue", new Properties());
+
+def amount = 0;
+
+for (Item i : payload.items) {
+	def query = "SELECT * FROM product WHERE reference='" + i.getProductRef() + "'";
+	def result = sql.rows(query);
+
+	if (result.size() == 0)
+		throw new ProductNotFoundException(i.getProductRef());
+	else
+		amount += result[0]['PRICE'];
+}
+
+amount += flowVars.FedPScost;
+
+return amount;]]></scripting:script>
+            </scripting:component>
+        </enricher>
+        <enricher target="#[flowVars.customerName]" doc:name="flowVars.customerName">
+            <scripting:component doc:name="Customer name">
+                <scripting:script engine="Groovy"><![CDATA[import groovy.sql.*
+import java.sql.*
+import java.util.*
+
+def sql = Sql.newInstance("jdbc:derby:memory:glue", new Properties());
+
+def query = "SELECT first_name, last_name FROM customer WHERE id=" + payload.customerId;
+def result = sql.rows(query);
+
+return result[0]['FIRST_NAME'] + " " + result[0]['LAST_NAME'];]]></scripting:script>
+            </scripting:component>
+        </enricher>
+        <enricher target="#[flowVars.paymentSuccess]" doc:name="#[flowVars.paymentSuccess]">
+            <processor-chain doc:name="Processor Chain">
+                <data-mapper:transform config-ref="Pojo_To_Xml_process_payment_" doc:name="Pojo To Xml&lt;process_payment&gt;">
+                    <data-mapper:input-arguments>
+                        <data-mapper:input-argument key="customerName">#[flowVars.customerName]</data-mapper:input-argument>
+                        <data-mapper:input-argument key="totalCost">#[flowVars.totalCost]</data-mapper:input-argument>
+                    </data-mapper:input-arguments>
+                </data-mapper:transform>
+                <ws:consumer config-ref="CreditGeneral-Public" operation="process_payment" doc:name="CreditGeneral-Public-process_payment"/>
+                <scripting:component doc:name="return true">
+                    <scripting:script engine="Groovy"><![CDATA[return true;]]></scripting:script>
+                </scripting:component>
+            </processor-chain>
+        </enricher>
+    </sub-flow>
     <sub-flow name="FedPS-OrderFromQuote-SubFlow" doc:name="FedPS-OrderFromQuote-SubFlow">
-        <logger message="FedPS - Order from quote" level="INFO" doc:name="Logger"/>
-        <ws:consumer config-ref="FedPS-Order" operation="processOrderFromQuote" doc:name="FedPS-OrderFromQuote"/>
-        <data-mapper:transform doc:name="Xml&lt;processOrderFromQuoteResponse&gt; To Pojo" config-ref="Xml_processOrderFromQuoteResponse__To_Pojo"/>
+        <enricher target="#[flowVars.finalEta]" doc:name="flowVars.finalEta">
+            <processor-chain doc:name="Processor Chain">
+                <data-mapper:transform config-ref="Pojo_To_Xml_processOrderFromQuote_" doc:name="Pojo To Xml&lt;processOrderFromQuote&gt;">
+                    <data-mapper:input-arguments>
+                        <data-mapper:input-argument key="customerName">#[flowVars.customerName]</data-mapper:input-argument>
+                        <data-mapper:input-argument key="quoteId">#[flowVars.FedPSquoteID]</data-mapper:input-argument>
+                    </data-mapper:input-arguments>
+                </data-mapper:transform>
+                <ws:consumer config-ref="FedPS-Order" operation="processOrderFromQuote" doc:name="FedPS-OrderFromQuote"/>
+                <data-mapper:transform config-ref="Xml_processOrderFromQuoteResponse__To_Map" doc:name="Xml&lt;processOrderFromQuoteResponse&gt; To Map"/>
+                <set-payload value="#[message.payload['eta']]" doc:name="eta"/>
+            </processor-chain>
+        </enricher>
+        <logger message="AFTER FEDPS ORDER" level="INFO" doc:name="Logger"/>
+        <data-mapper:transform config-ref="Pojo_To_Pojo_1" doc:name="Pojo To Pojo">
+            <data-mapper:input-arguments>
+                <data-mapper:input-argument key="finalEta">#[flowVars.finalEta]</data-mapper:input-argument>
+                <data-mapper:input-argument key="totalCost">#[flowVars.totalCost]</data-mapper:input-argument>
+            </data-mapper:input-arguments>
+        </data-mapper:transform>
         <!-- <data-mapper:transform config-ref="Xml_processQuoteResponse__To_Pojo" doc:name="Xml&lt;processQuoteResponse&gt; To Pojo"/>-->
     </sub-flow>
     <flow name="GetOrderInformation-VM" doc:name="GetOrderInformation-VM">
@@ -223,6 +349,7 @@ for (int i = 0; i < itemsResult.size(); i++) {
     oi.setProductRef(itemsResult[i]['PRODUCT_REF']);
     oi.setQuantity(itemsResult[i]['QUANTITY']);
     oi.setUnitPrice(itemsResult[i]['UNIT_PRICE']);
+    
     items.add(oi);
 }
 
@@ -232,6 +359,7 @@ def order = new Order();
 order.setId(message.payload);
 order.setAddress(address);
 order.setItems(items);
+order.setCost(orderResult['COST']);
 order.setDate(orderResult['ORDER_DATE']);
 order.setCarrier(orderResult['CARRIER']);
 order.setTrackingNb(orderResult['TRACKING_NB']);
@@ -241,9 +369,16 @@ return order;
                 </scripting:component>
                 <data-mapper:transform config-ref="Pojo_To_Pojo" doc:name="Pojo To Pojo"/>
                 <flow-ref name="get-eta-and-url" doc:name="get-eta-and-url"/>
+                <enricher target="#[message.payload.status]" doc:name="Enrich message.payload.status">
+                    <set-payload value="SENT" doc:name="Set Payload"/>
+                </enricher>
             </when>
             <otherwise>
-                <logger message="Order #[payload] not found" level="INFO" doc:name="Not found"/>
+                <scripting:component doc:name="OrderNotFoundException">
+                    <scripting:script engine="Groovy"><![CDATA[import fr.unice.polytech.soa1.misterdiscount.business.exceptions.OrderNotFoundException
+
+throw new OrderNotFoundException(String.valueOf(payload));]]></scripting:script>
+                </scripting:component>
             </otherwise>
         </choice>
     </flow>
@@ -254,7 +389,7 @@ return order;
                 <enricher target="#[message.payload.deliveryTracking.url]" doc:name="Enrich message.payload.deliveryTracking.url">
                     <set-payload value="http://localhost:8080/fedps/follow/parcels/#[flowVars.trackingNb]" doc:name="Set Payload"/>
                 </enricher>
-                <enricher target="#[message.payload.receipt.eta]" doc:name="Enrich message.payload.receipt.eta">
+                <enricher target="#[message.payload.eta]" doc:name="Enrich message.payload.eta">
                     <processor-chain doc:name="Processor Chain">
                         <expression-transformer expression="#[new Object[]{}]" doc:name="init request"/>
                         <http:outbound-endpoint exchange-pattern="request-response" method="GET" address="http://localhost:8080/fedps/follow/parcels/#[flowVars.trackingNb]" doc:name="localhost:8080/fedps/follow/"/>
@@ -283,8 +418,9 @@ return order;
         <http:inbound-endpoint exchange-pattern="request-response" host="localhost" port="8081" path="misterdiscount/catalogue" doc:name="http://localhost:8081/misterdiscount/catalogue"/>
         <cxf:jaxws-service serviceClass="fr.unice.polytech.soa1.misterdiscount.services.Catalogue" doc:name="Catalogue"/>
         <set-variable variableName="operation" value="#[flowVars.cxf_operation.localPart]" doc:name="operation?"/>
-        <choice doc:name="Choice">
+        <choice doc:name="new or existing customer?">
             <when expression="#[operation == &quot;RegisterCatalogueExistingCustomer&quot;]">
+                <logger message="RegisterCatalogueExistingCustomer" level="INFO" doc:name="RegisterCatalogueExistingCustomer"/>
                 <db:update config-ref="Derby-Glue" doc:name="update customer">
                     <db:parameterized-query><![CDATA[UPDATE customer
 SET catalogue=true
@@ -292,6 +428,7 @@ WHERE id=#[message.payload]]]></db:parameterized-query>
                 </db:update>
             </when>
             <when expression="#[operation == &quot;RegisterCatalogueNewCustomer&quot;]">
+                <logger message="RegisterCatalogueNewCustomer" level="INFO" doc:name="RegisterCatalogueNewCustomer"/>
                 <db:insert config-ref="Derby-Glue" doc:name="insert address">
                     <db:parameterized-query><![CDATA[INSERT INTO address (street_nb, street_name, zip_code, city, country_code)
 VALUES (
@@ -311,6 +448,36 @@ VALUES (
     (SELECT max(id) FROM address)
 )]]></db:parameterized-query>
                 </db:insert>
+            </when>
+            <when expression="#[operation == &quot;GetAddressesToSend&quot;]">
+                <scripting:component doc:name="GetAddressesToSend">
+                    <scripting:script engine="Groovy"><![CDATA[import groovy.sql.*
+import java.sql.*
+import java.util.*
+
+import fr.unice.polytech.soa1.misterdiscount.business.Address
+
+def sql = Sql.newInstance("jdbc:derby:memory:glue", new Properties());
+
+def addresses = new ArrayList<Address>();
+def addressesQuery = "SELECT * FROM address LEFT JOIN customer ON customer.address_id = address.id WHERE customer.catalogue = true";
+def addressesResult = sql.rows(addressesQuery);
+
+List<Address> result = new ArrayList<Address>();
+
+for (int i = 0; i < addressesResult.size(); i++) {
+	Address a = new Address();
+	a.setStreetNb(addressesResult[i]['STREET_NB']);
+	a.setStreetName(addressesResult[i]['STREET_NAME']);
+	a.setZipCode(addressesResult[i]['ZIP_CODE']);
+	a.setCity(addressesResult[i]['CITY']);
+	a.setCountryCode(addressesResult[i]['COUNTRY_CODE']);
+    
+    result.add(a);
+}
+
+return result;]]></scripting:script>
+                </scripting:component>
             </when>
             <otherwise>
                 <logger message="Unknown Operation" level="INFO" doc:name="Unknown Operation"/>

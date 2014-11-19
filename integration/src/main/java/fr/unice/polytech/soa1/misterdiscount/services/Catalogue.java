@@ -7,6 +7,7 @@ import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
 
+import fr.unice.polytech.soa1.misterdiscount.business.Address;
 import fr.unice.polytech.soa1.misterdiscount.business.Customer;
 
 @WebService(name="MisterDiscountCatalogue",
@@ -20,8 +21,8 @@ public interface Catalogue {
 	@WebMethod(operationName = "RegisterCatalogueNewCustomer")
 	public void registerCatalogueNewCustomer(@WebParam(name="customer") Customer newCustomer);
 	
-	//@WebMethod(operationName = "GetRegisteredCustomers")
-	//@WebResult(name = "registeredCustomers")
-	//public List<Customer> getRegisterdCustomers();
+	@WebMethod(operationName = "GetAddressesToSend")
+	@WebResult(name = "address")
+	public List<Address> getAddressesToSend();
 	
 }
