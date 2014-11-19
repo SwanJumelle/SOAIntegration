@@ -31,6 +31,7 @@ http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/cu
     <data-mapper:config name="Xml_processOrderFromQuoteResponse__To_Map" transformationGraphPath="xml_processorderfromquoteresponse__to_map.grf" doc:name="Xml_processOrderFromQuoteResponse__To_Map"/>
     <data-mapper:config name="Xml_processQuoteResponse__To_Map" transformationGraphPath="xml_processquoteresponse__to_map.grf" doc:name="Xml_processQuoteResponse__To_Map"/>
     <data-mapper:config name="Pojo_To_Xml_processOrderFromQuote_" transformationGraphPath="pojo_to_xml_processorderfromquote_.grf" doc:name="Pojo_To_Xml_processOrderFromQuote_"/>
+    <data-mapper:config name="Xml_process_paymentResponse__To_Map" transformationGraphPath="xml_process_paymentresponse__to_map.grf" doc:name="Xml_process_paymentResponse__To_Map"/>
     <flow name="init-database" doc:name="init-database">
         <http:inbound-endpoint exchange-pattern="request-response" host="localhost" port="9090" path="admin/db/init" doc:name="localhost:9090/admin/db/init"/>
         <flow-ref name="create-tables" doc:name="create-tables"/>
@@ -152,12 +153,17 @@ VALUES (2, 'OIH211', 5, 18.6)]]></db:parameterized-query>
             </when>
             <otherwise>
                 <logger message="Unknown Operation" level="INFO" doc:name="Unknown Operation"/>
+                <scripting:component doc:name="UnknownOperationException">
+                    <scripting:script engine="Groovy"><![CDATA[import fr.unice.polytech.soa1.misterdiscount.business.exceptions.UnknownOperationException
+
+throw new UnknownOperationException(operation);]]></scripting:script>
+                </scripting:component>
             </otherwise>
         </choice>
     </flow>
     <flow name="ProcessOrder-VM" doc:name="ProcessOrder-VM">
         <vm:inbound-endpoint exchange-pattern="request-response" path="/misterdiscount/order" doc:name="/misterdiscount/order"/>
-        <scripting:component doc:name="if empty shipping address">
+        <scripting:component doc:name="set shipping address if needed">
             <scripting:script engine="Groovy"><![CDATA[import groovy.sql.*
 import java.sql.*
 import java.util.*
@@ -182,25 +188,35 @@ if (payload.shippingAddress == null) {
 
 return payload;]]></scripting:script>
         </scripting:component>
-        <flow-ref name="FedPS-Quote-SubFlow" doc:name="FedPS-Quote"/>
-        <flow-ref name="CreditGeneral-ProcessPayment-SubFlow" doc:name="CreditGeneral-ProcessPayment-SubFlow"/>
-        <choice doc:name="payment success?">
-            <when expression="#[flowVars.paymentSuccess==true]">
-                <flow-ref name="FedPS-OrderFromQuote-SubFlow" doc:name="FedPS-OrderFromQuote"/>
-            </when>
-            <otherwise>
-                <scripting:component doc:name="PaymentException">
-                    <scripting:script engine="Groovy"><![CDATA[import fr.unice.polytech.soa1.misterdiscount.business.exceptions.PaymentException
+        <scripting:component doc:name="select best carrier">
+            <scripting:script engine="Groovy"><![CDATA[flowVars.bestCarrier = "FedPS";
 
-throw new PaymentException();]]></scripting:script>
-                </scripting:component>
-            </otherwise>
-        </choice>
+return payload;]]></scripting:script>
+        </scripting:component>
+        <flow-ref name="Transportation-Quote-SubFlow" doc:name="Transportation-Quote-SubFlow"/>
+        <flow-ref name="CreditGeneral-ProcessPayment-SubFlow" doc:name="CreditGeneral-ProcessPayment-SubFlow"/>
+        <flow-ref name="Transportation-Order-SubFlow" doc:name="Transportation-Order-SubFlow"/>
+        <data-mapper:transform config-ref="Pojo_To_Pojo_1" doc:name="Pojo To Pojo">
+            <data-mapper:input-arguments>
+                <data-mapper:input-argument key="finalEta">#[flowVars.finalEta]</data-mapper:input-argument>
+                <data-mapper:input-argument key="totalCost">#[flowVars.totalCost]</data-mapper:input-argument>
+            </data-mapper:input-arguments>
+        </data-mapper:transform>
         <!--<vm:outbound-endpoint exchange-pattern="one-way" path="/payment/process" doc:name="/payment/process"/>-->
         <!--<flow-ref name="CreditGeneral-Process-SubFlow" doc:name="CreditGeneral-Process"/>-->
     </flow>
+    <sub-flow name="Transportation-Quote-SubFlow" doc:name="Transportation-Quote-SubFlow">
+        <choice doc:name="carrier?">
+            <when expression="#[flowVars.bestCarrier == 'FedPS']">
+                <flow-ref name="FedPS-Quote-SubFlow" doc:name="FedPS-Quote-SubFlow"/>
+            </when>
+            <otherwise>
+                <flow-ref name="FedPS-Quote-SubFlow" doc:name="FedPS-Quote-SubFlow"/>
+            </otherwise>
+        </choice>
+    </sub-flow>
     <sub-flow name="FedPS-Quote-SubFlow" doc:name="FedPS-Quote-SubFlow">
-        <enricher  doc:name="flowVars.FedPScost and flowVars.FedPSquoteID">
+        <enricher doc:name="flowVars.FedPScost and flowVars.FedPSquoteID">
             <processor-chain doc:name="Processor Chain">
                 <data-mapper:transform config-ref="Pojo_To_Xml_processQuote_" doc:name="Pojo To Xml&lt;processQuote&gt;"/>
                 <ws:consumer config-ref="FedPS-Order" operation="processQuote" doc:name="FedPS-Quote"/>
@@ -262,11 +278,30 @@ return result[0]['FIRST_NAME'] + " " + result[0]['LAST_NAME'];]]></scripting:scr
                     </data-mapper:input-arguments>
                 </data-mapper:transform>
                 <ws:consumer config-ref="CreditGeneral-Public" operation="process_payment" doc:name="CreditGeneral-Public-process_payment"/>
-                <scripting:component doc:name="return true">
-                    <scripting:script engine="Groovy"><![CDATA[return true;]]></scripting:script>
+                <data-mapper:transform config-ref="Xml_process_paymentResponse__To_Map" doc:name="Xml&lt;process_paymentResponse&gt; To Map"/>
+                <scripting:component doc:name="paiement status?">
+                    <scripting:script engine="Groovy"><![CDATA[return (payload.status == 'APPROVED' || payload.status == 'PROCESSING');]]></scripting:script>
                 </scripting:component>
             </processor-chain>
         </enricher>
+        <scripting:component doc:name="if rejected then PaymentException">
+            <scripting:script engine="Groovy"><![CDATA[import fr.unice.polytech.soa1.misterdiscount.business.exceptions.PaymentException
+
+if (!flowVars.paymentSuccess)
+	throw new PaymentException();
+
+return payload;]]></scripting:script>
+        </scripting:component>
+    </sub-flow>
+    <sub-flow name="Transportation-Order-SubFlow" doc:name="Transportation-Order-SubFlow">
+        <choice doc:name="carrier?">
+            <when expression="#[flowVars.bestCarrier == 'FedPS']">
+                <flow-ref name="FedPS-OrderFromQuote-SubFlow" doc:name="FedPS-OrderFromQuote-SubFlow"/>
+            </when>
+            <otherwise>
+                <flow-ref name="FedPS-OrderFromQuote-SubFlow" doc:name="FedPS-OrderFromQuote-SubFlow"/>
+            </otherwise>
+        </choice>
     </sub-flow>
     <sub-flow name="FedPS-OrderFromQuote-SubFlow" doc:name="FedPS-OrderFromQuote-SubFlow">
         <enricher target="#[flowVars.finalEta]" doc:name="flowVars.finalEta">
@@ -282,13 +317,6 @@ return result[0]['FIRST_NAME'] + " " + result[0]['LAST_NAME'];]]></scripting:scr
                 <set-payload value="#[message.payload['eta']]" doc:name="eta"/>
             </processor-chain>
         </enricher>
-        <logger message="AFTER FEDPS ORDER" level="INFO" doc:name="Logger"/>
-        <data-mapper:transform config-ref="Pojo_To_Pojo_1" doc:name="Pojo To Pojo">
-            <data-mapper:input-arguments>
-                <data-mapper:input-argument key="finalEta">#[flowVars.finalEta]</data-mapper:input-argument>
-                <data-mapper:input-argument key="totalCost">#[flowVars.totalCost]</data-mapper:input-argument>
-            </data-mapper:input-arguments>
-        </data-mapper:transform>
         <!-- <data-mapper:transform config-ref="Xml_processQuoteResponse__To_Pojo" doc:name="Xml&lt;processQuoteResponse&gt; To Pojo"/>-->
     </sub-flow>
     <flow name="GetOrderInformation-VM" doc:name="GetOrderInformation-VM">
@@ -420,6 +448,22 @@ throw new OrderNotFoundException(String.valueOf(payload));]]></scripting:script>
         <set-variable variableName="operation" value="#[flowVars.cxf_operation.localPart]" doc:name="operation?"/>
         <choice doc:name="new or existing customer?">
             <when expression="#[operation == &quot;RegisterCatalogueExistingCustomer&quot;]">
+                <scripting:component doc:name="Check customer existence">
+                    <scripting:script engine="Groovy"><![CDATA[import groovy.sql.*
+import java.sql.*
+
+import fr.unice.polytech.soa1.misterdiscount.business.exceptions.CustomerNotFoundException
+
+def sql = Sql.newInstance("jdbc:derby:memory:glue", new Properties());
+
+def query = "SELECT * FROM customer WHERE id=" + message.payload;
+def result = sql.rows(query);
+
+if (result.size() == 0)
+	throw new CustomerNotFoundException(String.valueOf(message.payload));
+
+return payload;]]></scripting:script>
+                </scripting:component>
                 <logger message="RegisterCatalogueExistingCustomer" level="INFO" doc:name="RegisterCatalogueExistingCustomer"/>
                 <db:update config-ref="Derby-Glue" doc:name="update customer">
                     <db:parameterized-query><![CDATA[UPDATE customer
@@ -455,18 +499,19 @@ VALUES (
 import java.sql.*
 import java.util.*
 
-import fr.unice.polytech.soa1.misterdiscount.business.Address
+import fr.unice.polytech.soa1.misterdiscount.business.AddressWithName
 
 def sql = Sql.newInstance("jdbc:derby:memory:glue", new Properties());
 
-def addresses = new ArrayList<Address>();
 def addressesQuery = "SELECT * FROM address LEFT JOIN customer ON customer.address_id = address.id WHERE customer.catalogue = true";
 def addressesResult = sql.rows(addressesQuery);
 
-List<Address> result = new ArrayList<Address>();
+List<AddressWithName> result = new ArrayList<AddressWithName>();
 
 for (int i = 0; i < addressesResult.size(); i++) {
-	Address a = new Address();
+	AddressWithName a = new AddressWithName();
+	a.setFirstName(addressesResult[i]['FIRST_NAME']);
+	a.setLastName(addressesResult[i]['LAST_NAME']);
 	a.setStreetNb(addressesResult[i]['STREET_NB']);
 	a.setStreetName(addressesResult[i]['STREET_NAME']);
 	a.setZipCode(addressesResult[i]['ZIP_CODE']);

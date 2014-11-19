@@ -218,7 +218,7 @@ output.__id = input.__id;
 //END -> DO NOT REMOVE
 output.carrier = input.carrier;
 output.trackingNb = input.trackingNb;
-output.orderId = num2str(input.id) + input.id;
+output.orderId = input.id;
 output.city = input.city;
 output.countryCode = input.countryCode;
 output.streetName = input.streetName;

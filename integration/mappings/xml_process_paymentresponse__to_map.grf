@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Graph __version="3.5.0" author="victorsalle" created="Wed Nov 19 13:42:13 CET 2014" description="Xml&lt;process_paymentResponse&gt; To Map" guiVersion="3.4.4.P" id="1416412861168" licenseCode="Unlicensed" licenseType="Unknown" modified="Wed Nov 19 13:42:13 CET 2014" modifiedBy="victorsalle" name="Xml_process_paymentResponse__To_Map" revision="1.0" showComponentDetails="false">
+<Global>
+<Metadata __filteredMetadata="false" __index="0" __referenceCounter="1" __schemaType="{http://informatique.polytech.unice.fr/soa1/payment/rpc/public}process_paymentResponse" __sourcePath="{http://informatique.polytech.unice.fr/soa1/payment/rpc/public=ns0}/ns0:process_paymentResponse" _dataStructure="OBJECT" _id="__id" _type="Input" id="16478cdb-3e55-48a6-beb4-d96c9b6089e4">
+<Record fieldDelimiter="," name="process_paymentResponse" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __schemaType="{http://informatique.polytech.unice.fr/soa1/payment/rpc/public}process_paymentResponse" __sourcePath="{http://informatique.polytech.unice.fr/soa1/payment/rpc/public=ns0}/ns0:process_paymentResponse/status" containerType="SINGLE" label="status" name="status" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/status" _dataStructure="OBJECT" _id="__id" _type="Output" id="4a71025b-224d-424e-b25d-31d42a5a7899">
+<Record fieldDelimiter="," name="status" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __sourcePath="{}/status/status" containerType="SINGLE" label="status" name="status" type="string"/>
+</Record>
+</Metadata>
+<Dictionary>
+<Entry id="DictionaryEntry0" input="true" name="inputPayload" output="false" type="object"/>
+<Entry id="DictionaryEntry1" input="false" name="outputPayload" output="true" type="object"/>
+</Dictionary>
+</Global>
+<Phase number="0">
+<Node enabled="enabled" guiName="Foreach 'ns0:process_paymentResponse' -&gt; 'status'" guiX="460" guiY="20" id="FOREACH_NS0_PROCESS_PAYMENT_RESPONSE_STATUS" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+//END -> DO NOT REMOVE
+output.status = input.status;
+]]></attr>
+</Node>
+<Node cacheInMemory="true" enabled="enabled" fileURL="dict:outputPayload" guiName="Map&lt;k,v&gt; WRITER" guiX="900" guiY="20" id="MAP_WRITER0" type="MAP_WRITER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<status xmlns:clover="http://www.cloveretl.com/ns/xmlmapping" clover:inPort="0">
+  <status>$0.status</status>
+</status>]]></attr>
+<attr name="_data_format"><![CDATA[MAP]]></attr>
+</Node>
+<Node charset="UTF-8" enabled="enabled" fileURL="dict:inputPayload" guiName="XML READER" guiX="20" guiY="20" id="XML_READER0" type="XML_READER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Context namespacePaths="ns0=&quot;http://informatique.polytech.unice.fr/soa1/payment/rpc/public&quot;" outPort="0" sequenceField="__id" xpath="/ns0:process_paymentResponse">
+  <Mapping cloverField="status" trim="true" xpath="status"/>
+</Context>
+]]></attr>
+<attr name="_data_format"><![CDATA[XML]]></attr>
+<attr name="__metadata"><![CDATA[true]]></attr>
+</Node>
+<Edge debugMode="true" fromNode="FOREACH_NS0_PROCESS_PAYMENT_RESPONSE_STATUS:0" guiBendpoints="" id="Edge1" inPort="Port 0 (in)" metadata="4a71025b-224d-424e-b25d-31d42a5a7899" outPort="Port 0 (out)" toNode="MAP_WRITER0:0"/>
+<Edge debugMode="true" fromNode="XML_READER0:0" guiBendpoints="" id="Edge0" inPort="Port 0 (in)" metadata="16478cdb-3e55-48a6-beb4-d96c9b6089e4" outPort="Port 0 (out)" toNode="FOREACH_NS0_PROCESS_PAYMENT_RESPONSE_STATUS:0"/>
+</Phase>
+</Graph>

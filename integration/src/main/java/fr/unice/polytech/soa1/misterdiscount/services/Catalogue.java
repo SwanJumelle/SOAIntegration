@@ -7,7 +7,7 @@ import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
 
-import fr.unice.polytech.soa1.misterdiscount.business.Address;
+import fr.unice.polytech.soa1.misterdiscount.business.AddressWithName;
 import fr.unice.polytech.soa1.misterdiscount.business.Customer;
 
 @WebService(name="MisterDiscountCatalogue",
@@ -23,6 +23,6 @@ public interface Catalogue {
 	
 	@WebMethod(operationName = "GetAddressesToSend")
 	@WebResult(name = "address")
-	public List<Address> getAddressesToSend();
+	public List<AddressWithName> getAddressesToSend();
 	
 }
